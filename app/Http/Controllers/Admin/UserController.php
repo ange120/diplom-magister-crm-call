@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Permission;
+use App\Models\Roles;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -26,10 +28,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        $asd = new User();
+        $roles = $this->getRoles();
 
-        $roles =  $asd->assignRole();
-        return view('admin.users.create',['roles' => $roles]);
+        return view('admin.users.create', compact('roles'));
     }
 
     /**
@@ -40,7 +41,24 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $roles = $this->getRoles();
+
+         $request->validate([
+            'name' => 'required|unique:posts|max:255',
+            'email' => 'required|unique:posts|max:255',
+            'password' => 'required|unique:posts|max:255',
+            'confirm_password' => 'required|unique:posts|max:255',
+        ]);
+
+
+        $data =$request->all();
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
+        $user->assignRole( $data['role']);
+        return view('admin.users.create', compact('roles'));
     }
 
     /**
@@ -86,5 +104,19 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    /**
+     * @return array
+     */
+    protected function getRoles():array
+    {
+        $roles = [];
+
+        foreach (Roles::all() as $item)
+        {
+            $roles[] =  $item->name;
+        }
+        return $roles;
     }
 }
