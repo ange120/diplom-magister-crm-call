@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Админ-панель - @yield('title')</title>
+    <title>Админ-панель - <?php echo $__env->yieldContent('title'); ?></title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -49,7 +49,7 @@
                         <img src="/admin/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+                        <a href="#" class="d-block"><?php echo e(Auth::user()->name); ?></a>
                     </div>
                 </div>
 
@@ -62,7 +62,7 @@
                with font-awesome or any other icon font library -->
 
                         <li class="nav-item">
-                            <a href="{{ route('homeAdmin') }}" class="nav-link">
+                            <a href="<?php echo e(route('homeAdmin')); ?>" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Главная
@@ -100,12 +100,12 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{route('users.index')}}" class="nav-link">
+                                    <a href="<?php echo e(route('users.index')); ?>" class="nav-link">
                                         <p>Все Пользователи</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{route('users.create')}}" class="nav-link">
+                                    <a href="<?php echo e(route('users.create')); ?>" class="nav-link">
                                         <p>Добавить Пользователя</p>
                                     </a>
                                 </li>
@@ -121,7 +121,7 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            @yield('content')
+            <?php echo $__env->yieldContent('content'); ?>
         </div>
         <!-- /.content-wrapper -->
 
@@ -177,3 +177,4 @@
 </body>
 
 </html>
+<?php /**PATH C:\OpenServer\domains\app\crm_app\resources\views/layouts/admin_layout.blade.php ENDPATH**/ ?>

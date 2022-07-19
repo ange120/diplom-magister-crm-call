@@ -28,7 +28,7 @@
                 <div class="col-lg-12">
                     <div class="card card-primary">
                         <!-- form start -->
-                        <form action="{{ route('category.update', $category['id']) }}" method="POST">
+                        <form action="{{ route('users.update', $category['id']) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="card-body">

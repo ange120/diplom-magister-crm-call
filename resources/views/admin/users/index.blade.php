@@ -50,12 +50,12 @@
                                     </td>
 
                                     <td class="project-actions text-right">
-                                        <a class="btn btn-info btn-sm" href="{{ route('category.edit', $category['id']) }}">
+                                        <a class="btn btn-info btn-sm" href="{{ route('users.edit', $category['id']) }}">
                                             <i class="fas fa-pencil-alt">
                                             </i>
                                             Редактировать
                                         </a>
-                                        <form action="{{ route('category.destroy', $category['id']) }}" method="POST"
+                                        <form action="{{ route('users.destroy', $category['id']) }}" method="POST"
                                             style="display: inline-block">
                                             @csrf
                                             @method('DELETE')

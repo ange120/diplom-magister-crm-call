@@ -1,8 +1,6 @@
-@extends('layouts.admin_layout')
+<?php $__env->startSection('title', 'Главная'); ?>
 
-@section('title', 'Главная')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 
     <!-- Content Header (Page header) -->
@@ -26,14 +24,14 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>{{$user_count}}</h3>
+                            <h3><?php echo e($user_count); ?></h3>
 
                             <p>Пользователей</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-bag"></i>
                         </div>
-                        <a href="{{route('users.index')}}" class="small-box-footer">Все Пользователи <i
+                        <a href="<?php echo e(route('users.index')); ?>" class="small-box-footer">Все Пользователи <i
                                 class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
@@ -67,4 +65,6 @@
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.admin_layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\OpenServer\domains\app\crm_app\resources\views/admin/home/index.blade.php ENDPATH**/ ?>
