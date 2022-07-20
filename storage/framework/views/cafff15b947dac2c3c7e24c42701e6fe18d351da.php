@@ -27,6 +27,9 @@
                         <!-- form start -->
                         <form action="<?php echo e(route('users.store')); ?>" method="POST">
                             <?php echo csrf_field(); ?>
+                            <?php if(isset($errorInfo)): ?>
+                                <div class="alert alert-danger"><?php echo e($errorInfo); ?></div>
+                            <?php endif; ?>
                             <?php $__errorArgs = ['name', 'email','password','confirm_password'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :

@@ -29,6 +29,9 @@
                         <!-- form start -->
                         <form action="{{ route('users.store') }}" method="POST">
                             @csrf
+                            @if(isset($errorInfo))
+                                <div class="alert alert-danger">{{ $errorInfo }}</div>
+                            @endif
                             @error('name', 'email','password','confirm_password')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror

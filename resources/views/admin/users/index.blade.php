@@ -33,29 +33,52 @@
                                     ID
                                 </th>
                                 <th>
-                                    Название
+                                    Ник
+                                </th>
+                                <th>
+                                    Email
+                                </th>
+                                <th>
+                                    Роль
+                                </th>
+                                <th>
+                                    Дата создания
+                                </th>
+                                <th>
+                                    Дата обновления
                                 </th>
                                 <th style="width: 30%">
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($categories as $category)
+                            @foreach ($result as $user)
                                 <tr>
                                     <td>
-                                        {{ $category['id'] }}
+                                        {{ $user['id'] }}
                                     </td>
                                     <td>
-                                        {{ $category['title'] }}
+                                        {{ $user['name'] }}
                                     </td>
-
+                                    <td>
+                                        {{ $user['email'] }}
+                                    </td>
+                                    <td>
+                                        {{ $user['role'] }}
+                                    </td>
+                                    <td>
+                                        {{ $user['created_at'] }}
+                                    </td>
+                                    <td>
+                                        {{ $user['updated_at'] }}
+                                    </td>
                                     <td class="project-actions text-right">
-                                        <a class="btn btn-info btn-sm" href="{{ route('users.edit', $category['id']) }}">
+                                        <a class="btn btn-info btn-sm" href="{{ route('users.edit', $user['id']) }}">
                                             <i class="fas fa-pencil-alt">
                                             </i>
                                             Редактировать
                                         </a>
-                                        <form action="{{ route('users.destroy', $category['id']) }}" method="POST"
+                                        <form action="{{ route('users.destroy', $user['id']) }}" method="POST"
                                             style="display: inline-block">
                                             @csrf
                                             @method('DELETE')
