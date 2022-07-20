@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,12 +17,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Auth::routes();
+
+
+Route::middleware(['role:user'])->group(function () {
+    Route::get('/testlog', function () {
+        return view('login');
+    });
+});
 
 Route::middleware(['role:admin'])->prefix('admin_panel')->group(function () {
     Route::get('/', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('homeAdmin'); // /admin
-    Route::resource('users',\App\Http\Controllers\Admin\UserController::class);
+//    Route::resource('users',\App\Http\Controllers\Admin\UserController::class);
 });
