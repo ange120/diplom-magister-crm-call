@@ -33,4 +33,5 @@ Route::middleware(['role:user'])->group(function () {
 Route::middleware(['role:admin'])->prefix('admin_panel')->group(function () {
     Route::get('/', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('homeAdmin'); // /admin
     Route::resource('users',\App\Http\Controllers\Admin\UserController::class);
+    Route::resource('base_info',\App\Http\Controllers\Admin\BaseInfoController::class);
 });

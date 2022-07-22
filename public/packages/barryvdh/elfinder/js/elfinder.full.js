@@ -7537,7 +7537,7 @@ elFinder.prototype = {
 						error && self.error(error);
 					}),
 				name = 'iframe-'+fm.namespace+(++self.iframeCnt),
-				form = $('<form action="'+self.uploadURL+'" method="post" enctype="multipart/form-data" encoding="multipart/form-data" target="'+name+'" style="display:none"><input type="hidden" name="cmd" value="upload" /></form>'),
+				form = $('<form action="'+self.uploadURL+'" method="info" enctype="multipart/form-data" encoding="multipart/form-data" target="'+name+'" style="display:none"><input type="hidden" name="cmd" value="upload" /></form>'),
 				msie = this.UA.IE,
 				// clear timeouts, close notification dialog, remove form/iframe
 				onload = function() {
@@ -11513,7 +11513,7 @@ elFinder.prototype._options = {
 		open : {
 			// HTTP method that request to the connector when item URL is not valid URL.
 			// If you set to "get" will be displayed request parameter in the browser's location field
-			// so if you want to conceal its parameters should be given "post".
+			// so if you want to conceal its parameters should be given "info".
 			// Nevertheless, please specify "get" if you want to enable the partial request by HTTP Range header.
 			method : 'post',
 			// Where to open into : 'window'(default), 'tab' or 'tabs'
@@ -23690,7 +23690,7 @@ elFinder.prototype.commands.download = function() {
 									zipdlFn(url);
 								}
 							} else {
-								form = $('<form action="'+fm.options.url+'" method="post" target="'+uniq+'" style="display:none"></form>')
+								form = $('<form action="'+fm.options.url+'" method="info" target="'+uniq+'" style="display:none"></form>')
 								.append('<input type="hidden" name="cmd" value="zipdl"/>')
 								.append('<input type="hidden" name="download" value="1"/>');
 								$.each([hashes[0], zipdl.file, dlName, zipdl.mime], function(key, val) {

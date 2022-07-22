@@ -115,6 +115,8 @@ class UserController extends Controller
         if(!is_null($data['password']) && !is_null($data['confirm_password'])){
             if($data['password'] === $data['confirm_password']){
                 $user->password = Hash::make($data['password']);
+            }else{
+                return redirect()->back()->with('error', "Пароли не совпадают!");
             }
         }
         if($roleUser !== $data['role']){

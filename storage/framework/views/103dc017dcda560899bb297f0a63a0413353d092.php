@@ -79,13 +79,13 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a  class="nav-link">
+                                    <a href="<?php echo e(route('base_info.index')); ?>" class="nav-link">
                                         <p>Все Записи</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a  class="nav-link">
-                                        <p>Добавить Запись</p>
+                                    <a href="<?php echo e(route('base_info.create')); ?>" class="nav-link">
+                                        <p>Добавить Записи</p>
                                     </a>
                                 </li>
                             </ul>

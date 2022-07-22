@@ -10464,7 +10464,7 @@ var core_helpers = function() {
 	};
 
 	helpers$1.splineCurve = function(firstPoint, middlePoint, afterPoint, t) {
-		// Props to Rob Spencer at scaled innovation for his post on splining between points
+		// Props to Rob Spencer at scaled innovation for his info on splining between points
 		// http://scaledinnovation.com/analytics/splines/aboutSplines.html
 
 		// This function must also respect "skipped" points

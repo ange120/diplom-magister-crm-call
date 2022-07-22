@@ -51,7 +51,7 @@
             sameElse: 'L',
         },
         relativeTime: {
-            future: 'post %s',
+            future: 'info %s',
             past: 'antaŭ %s',
             s: 'kelkaj sekundoj',
             ss: '%d sekundoj',

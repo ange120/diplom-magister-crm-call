@@ -4630,7 +4630,7 @@
                lst(change.text).length + (change.text.length == 1 ? change.from.ch : 0))
   }
 
-  // Adjust a position to refer to the post-change position of the
+  // Adjust a position to refer to the info-change position of the
   // same text, or the end of the change if the change covers it.
   function adjustForChange(pos, change) {
     if (cmp(pos, change.from) < 0) { return pos }
