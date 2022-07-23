@@ -73,43 +73,74 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon far fa-newspaper"></i>
                                 <p>
-                                    Блог
+                                    Записи
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('post.index') }}" class="nav-link">
-                                        <p>Все статьи</p>
+                                    <a href="{{route('base_info.index')}}" class="nav-link">
+                                        <p>Все Записи</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('post.create') }}" class="nav-link">
-                                        <p>Добавить статью</p>
+                                    <a href="{{route('base_info.create')}}" class="nav-link">
+                                        <p>Добавить Записи</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-align-left"></i>
+                                <i class="nav-icon fas fa-users"></i>
                                 <p>
-                                    Категории
+                                     Пользователи
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('category.index') }}" class="nav-link">
-                                        <p>Все категории</p>
+                                    <a href="{{route('users.index')}}" class="nav-link">
+                                        <p>Все Пользователи</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('category.create') }}" class="nav-link">
-                                        <p>Добавить категорию</p>
+                                    <a href="{{route('users.create')}}" class="nav-link">
+                                        <p>Добавить Пользователя</p>
                                     </a>
                                 </li>
                             </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Статусы
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{route('status.index')}}" class="nav-link">
+                                        <p>Все Статусы</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('status.create')}}" class="nav-link">
+                                        <p>Добавить Статус</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a href="{{ route('logout') }}" class="nav-link">
+                                <i class="nav-icon fas fa-sign-out"></i>
+                                <p>
+                                    Выход
+                                </p>
+                            </a>
                         </li>
 
                     </ul>

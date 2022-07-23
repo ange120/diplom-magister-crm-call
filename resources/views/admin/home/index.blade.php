@@ -26,14 +26,14 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>{{ $posts_count }}</h3>
+                            <h3>{{$user_count}}</h3>
 
-                            <p>Статьи</p>
+                            <p>Пользователей</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-bag"></i>
                         </div>
-                        <a href="{{ route('post.index') }}" class="small-box-footer">Все статьи <i
+                        <a href="{{route('users.index')}}" class="small-box-footer">Все Пользователи <i
                                 class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
@@ -42,14 +42,14 @@
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>{{ $categories_count }}</h3>
+                            <h3>{{$base_count}}</h3>
 
-                            <p>Категории</p>
+                            <p>Записей</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
                         </div>
-                        <a href="{{ route('category.index') }}" class="small-box-footer">Все категории <i
+                        <a href="{{route('base_info.index')}}"  class="small-box-footer">Все Записи <i
                                 class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
@@ -57,6 +57,11 @@
             </div>
             <!-- /.row -->
             <!-- Main row -->
+
+
+
+
+
 
             <!-- /.row (main row) -->
         </div><!-- /.container-fluid -->

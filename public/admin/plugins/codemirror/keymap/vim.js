@@ -4833,7 +4833,7 @@
         var forceGet = false;
 
         if (optionName.charAt(optionName.length - 1) == '?') {
-          // If post-fixed with ?, then the set is actually a get.
+          // If info-fixed with ?, then the set is actually a get.
           if (value) { throw Error('Trailing characters: ' + params.argString); }
           optionName = optionName.substring(0, optionName.length - 1);
           forceGet = true;
