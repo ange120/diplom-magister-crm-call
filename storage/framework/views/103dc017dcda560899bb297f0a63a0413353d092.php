@@ -92,7 +92,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-align-left"></i>
+                                <i class="nav-icon fas fa-users"></i>
                                 <p>
                                      Пользователи
                                     <i class="right fas fa-angle-left"></i>
@@ -110,6 +110,37 @@
                                     </a>
                                 </li>
                             </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Статусы
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?php echo e(route('status.index')); ?>" class="nav-link">
+                                        <p>Все Статусы</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="<?php echo e(route('status.create')); ?>" class="nav-link">
+                                        <p>Добавить Статус</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a href="<?php echo e(route('logout')); ?>" class="nav-link">
+                                <i class="nav-icon fas fa-sign-out"></i>
+                                <p>
+                                    Выход
+                                </p>
+                            </a>
                         </li>
 
                     </ul>

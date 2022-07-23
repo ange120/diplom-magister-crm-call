@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Все записи</h1>
+                    <h1 class="m-0">Все статусы</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             @if (session('success'))
@@ -33,13 +33,7 @@
                                 ID
                             </th>
                             <th>
-                                Номер телефна
-                            </th>
-                            <th>
-                                Статус
-                            </th>
-                            <th>
-                                ФИО
+                                Название
                             </th>
                             <th style="width: 30%">
                             </th>
@@ -47,38 +41,21 @@
                         </thead>
                         <tbody>
 
-                        @forelse($result as $post)
+                        @forelse($status as $post)
                             <tr>
                                 <td>
-                                    {{ $post['id_client']}}
+                                    {{ $post->id}}
                                 </td>
                                 <td>
-                                    {{ $post['phone'] }}
+                                    {{ $post->name }}
                                 </td>
-                                <td>
-                                    {{ $post['status'] }}
-                                </td>
-                                <td>
-                                    {{ $post['user_info'] }}
-                                </td>
-
                                 <td class="project-actions text-right">
-                                    <form action="{{ route('callUserAdmin', $post['id']) }}" method="GET"
-                                          style="display: inline-block">
-                                        @csrf
-                                        @method('GET')
-                                        <button type="submit" class="btn btn-info btn-sm coll-btn">
-                                            <i class="fas fa-phone">
-                                            </i>
-                                            Звонок
-                                        </button>
-                                    </form>
-                                    <a class="btn btn-warning btn-sm" href="{{ route('base_info.edit', $post['id']) }}">
+                                    <a class="btn btn-warning btn-sm" href="{{ route('status.edit', $post->id) }}">
                                         <i class="fas fa-pencil-alt">
                                         </i>
                                         Редактировать
                                     </a>
-                                    <form action="{{ route('base_info.destroy', $post['id']) }}" method="POST"
+                                    <form action="{{ route('status.destroy',$post->id) }}" method="POST"
                                           style="display: inline-block">
                                         @csrf
                                         @method('DELETE')
@@ -99,14 +76,6 @@
 
                         </tbody>
                     </table>
-
-                    <div class="col-sm-12 col-md-7" style="margin-top: 1rem;">
-                        <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-                            <ul class="pagination">
-                                {{ $baseList->links()}}
-                            </ul>
-                        </div>
-                    </div>
                 </div>
                 <!-- /.card-body -->
             </div>

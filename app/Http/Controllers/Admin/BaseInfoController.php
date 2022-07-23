@@ -7,10 +7,8 @@ use App\Imports\ImportBaseInfo;
 use App\Models\BaseInfo;
 use App\Models\Status;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
-use PhpOffice\PhpSpreadsheet\Calculation\DateTime;
-use Symfony\Component\VarDumper\Cloner\Data;
+use App\Service\CollService;
 
 class BaseInfoController extends Controller
 {
@@ -70,7 +68,7 @@ class BaseInfoController extends Controller
      */
     public function show($id)
     {
-        //dd('show');
+        //
     }
 
     /**
@@ -133,6 +131,14 @@ class BaseInfoController extends Controller
         return redirect()->back()->withSuccess('Запись успешно удалена!');
     }
 
+    public function callUserAdmin($id)
+    {
+//        $data = $request->all();
+        dd($id);
+        $call = CollService::collUser($baseInfo->phone);
+        dd($call);
+    }
+
     protected function getStatus()
     {
         $status = [];
@@ -140,7 +146,6 @@ class BaseInfoController extends Controller
         foreach (Status::all() as $item)
         {
             $status[] =   $item->name;
-           ;
         }
         return $status;
     }

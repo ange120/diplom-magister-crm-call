@@ -15,6 +15,12 @@
                     <h4><i class="icon fa fa-check"></i><?php echo e(session('success')); ?></h4>
                 </div>
             <?php endif; ?>
+            <?php if(session()->has('error')): ?>
+                <div class="alert alert-danger" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-ban"></i><?php echo e(session('error')); ?></h4>
+                </div>
+            <?php endif; ?>
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->

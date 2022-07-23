@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Status;
 use Illuminate\Http\Request;
 
 class StatusController extends Controller
@@ -14,7 +15,9 @@ class StatusController extends Controller
      */
     public function index()
     {
-        //
+        $status = Status::all();
+
+        return view('admin.status.index', compact('status'));
     }
 
     /**
@@ -24,7 +27,7 @@ class StatusController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.status.create');
     }
 
     /**
@@ -35,7 +38,10 @@ class StatusController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newStatus = new Status();
+        $newStatus->name = $request->name;
+        $newStatus->save();
+        return redirect()->back()->withSuccess('Статус успешно добавлен!');
     }
 
     /**
@@ -55,9 +61,9 @@ class StatusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Status $status)
     {
-        //
+        return view('admin.status.edit', compact('status'));
     }
 
     /**
@@ -67,9 +73,11 @@ class StatusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Status $status)
     {
-        //
+        $status->name = $request->name;
+        $status->save();
+        return redirect()->back()->withSuccess('Статус успешно обновлён!');
     }
 
     /**
@@ -78,8 +86,9 @@ class StatusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Status $status)
     {
-        //
+        $status->delete();
+        return redirect()->back()->withSuccess('Статус успешно удалён!');
     }
 }
