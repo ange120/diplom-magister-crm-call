@@ -1,6 +1,6 @@
 @extends('layouts.admin_layout')
 
-@section('title', 'Добавить категорию')
+@section('title', 'Добавить запись')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Добавить категорию</h1>
+                    <h1 class="m-0">Добавить записи</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             @if (session('success'))
@@ -17,6 +17,14 @@
                     <h4><i class="icon fa fa-check"></i>{{ session('success') }}</h4>
                 </div>
             @endif
+
+            @if (session()->has('error'))
+                <div class="alert alert-danger" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-ban"></i>{{ session('error') }}</h4>
+                </div>
+            @endif
+
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
@@ -28,19 +36,18 @@
                 <div class="col-lg-12">
                     <div class="card card-primary">
                         <!-- form start -->
-                        <form action="{{ route('category.store') }}" method="POST">
+                        <form action="{{ route('base_info.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Название</label>
-                                    <input type="text" name="title" class="form-control" id="exampleInputEmail1"
-                                        placeholder="Введите название категории" required>
+                                    <label for="exampleFormControlFile1">Выберите файл</label>
+                                    <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1" required>
                                 </div>
                             </div>
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Добавить</button>
+                                <button type="submit" class="btn btn-primary">Загрузить</button>
                             </div>
                         </form>
                     </div>

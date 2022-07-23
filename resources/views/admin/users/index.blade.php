@@ -1,6 +1,6 @@
 @extends('layouts.admin_layout')
 
-@section('title', 'Все статьи')
+@section('title', 'Все категории')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Все статьи</h1>
+                    <h1 class="m-0">Все категории</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             @if (session('success'))
@@ -33,41 +33,52 @@
                                     ID
                                 </th>
                                 <th>
-                                    Название
+                                    Ник
                                 </th>
                                 <th>
-                                    Категория
+                                    Email
                                 </th>
                                 <th>
-                                    Дата добавления
+                                    Роль
+                                </th>
+                                <th>
+                                    Дата создания
+                                </th>
+                                <th>
+                                    Дата обновления
                                 </th>
                                 <th style="width: 30%">
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($posts as $post)
+                            @foreach ($result as $user)
                                 <tr>
                                     <td>
-                                        {{ $post['id'] }}
+                                        {{ $user['id'] }}
                                     </td>
                                     <td>
-                                        {{ $post['title'] }}
+                                        {{ $user['name'] }}
                                     </td>
                                     <td>
-                                        {{ $post->category['title'] }}
+                                        {{ $user['email'] }}
                                     </td>
                                     <td>
-                                        {{ $post['created_at'] }}
+                                        {{ $user['role'] }}
                                     </td>
-
+                                    <td>
+                                        {{ $user['created_at'] }}
+                                    </td>
+                                    <td>
+                                        {{ $user['updated_at'] }}
+                                    </td>
                                     <td class="project-actions text-right">
-                                        <a class="btn btn-info btn-sm" href="{{ route('post.edit', $post['id']) }}">
+                                        <a class="btn btn-info btn-sm" href="{{ route('users.edit', $user['id']) }}">
                                             <i class="fas fa-pencil-alt">
                                             </i>
                                             Редактировать
                                         </a>
-                                        <form action="{{ route('post.destroy', $post['id']) }}" method="POST"
+                                        <form action="{{ route('users.destroy', $user['id']) }}" method="POST"
                                             style="display: inline-block">
                                             @csrf
                                             @method('DELETE')

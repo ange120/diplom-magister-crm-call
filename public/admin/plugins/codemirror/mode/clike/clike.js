@@ -771,7 +771,7 @@ CodeMirror.defineMode("clike", function(config, parserConfig) {
   def("text/x-nesc", {
     name: "clike",
     keywords: words(cKeywords + " as atomic async call command component components configuration event generic " +
-                    "implementation includes interface module new norace nx_struct nx_union post provides " +
+                    "implementation includes interface module new norace nx_struct nx_union info provides " +
                     "signal task uses abstract extends"),
     types: cTypes,
     blockKeywords: words(cBlockKeywords),
