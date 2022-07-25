@@ -133,10 +133,11 @@ class BaseInfoController extends Controller
 
     public function callUserAdmin($id)
     {
-//        $data = $request->all();
-        dd($id);
-        $call = CollService::collUser($baseInfo->phone);
-        dd($call);
+        $userPhone = BaseInfo::find($id)->phone;
+        if( CollService::collUser($userPhone) !== true){
+            return response()->json(['status' => false, 'info' => "Ошибка во время вызова на номер ".$userPhone.""], 200);
+        }
+        return response()->json(['status' => true, 'phone' => "$userPhone"], 200);
     }
 
     protected function getStatus()
