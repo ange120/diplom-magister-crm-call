@@ -6,7 +6,7 @@ class CollService
 {
     public static function collUser(string $phone)
     {
-        dd($phone);
+        return true;
 
         $curl = curl_init();
 
@@ -18,7 +18,7 @@ class CollService
             CURLOPT_TIMEOUT => 30000,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => json_encode($data2),
+            CURLOPT_POSTFIELDS => json_encode($phone),
             CURLOPT_HTTPHEADER => array(
                 // Set here requred headers
                 "accept: */*",
@@ -33,10 +33,11 @@ class CollService
         curl_close($curl);
 
         if ($err) {
-            return "cURL Error #:" . $err;
+//            return "cURL Error #:" . $err;
             return false;
         } else {
-            return json_decode($response);
+            return true;
+//            return json_decode($response);
         }
     }
 }

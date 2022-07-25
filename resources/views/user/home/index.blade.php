@@ -12,9 +12,15 @@
                 </div><!-- /.col -->
             </div><!-- /.row -->
             @if (session('success'))
-                <div class="alert alert-success" role="alert">
+                <div class="alert alert-success" id="AlertSuccess" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                     <h4><i class="icon fa fa-check"></i>{{ session('success') }}</h4>
+                </div>
+            @endif
+            @if (session()->has('error'))
+                <div class="alert alert-danger" id="AlertError" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-ban"></i>{{ session('error') }}</h4>
                 </div>
             @endif
         </div><!-- /.container-fluid -->
@@ -58,7 +64,7 @@
                                         {{ $post['phone'] }}
                                     </td>
                                     <td>
-                                        <select class="form-control select2 select2-hidden-accessible" name="status" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required>
+                                        <select disabled class="form-control select2 select2-hidden-accessible" name="status" style="width: 100%;" id="selected_{{$post['id']}}" data-select2-id="1" tabindex="-1" aria-hidden="true" required>
                                             <option selected="selected" data-select2-id="3"></option>
                                             @foreach($listStatus as $status)
                                                 <option  @if($status == $post['status']) selected @endif>{{$status}}</option>
@@ -70,7 +76,7 @@
                                         {{ $post['user_info'] }}
                                     </td>
                                     <td class="project-actions text-right">
-                                        <a class="btn btn-info btn-sm coll-btn" href="{{ route('callUser', $post['id']) }}">
+                                        <a class="btn btn-info btn-sm coll-btn" onclick="getSelected( {{$post['id']}})">
                                             <i class="fas fa-phone">
                                             </i>
                                             Звонок
@@ -107,3 +113,4 @@
     </section>
     <!-- /.content -->
 @endsection
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $(".nav-treeview .nav-link, .nav-link").each(function () {
-        var location2 = window.location.protocol + '//' + window.location.host + window.location.pathname;
-        var link = this.href;
+        let location2 = window.location.protocol + '//' + window.location.host + window.location.pathname;
+        let link = this.href;
         if(link == location2){
             $(this).addClass('active');
             $(this).parent().parent().parent().addClass('menu-is-opening menu-open');
@@ -10,19 +10,14 @@ $(document).ready(function () {
     });
 
     $('.delete-btn').click(function () {
-        var res = confirm('Подтвердите действия');
+        let res = confirm('Подтвердите действия');
         if(!res){
             return false;
         }
     });
 
-    $('.coll-btn').click(function () {
-        var res = confirm('Сделать вызов?');
-        if(!res){
-            return false;
-        }
-    });
 })
+
 
 tinymce.init({
     selector: '.editor',
@@ -31,6 +26,41 @@ tinymce.init({
     relative_urls : false,
     file_picker_callback : elFinderBrowser
 });
+
+    function getSelected (id){
+        let selected = document.querySelector("#selected_"+id)
+        selected.disabled = false
+
+        $.ajax({
+            url: '/user-call/' + id,
+            type: 'get',
+            data: {},
+            success: function(data) {
+                console.log(data)
+                if (data.status == true) {
+                    alert('Звонок на номер '+data.phone+' выполняется!');
+                } else {
+                    alert(data.info);
+                }
+            }
+        });
+    }
+
+    function adminCall(id){
+        $.ajax({
+            url: '/admin_panel/admin-call/' + id,
+            type: 'get',
+            data: {},
+            success: function(data) {
+                console.log(data)
+                if (data.status == true) {
+                    alert('Звонок на номер '+data.phone+' выполняется!');
+                } else {
+                    alert(data.info);
+                }
+            }
+        });
+    }
 
    function elFinderBrowser (callback, value, meta) {
     tinymce.activeEditor.windowManager.openUrl({
