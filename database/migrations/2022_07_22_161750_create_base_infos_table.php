@@ -13,10 +13,10 @@ class CreateBaseInfosTable extends Migration
      */
     public function up()
     {
-//        Schema::create('statuses', function (Blueprint $table) {
-//            $table->id();
-//            $table->string('name');
-//        });
+        Schema::create('statuses', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+        });
 
         Schema::create('base_infos', function (Blueprint $table) {
             $table->id();
