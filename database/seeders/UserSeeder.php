@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         Schema::disableForeignKeyConstraints();
-        DB::table('statuses')->truncate();
+        DB::table('users')->truncate();
         Schema::enableForeignKeyConstraints();
 
         foreach ($this->data as $datum) {
