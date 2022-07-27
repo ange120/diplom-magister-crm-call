@@ -63,16 +63,11 @@
                                 </td>
 
                                 <td class="project-actions text-right">
-                                    <form action="{{ route('callUserAdmin', $post['id']) }}" method="GET"
-                                          style="display: inline-block">
-                                        @csrf
-                                        @method('GET')
-                                        <button type="submit" class="btn btn-info btn-sm coll-btn">
-                                            <i class="fas fa-phone">
-                                            </i>
-                                            Звонок
-                                        </button>
-                                    </form>
+                                    <a class="btn btn-info btn-sm" onclick="adminCall( {{$post['id']}})">
+                                        <i class="fas fa-phone">
+                                        </i>
+                                        Звонок
+                                    </a>
                                     <a class="btn btn-warning btn-sm" href="{{ route('base_info.edit', $post['id']) }}">
                                         <i class="fas fa-pencil-alt">
                                         </i>

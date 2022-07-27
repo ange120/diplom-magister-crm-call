@@ -56,13 +56,18 @@ class HomeController extends Controller
     public function callUser($id)
     {
         $userPhone = BaseInfo::find($id)->phone;
-        CollService::collUser($userPhone);
-        return redirect()->back()->withSuccess('Звонок выполняется!');
+        if( CollService::collUser($userPhone) !== true){
+            return response()->json(['status' => false, 'info' => "Ошибка во время вызова на номер ".$userPhone.""], 200);
+        }
+        return response()->json(['status' => true, 'phone' => "$userPhone"], 200);
     }
 
     public function updateStatus(Request $request)
     {
         $data = $request->all();
+        if(!key_exists('status',$data)){
+            return redirect()->back()->with('error', "Сдеайте сначала звонок!");
+        }
         $userStatus = Status::where('name', $data['status'])->first()->id;
         $record = BaseInfo::find($data['idUser']);
         $record->id_status = $userStatus;
