@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Imports\ImportBaseInfo;
 use App\Models\BaseInfo;
 use App\Models\Status;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Service\CollService;
@@ -21,16 +22,17 @@ class BaseInfoController extends Controller
     {
         $result = [];
         $baseList = BaseInfo::paginate(15);
-        foreach ($baseList as $item){
-            $result[] = [
-                'id'=> $item->id,
-                'id_client'=> $item->id_client,
-                'phone'=> $item->phone,
-                'status'=> Status::find( $item->id_status)->name,
-                'user_info'=> $item->user_info,
-            ];
+        foreach ($baseList as $item) {
+
+                $result[] = [
+                    'id' => $item->id,
+                    'id_client' => $item->id_client,
+                    'phone' => $item->phone,
+                    'status' => Status::find($item->id_status)->name,
+                    'user_info' => $item->user_info,
+                ];
         }
-        return view('admin.info.index', compact('result','baseList'));
+        return view('admin.info.index', compact('result', 'baseList'));
     }
 
     /**
@@ -46,14 +48,14 @@ class BaseInfoController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         try {
             Excel::import(new ImportBaseInfo, $request->file('file')->store('files'));
-        }catch (\Throwable $throwable) {
+        } catch (\Throwable $throwable) {
             return redirect()->back()->with('error', "Ошибка. Пожалуйста, уберите заголовки в файле или проверьте на наличие новых статусов.");
         }
 
@@ -63,7 +65,7 @@ class BaseInfoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -74,21 +76,21 @@ class BaseInfoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit(BaseInfo $baseInfo)
     {
         $status = $this->getStatus();
-        $selectStatus = Status::find( $baseInfo->id_status)->name;
+        $selectStatus = Status::find($baseInfo->id_status)->name;
         return view('admin.info.edit', compact('status', 'baseInfo', 'selectStatus'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, BaseInfo $baseInfo)
@@ -96,7 +98,7 @@ class BaseInfoController extends Controller
         $birthday = null;
 
         $data = $request->all();
-        if(!is_null($data['birthday'])){
+        if (!is_null($data['birthday'])) {
             $d1 = strtotime($data['birthday']);
             $birthday = date("Y-m-d", $d1);
         }
@@ -122,7 +124,7 @@ class BaseInfoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(BaseInfo $baseInfo)
@@ -134,19 +136,54 @@ class BaseInfoController extends Controller
     public function callUserAdmin($id)
     {
         $userPhone = BaseInfo::find($id)->phone;
-        if( CollService::collUser($userPhone) !== true){
-            return response()->json(['status' => false, 'info' => "Ошибка во время вызова на номер ".$userPhone.""], 200);
+        if (CollService::collUser($userPhone) !== true) {
+            return response()->json(['status' => false, 'info' => "Ошибка во время вызова на номер " . $userPhone . ""], 200);
         }
         return response()->json(['status' => true, 'phone' => "$userPhone"], 200);
+    }
+
+    public function getBaseList()
+    {
+        $result = [];
+        $baseList = BaseInfo::paginate(15);
+        $userList = User::all();
+        foreach ($baseList as $item) {
+
+                $result[] = [
+                    'id' => $item->id,
+                    'id_client' => $item->id_client,
+                    'phone' => $item->phone,
+                    'toUser' => (!is_null($item->id_user)) ? User::find($item->id_user)->name : 'Не назначено',
+                    'status' => Status::find($item->id_status)->name,
+                    'user_info' => $item->user_info,
+                ];
+
+        }
+        return view('admin.info.base_list', compact('result', 'baseList', 'userList'));
+    }
+
+    public function setUserBaseInfo(Request $request)
+    {
+        $post = [];
+        $data = $request->all();
+        $user_id = $data['user'];
+        if(array_key_exists('post', $data)){
+            $post =$data['post'] ;
+        }
+        foreach ($post as $item){
+          $baseInfo = BaseInfo::find($item);
+          $baseInfo->id_user = $user_id;
+          $baseInfo->save();
+        }
+        return redirect()->back()->withSuccess('Записи успешно добавлены для пользователя!');
     }
 
     protected function getStatus()
     {
         $status = [];
 
-        foreach (Status::all() as $item)
-        {
-            $status[] =   $item->name;
+        foreach (Status::all() as $item) {
+            $status[] = $item->name;
         }
         return $status;
     }

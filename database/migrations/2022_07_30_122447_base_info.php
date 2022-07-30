@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBaseInfosTable extends Migration
+class BaseInfo extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,6 @@ class CreateBaseInfosTable extends Migration
      */
     public function up()
     {
-        Schema::create('statuses', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-        });
-
         Schema::create('base_infos', function (Blueprint $table) {
             $table->id();
             $table->integer('id_client');
@@ -28,6 +23,7 @@ class CreateBaseInfosTable extends Migration
             $table->string('field_4')->nullable();
             $table->string('manager')->nullable();
             $table->foreignId('id_status')->constrained('statuses');
+            $table->integer('id_user')->nullable();
             $table->string('commit')->nullable();
             $table->string('user_info')->nullable();
             $table->string('country')->nullable();
@@ -44,6 +40,6 @@ class CreateBaseInfosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('base_infos');
+        //
     }
 }
