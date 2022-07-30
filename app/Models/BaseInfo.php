@@ -15,7 +15,7 @@ class BaseInfo extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'id_client', 'phone', 'field_1', 'field_2', 'field_3','field_4','manager','id_status', 'commit', 'user_info',
+        'id_client', 'phone', 'field_1', 'field_2', 'field_3','field_4','manager','id_status',  'id_user', 'commit', 'user_info',
         'country', 'city', 'sex', 'birthday'
     ];
 
