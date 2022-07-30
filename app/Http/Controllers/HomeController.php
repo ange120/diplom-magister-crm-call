@@ -28,7 +28,7 @@ class HomeController extends Controller
     public function index()
     {
         $result = [];
-        $baseList = BaseInfo::paginate(15);
+        $baseList = BaseInfo::where('id_user', Auth::user()->id)->paginate(15);
         foreach ($baseList as $item){
             $result[] = [
                 'id'=> $item->id,
