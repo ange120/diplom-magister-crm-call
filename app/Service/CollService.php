@@ -2,6 +2,12 @@
 
 namespace App\Service;
 
+use Illuminate\Support\Facades\Artisan;
+
+use PAMI\Client\Impl\ClientImpl;
+use PAMI\Message\Action\OriginateAction;
+use PAMI\Message\Action\LogoffAction;
+
 class CollService
 {
     public static function collUser(string $phone)
@@ -40,4 +46,35 @@ class CollService
 //            return json_decode($response);
         }
     }
+
+    public static function testArtisan(string $phoneManager, string $phone)
+    {
+        $phoneManager = '3145';
+        $phone = '+380508068316';
+
+        $options = array(
+            'host' => '192.168.137.2',
+            'scheme' => 'tcp://',
+            'port' => 5038,
+            'username' => 'admin',
+            'secret' => 'amp111',
+            'connect_timeout' => 60000,
+            'read_timeout' => 60000
+        );
+
+        $client = new ClientImpl($options);
+        $client->open();
+
+        $action = new OriginateAction("Local/" . $phoneManager . "@hud-caller-answer");
+        $action->setContext("pabx");
+        $action->setExtension($phone);
+        $action->setPriority('1');
+        $action->setAsync(true);
+
+        $client->send($action);
+
+        $client->close();
+    }
+
+
 }
