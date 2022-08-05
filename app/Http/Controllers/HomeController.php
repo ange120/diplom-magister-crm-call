@@ -55,6 +55,7 @@ class HomeController extends Controller
 
     public function callUser($id)
     {
+        dd(CollService::testArtisan());
         $userPhone = BaseInfo::find($id)->phone;
         if( CollService::collUser($userPhone) !== true){
             return response()->json(['status' => false, 'info' => "Ошибка во время вызова на номер ".$userPhone.""], 200);
