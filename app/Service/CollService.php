@@ -47,10 +47,10 @@ class CollService
         }
     }
 
-    public static function testArtisan(string $phoneManager, string $phone)
+    public static function testArtisan(string $phoneManager = '3145', string $phone = '+380508068316')
     {
-        $phoneManager = '3145';
-        $phone = '+380508068316';
+//        $phoneManager = '3145';
+//        $phone = '+380508068316';
 
         $options = array(
             'host' => '192.168.137.2',
