@@ -47,33 +47,34 @@ class CollService
         }
     }
 
-    public static function testArtisan(string $phoneManager, string $phone)
+    public static function collArtisan(string $phoneManager, string $phone)
     {
-//        $phoneManager = '3145';
-//        $phone = '+380508068316';
-
         $options = array(
             'host' => '192.168.137.2',
             'scheme' => 'tcp://',
             'port' => 5038,
             'username' => 'admin',
             'secret' => 'amp111',
-            'connect_timeout' => 60000,
-            'read_timeout' => 60000
+            'connect_timeout' => 60,
+            'read_timeout' => 60
         );
+        try {
+            $client = new ClientImpl($options);
+            $client->open();
 
-        $client = new ClientImpl($options);
-        $client->open();
+            $action = new OriginateAction("Local/" . $phoneManager . "@hud-caller-answer");
+            $action->setContext("pabx");
+            $action->setExtension($phone);
+            $action->setPriority('1');
+            $action->setAsync(true);
 
-        $action = new OriginateAction("Local/" . $phoneManager . "@hud-caller-answer");
-        $action->setContext("pabx");
-        $action->setExtension($phone);
-        $action->setPriority('1');
-        $action->setAsync(true);
+            $client->send($action);
 
-        $client->send($action);
-
-        $client->close();
+            $client->close();
+        } catch (\Throwable $e) {
+            return $e->getMessage();
+        }
+        return true;
     }
 
 
