@@ -55,8 +55,8 @@ class CollService
             'port' => env('ASTERISK_PORT'),
             'username' => env('ASTERISK_USERNAME'),
             'secret' => env('ASTERISK_SECRET'),
-            'connect_timeout' => 60,
-            'read_timeout' => 60
+            'connect_timeout' => env('ASTERISK_CONNECT_TIMEOUT'),
+            'read_timeout' => env('ASTERISK_READ_TIMEOUT')
         );
 
         try {
