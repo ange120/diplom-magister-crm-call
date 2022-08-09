@@ -15,12 +15,14 @@ class UserSeeder extends Seeder
             "name" => "adminTest",
             "email" => "adminTest@adminTest",
             "password" => "12345trewq",
+            "phone_manager" => "1234",
             'role' => 'admin'
         ],
         [
             "name" => "userTest",
             "email" => "userTest@userTest",
             "password" => "12345",
+            "phone_manager" => "4321",
             'role' => 'user'
         ],
     ];
