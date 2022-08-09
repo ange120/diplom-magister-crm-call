@@ -57,12 +57,14 @@ class HomeController extends Controller
     {
         $phoneManager = '3145';
         $phone = '+380508068316';
-        dd(CollService::testArtisan($phoneManager,$phone));
-        $userPhone = BaseInfo::find($id)->phone;
-        if( CollService::collUser($userPhone) !== true){
-            return response()->json(['status' => false, 'info' => "Ошибка во время вызова на номер ".$userPhone.""], 200);
+//        $phoneManager = Auth::user()->phone_manager;
+
+//        $userPhone = BaseInfo::find($id)->phone;
+        $callUser = CollService::collArtisan($phoneManager,$phone);
+        if( $callUser !== true){
+            return response()->json(['status' => false, 'info' => "Ошибка во время вызова на номер ".$phone." \n"." \n".$callUser], 200);
         }
-        return response()->json(['status' => true, 'phone' => "$userPhone"], 200);
+        return response()->json(['status' => true, 'phone' => "$phone"], 200);
     }
 
     public function updateStatus(Request $request)

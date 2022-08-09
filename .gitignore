@@ -13,3 +13,4 @@ npm-debug.log
 yarn-error.log
 ./bootstrap/cache/
 ./storage
+/storage/framework/
