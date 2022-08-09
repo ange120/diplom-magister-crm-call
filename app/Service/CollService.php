@@ -47,17 +47,18 @@ class CollService
         }
     }
 
-    public static function collArtisan(string $phoneManager, string $phone)
+    public static function collAsterisk(string $phoneManager, string $phone)
     {
         $options = array(
-            'host' => '192.168.137.2',
+            'host' => env('ASTERISK_HOST'),
             'scheme' => 'tcp://',
-            'port' => 5038,
-            'username' => 'admin',
-            'secret' => 'amp111',
+            'port' => env('ASTERISK_PORT'),
+            'username' => env('ASTERISK_USERNAME'),
+            'secret' => env('ASTERISK_SECRET'),
             'connect_timeout' => 60,
             'read_timeout' => 60
         );
+
         try {
             $client = new ClientImpl($options);
             $client->open();
