@@ -55,16 +55,14 @@ class HomeController extends Controller
 
     public function callUser($id)
     {
-        $phoneManager = '3145';
-        $phone = '+380508068316';
-//        $phoneManager = Auth::user()->phone_manager;
+        $phoneManager = Auth::user()->phone_manager;
 
-//        $userPhone = BaseInfo::find($id)->phone;
-        $callUser = CollService::collAsterisk($phoneManager,$phone);
+        $userPhone = BaseInfo::find($id)->phone;
+        $callUser = CollService::collAsterisk($phoneManager,$userPhone);
         if( $callUser !== true){
-            return response()->json(['status' => false, 'info' => "Ошибка во время вызова на номер ".$phone." \n"." \n".$callUser], 200);
+            return response()->json(['status' => false, 'info' => "Ошибка во время вызова на номер ".$userPhone." \n"." \n".$callUser], 200);
         }
-        return response()->json(['status' => true, 'phone' => "$phone"], 200);
+        return response()->json(['status' => true, 'phone' => "$userPhone"], 200);
     }
 
     public function updateStatus(Request $request)

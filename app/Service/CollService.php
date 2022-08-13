@@ -59,17 +59,24 @@ class CollService
             'read_timeout' => env('ASTERISK_READ_TIMEOUT')
         );
 
+
         try {
+            $actionid = md5(uniqid());
             $client = new ClientImpl($options);
             $client->open();
 
-            $action = new OriginateAction("Local/" . $phoneManager . "@hud-caller-answer");
+            $action = new OriginateAction("Local/" . $phoneManager . "@pabx");
             $action->setContext("pabx");
             $action->setExtension($phone);
+            $action->setCallerId($phone);
             $action->setPriority('1');
             $action->setAsync(true);
+            $action->setActionID($actionid);
 
             $client->send($action);
+
+            $action2 = new LogoffAction;
+            $client->send($action2);
 
             $client->close();
         } catch (\Throwable $e) {
@@ -80,3 +87,4 @@ class CollService
 
 
 }
+

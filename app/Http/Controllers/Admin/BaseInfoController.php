@@ -8,6 +8,7 @@ use App\Models\BaseInfo;
 use App\Models\Status;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Service\CollService;
 
@@ -135,8 +136,11 @@ class BaseInfoController extends Controller
 
     public function callUserAdmin($id)
     {
+        $phoneManager = Auth::user()->phone_manager;
+
         $userPhone = BaseInfo::find($id)->phone;
-        if (CollService::collUser($userPhone) !== true) {
+        $callUser = CollService::collAsterisk($phoneManager,$userPhone);
+        if ($callUser) {
             return response()->json(['status' => false, 'info' => "Ошибка во время вызова на номер " . $userPhone . ""], 200);
         }
         return response()->json(['status' => true, 'phone' => "$userPhone"], 200);
