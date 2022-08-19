@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\BaseInfo;
+use App\Models\InfoSnip;
 use App\Models\Status;
+use App\Models\VoiceRecord;
 use App\Service\CollService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +30,8 @@ class HomeController extends Controller
     public function index()
     {
         $result = [];
+        $voice = VoiceRecord::all();
+        $snip = InfoSnip::all();
         $baseList = BaseInfo::where('id_user', Auth::user()->id)->paginate(15);
         foreach ($baseList as $item){
             $result[] = [
@@ -39,7 +43,7 @@ class HomeController extends Controller
             ];
         }
         $listStatus = $this->getStatus();
-        return view('user.home.index', compact('result','baseList', 'listStatus'));
+        return view('user.home.index', compact('result','baseList', 'listStatus', 'voice', 'snip'));
     }
 
     public function logout(Request $request)

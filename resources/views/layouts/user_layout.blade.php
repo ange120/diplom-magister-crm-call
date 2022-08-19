@@ -87,7 +87,50 @@
                             </p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon far fa-id-card"></i>
+                            <p>
+                                SNIP
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{route('snip_by_user.index')}}" class="nav-link">
+                                    <p>Все SNIP</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('snip_by_user.create')}}" class="nav-link">
+                                    <p>Добавить SNIP</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-microphone"></i>
+                            <p>
+                                Записи Голосов
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{route('voice_by_user.index')}}" class="nav-link">
+                                    <p>Все записи голосов</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('voice_by_user.create')}}" class="nav-link">
+                                    <p>Добавить запись голоса</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
+
             </nav>
             <!-- /.sidebar-menu -->
         </div>
