@@ -39,13 +39,19 @@
                                     Email
                                 </th>
                                 <th>
+                                    Номер менеджера
+                                </th>
+                                <th>
                                     Роль
                                 </th>
                                 <th>
-                                    Дата создания
+                                    Подписка
                                 </th>
                                 <th>
-                                    Дата обновления
+                                    Дата создания профиля
+                                </th>
+                                <th>
+                                    Дата обновления профиля
                                 </th>
                                 <th style="width: 30%">
                                 </th>
@@ -64,7 +70,13 @@
                                         {{ $user['email'] }}
                                     </td>
                                     <td>
+                                        {{ $user['phone_manager'] }}
+                                    </td>
+                                    <td>
                                         {{ $user['role'] }}
+                                    </td>
+                                    <td>
+                                        {{ $user['subscriptions'] }}
                                     </td>
                                     <td>
                                         {{ $user['created_at'] }}

@@ -1,10 +1,8 @@
-@extends('layouts.user_layout')
+@extends('layouts.admin_layout')
 
 @section('title', 'Редактирование записи голоса')
 
 @section('content')
-    @if(session('subscriptionId') !== 1)
-        @if(session('endSubscription') === true)
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
@@ -30,7 +28,7 @@
                 <div class="col-lg-12">
                     <div class="card card-primary">
                         <!-- form start -->
-                        <form action="{{ route('voice_by_user.update', $voiceRecord->id) }}" method="POST">
+                        <form action="{{ route('voice_by_admin.update', $voiceRecord->id) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="card-body">
@@ -66,11 +64,5 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
-        @else
-            @include('layouts.lock_layout')
-        @endif
-    @else
-        @include('layouts.lock_layout')
-    @endif
     <!-- /.content -->
 @endsection

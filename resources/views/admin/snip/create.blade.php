@@ -1,10 +1,8 @@
-@extends('layouts.user_layout')
+@extends('layouts.admin_layout')
 
 @section('title', 'Добавить SNIP')
 
 @section('content')
-    @if(session('subscriptionId') !== 1)
-        @if(session('endSubscription') === true)
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
@@ -35,7 +33,7 @@
                 <div class="col-lg-12">
                     <div class="card card-primary">
                         <!-- form start -->
-                        <form action="{{ route('snip_by_user.store') }}" method="POST">
+                        <form action="{{ route('snip_by_admin.store') }}" method="POST">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
@@ -70,11 +68,5 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
-        @else
-            @include('layouts.lock_layout')
-        @endif
-    @else
-        @include('layouts.lock_layout')
-    @endif
     <!-- /.content -->
 @endsection

@@ -1,10 +1,8 @@
-@extends('layouts.user_layout')
+@extends('layouts.admin_layout')
 
 @section('title', 'Редактирование SNIP')
 
 @section('content')
-    @if(session('subscriptionId') !== 1)
-        @if(session('endSubscription') === true)
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
@@ -30,13 +28,13 @@
                 <div class="col-lg-12">
                     <div class="card card-primary">
                         <!-- form start -->
-                        <form action="{{ route('snip_by_user.update', $infoSnip->id) }}" method="POST">
+                        <form action="{{ route('snip_by_admin.update', $infoSnip->id) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputId">#</label>
-                                    <input type="text" name="id" class="form-control" value="{{$infoSnip->id}}" id="exampleInputId"  readonly>
+                                    <input type="text" name="id" class="form-control" value="{{$infoSnip->id}}" id="exampleInputId"  style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAPhJREFUOBHlU70KgzAQPlMhEvoQTg6OPoOjT+JWOnRqkUKHgqWP4OQbOPokTk6OTkVULNSLVc62oJmbIdzd95NcuGjX2/3YVI/Ts+t0WLE2ut5xsQ0O+90F6UxFjAI8qNcEGONia08e6MNONYwCS7EQAizLmtGUDEzTBNd1fxsYhjEBnHPQNG3KKTYV34F8ec/zwHEciOMYyrIE3/ehKAqIoggo9inGXKmFXwbyBkmSQJqmUNe15IRhCG3byphitm1/eUzDM4qR0TTNjEixGdAnSi3keS5vSk2UDKqqgizLqB4YzvassiKhGtZ/jDMtLOnHz7TE+yf8BaDZXA509yeBAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputName">IP адрес</label>
@@ -70,11 +68,5 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
-        @else
-            @include('layouts.lock_layout')
-        @endif
-    @else
-        @include('layouts.lock_layout')
-    @endif
     <!-- /.content -->
 @endsection

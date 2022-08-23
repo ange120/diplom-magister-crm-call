@@ -1,6 +1,6 @@
-@extends('layouts.user_layout')
+@extends('layouts.admin_layout')
 
-@section('title', 'Все SNIP')
+@section('title', 'Все записи голосов')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Все SNIP</h1>
+                    <h1 class="m-0">Все записи голосов</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             @if (session('success'))
@@ -33,19 +33,13 @@
                                 ID
                             </th>
                             <th>
-                                IP
+                                Имя записи
                             </th>
                             <th>
-                                Имя провайдера
+                                Текс записи
                             </th>
                             <th>
-                                Номер авторизации
-                            </th>
-                            <th>
-                                Назва аккаунту
-                            </th>
-                            <th>
-                                Пароль аккаунту
+                                Язык записи
                             </th>
                             <th style="width: 30%">
                             </th>
@@ -59,29 +53,21 @@
                                     {{ $post['id']}}
                                 </td>
                                 <td>
-                                    {{ $post['ip_snip'] }}
+                                    {{ $post['name'] }}
                                 </td>
                                 <td>
-                                    {{ $post['name_provider'] }}
+                                    {{ $post['text'] }}
                                 </td>
                                 <td>
-                                    {{ $post['number_provider'] }}
-                                </td>
-                                <td>
-                                    {{ $post['login_snip'] }}
-                                </td>
-                                <td>
-                                    {{ $post['password_snip'] }}
+                                    {{ $post['language'] }}
                                 </td>
                                 <td class="project-actions text-right">
-                                    <a class="btn btn-warning btn-sm" href="{{ route('snip_by_user.edit', $post['id']) }}">
+                                    <a class="btn btn-warning btn-sm" href="{{ route('voice_by_admin.edit', $post['id']) }}">
                                         <i class="fas fa-pencil-alt">
                                         </i>
                                         Редактировать
                                     </a>
-                                    @if(session('subscriptionId') !== 1)
-                                        @if(session('endSubscription') === true)
-                                    <form action="{{ route('snip_by_user.destroy',$post['id']) }}" method="POST"
+                                    <form action="{{ route('voice_by_admin.destroy',$post['id']) }}" method="POST"
                                           style="display: inline-block">
                                         @csrf
                                         @method('DELETE')
@@ -91,12 +77,6 @@
                                             Удалить
                                         </button>
                                     </form>
-                                        @else
-
-                                        @endif
-                                    @else
-
-                                    @endif
                                 </td>
                             </tr>
                         @empty
@@ -112,7 +92,7 @@
                         <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
 
                             <ul class="pagination">
-                                {{ $snipList->links()}}
+                                {{ $voiceRecordList->links()}}
                             </ul>
                         </div>
                     </div>

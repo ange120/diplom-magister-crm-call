@@ -31,7 +31,7 @@
                             <p>Пользователей</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-bag"></i>
+                            <i class="ion ion-person"></i>
                         </div>
                         <a href="{{route('users.index')}}" class="small-box-footer">Все Пользователи <i
                                 class="fas fa-arrow-circle-right"></i></a>
@@ -53,6 +53,37 @@
                                 class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-warning">
+                        <div class="inner">
+                            <h3>{{$snip_count}}</h3>
+
+                            <p>SNIP</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-unlocked"></i>
+                        </div>
+                        <a href="{{route('base_info.index')}}"  class="small-box-footer">Все SNIP <i
+                                class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-danger">
+                        <div class="inner">
+                            <h3>{{$voice_count}}</h3>
+
+                            <p>Голосов</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-mic-c"></i>
+                        </div>
+                        <a href="{{route('voice_by_admin.index')}}"  class="small-box-footer">Все Записи голосов <i
+                                class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
 
             </div>
             <!-- /.row -->

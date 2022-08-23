@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\BaseInfo;
-use App\Models\Category;
-use App\Models\Post;
+use App\Models\InfoSnip;
 use App\Models\User;
+use App\Models\VoiceRecord;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +16,9 @@ class HomeController extends Controller
     {
         $user_count = User::all()->count();
         $base_count = BaseInfo::all()->count();
-        return view('admin.home.index',compact('user_count', 'base_count'));
+        $voice_count = VoiceRecord::all()->count();
+        $snip_count = InfoSnip::all()->count();
+        return view('admin.home.index',compact('user_count', 'base_count', 'voice_count', 'snip_count'));
     }
 
     public function logout(Request $request)

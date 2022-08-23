@@ -1,16 +1,14 @@
-@extends('layouts.user_layout')
+@extends('layouts.admin_layout')
 
-@section('title', 'Добавить SNIP')
+@section('title', 'Добавить запись голоса')
 
 @section('content')
-    @if(session('subscriptionId') !== 1)
-        @if(session('endSubscription') === true)
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Добавить SNIP</h1>
+                    <h1 class="m-0">Добавить запись голоса</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             @if (session('success'))
@@ -35,28 +33,26 @@
                 <div class="col-lg-12">
                     <div class="card card-primary">
                         <!-- form start -->
-                        <form action="{{ route('snip_by_user.store') }}" method="POST">
+                        <form action="{{ route('voice_by_admin.store') }}" method="POST">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="exampleInputName">IP адрес</label>
-                                    <input type="text" name="ip_snip" class="form-control" id="exampleInputName" placeholder="IP адрес" required >
+                                    <label for="exampleInputName">Имя записи</label>
+                                    <input type="text" name="name" class="form-control" id="exampleInputName" placeholder="Имя записи" required >
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> Имя провайдера</label>
-                                    <input type="text" name="name_provider" class="form-control" id="exampleInputEmail1" placeholder="Имя провайдера" required >
+                                    <label for="exampleFormControlTextarea1">Текс записи</label>
+                                    <textarea class="form-control" name="text" id="exampleFormControlTextarea1" rows="3"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> Номер авторизации</label>
-                                    <input type="text" name="number_provider" class="form-control" id="exampleInputEmail1" placeholder="Номер авторизации" required >
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1"> Назва аккаунту</label>
-                                    <input type="text" name="login_snip" class="form-control" id="exampleInputEmail1" placeholder="Назва аккаунту" required >
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1"> Пароль аккаунту</label>
-                                    <input type="password" name="password_snip" class="form-control" id="exampleInputEmail1" placeholder="Пароль аккаунту" required >
+                                    <label for="exampleInputEmail1">Язык записи</label>
+
+                                    <select class="form-control select2 select2-hidden-accessible" name="language" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required>
+                                        <option selected="selected" data-select2-id="3"></option>
+                                        @foreach($languages as $language)
+                                            <option data-select2-id="46" value="{{$language->id}}" >{{$language->name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <!-- /.card-body -->
@@ -70,11 +66,5 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
-        @else
-            @include('layouts.lock_layout')
-        @endif
-    @else
-        @include('layouts.lock_layout')
-    @endif
     <!-- /.content -->
 @endsection

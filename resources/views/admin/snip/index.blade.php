@@ -1,4 +1,4 @@
-@extends('layouts.user_layout')
+@extends('layouts.admin_layout')
 
 @section('title', 'Все SNIP')
 
@@ -74,14 +74,12 @@
                                     {{ $post['password_snip'] }}
                                 </td>
                                 <td class="project-actions text-right">
-                                    <a class="btn btn-warning btn-sm" href="{{ route('snip_by_user.edit', $post['id']) }}">
+                                    <a class="btn btn-warning btn-sm" href="{{ route('snip_by_admin.edit', $post['id']) }}">
                                         <i class="fas fa-pencil-alt">
                                         </i>
                                         Редактировать
                                     </a>
-                                    @if(session('subscriptionId') !== 1)
-                                        @if(session('endSubscription') === true)
-                                    <form action="{{ route('snip_by_user.destroy',$post['id']) }}" method="POST"
+                                    <form action="{{ route('snip_by_admin.destroy',$post['id']) }}" method="POST"
                                           style="display: inline-block">
                                         @csrf
                                         @method('DELETE')
@@ -91,12 +89,6 @@
                                             Удалить
                                         </button>
                                     </form>
-                                        @else
-
-                                        @endif
-                                    @else
-
-                                    @endif
                                 </td>
                             </tr>
                         @empty

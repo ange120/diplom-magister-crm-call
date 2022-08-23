@@ -67,6 +67,8 @@
                                         </i>
                                         Редактировать
                                     </a>
+                                    @if(session('subscriptionId') !== 1)
+                                        @if(session('endSubscription') === true)
                                     <form action="{{ route('voice_by_user.destroy',$post['id']) }}" method="POST"
                                           style="display: inline-block">
                                         @csrf
@@ -77,6 +79,12 @@
                                             Удалить
                                         </button>
                                     </form>
+                                        @else
+
+                                        @endif
+                                    @else
+
+                                    @endif
                                 </td>
                             </tr>
                         @empty

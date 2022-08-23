@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BaseInfo;
 use App\Models\InfoSnip;
 use App\Models\Status;
+use App\Models\SubscriptionUser;
 use App\Models\VoiceRecord;
 use App\Service\CollService;
 use Illuminate\Http\Request;
@@ -20,6 +21,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+
     }
 
     /**
@@ -30,9 +32,10 @@ class HomeController extends Controller
     public function index()
     {
         $result = [];
+        $user = Auth::user();
         $voice = VoiceRecord::all();
         $snip = InfoSnip::all();
-        $baseList = BaseInfo::where('id_user', Auth::user()->id)->paginate(15);
+        $baseList = BaseInfo::where('id_user', $user->id)->paginate(15);
         foreach ($baseList as $item){
             $result[] = [
                 'id'=> $item->id,
@@ -43,7 +46,9 @@ class HomeController extends Controller
             ];
         }
         $listStatus = $this->getStatus();
-        return view('user.home.index', compact('result','baseList', 'listStatus', 'voice', 'snip'));
+        $this->setSessionSubscription($user->id);
+        return view('user.home.index', compact('result','baseList',
+            'listStatus', 'voice', 'snip'));
     }
 
     public function logout(Request $request)
@@ -57,12 +62,13 @@ class HomeController extends Controller
         return redirect('/');
     }
 
-    public function callUser($id)
+    public function callUser($id, $snip_id, $voice_id)
     {
         $phoneManager = Auth::user()->phone_manager;
 
         $userPhone = BaseInfo::find($id)->phone;
         $callUser = CollService::collAsterisk($phoneManager,$userPhone);
+        //$callUser = CollService::collAsteriskSnipAndVoice($phoneManager,$userPhone,$snip_id,$voice_id);
         if( $callUser !== true){
             return response()->json(['status' => false, 'info' => "Ошибка во время вызова на номер ".$userPhone." \n"." \n".$callUser], 200);
         }
@@ -91,5 +97,12 @@ class HomeController extends Controller
             $status[] =   $item->name;
         }
         return $status;
+    }
+
+    protected function setSessionSubscription($user_id)
+    {
+        $subActive = SubscriptionUser::where('id_user', $user_id)->first();
+        session()->put('endSubscription', $subActive->endDateSubscription());
+        session()->put('subscriptionId', $subActive->subscription->id);
     }
 }

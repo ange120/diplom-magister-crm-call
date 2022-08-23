@@ -1,6 +1,6 @@
-@extends('layouts.user_layout')
+@extends('layouts.admin_layout')
 
-@section('title', 'Все SNIP')
+@section('title', 'Назанчить подписку')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Все SNIP</h1>
+                    <h1 class="m-0">Назанчить подписку для пользователя</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             @if (session('success'))
@@ -33,19 +33,16 @@
                                 ID
                             </th>
                             <th>
-                                IP
+                                Имя пользователя
                             </th>
                             <th>
-                                Имя провайдера
+                                Подписка
                             </th>
                             <th>
-                                Номер авторизации
+                                Дата начала
                             </th>
                             <th>
-                                Назва аккаунту
-                            </th>
-                            <th>
-                                Пароль аккаунту
+                                Дата конца
                             </th>
                             <th style="width: 30%">
                             </th>
@@ -53,35 +50,30 @@
                         </thead>
                         <tbody>
 
-                        @forelse($result as $post)
+                        @forelse($result as $item)
                             <tr>
                                 <td>
-                                    {{ $post['id']}}
+                                    {{$item['id']}}
                                 </td>
                                 <td>
-                                    {{ $post['ip_snip'] }}
+                                    {{ $item['user'] }}
                                 </td>
                                 <td>
-                                    {{ $post['name_provider'] }}
+                                    {{ $item['subscription'] }}
                                 </td>
                                 <td>
-                                    {{ $post['number_provider'] }}
+                                    {{ $item['date_start'] }}
                                 </td>
                                 <td>
-                                    {{ $post['login_snip'] }}
-                                </td>
-                                <td>
-                                    {{ $post['password_snip'] }}
+                                    {{ $item['date_end'] }}
                                 </td>
                                 <td class="project-actions text-right">
-                                    <a class="btn btn-warning btn-sm" href="{{ route('snip_by_user.edit', $post['id']) }}">
+                                    <a class="btn btn-warning btn-sm" href="{{ route('editSubscriptionUser', $item['id']) }}">
                                         <i class="fas fa-pencil-alt">
                                         </i>
                                         Редактировать
                                     </a>
-                                    @if(session('subscriptionId') !== 1)
-                                        @if(session('endSubscription') === true)
-                                    <form action="{{ route('snip_by_user.destroy',$post['id']) }}" method="POST"
+                                    <form action="{{ route('subscriptions_user.destroy',$item['id']) }}" method="POST"
                                           style="display: inline-block">
                                         @csrf
                                         @method('DELETE')
@@ -91,12 +83,6 @@
                                             Удалить
                                         </button>
                                     </form>
-                                        @else
-
-                                        @endif
-                                    @else
-
-                                    @endif
                                 </td>
                             </tr>
                         @empty
@@ -110,9 +96,8 @@
                     </table>
                     <div class="col-sm-12 col-md-7" style="margin-top: 1rem;">
                         <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-
                             <ul class="pagination">
-                                {{ $snipList->links()}}
+                                {{ $subscriptionUser->links()}}
                             </ul>
                         </div>
                     </div>
