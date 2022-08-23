@@ -38,6 +38,7 @@ class UserSeeder extends Seeder
                 'name' => $datum['name'],
                 'email' => $datum['email'],
                 'password' => Hash::make($datum['password']),
+                'phone_manager' => $datum['phone_manager'],
             ]);
             $user->assignRole( $datum['role']);
         }

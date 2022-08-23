@@ -29,14 +29,15 @@ tinymce.init({
 
     function getSelected (id){
         let selected = document.querySelector("#selected_"+id)
+        let snip = document.querySelector("#select_snip").value
+        let voice = document.querySelector("#select_voice").value
         selected.disabled = false
 
         $.ajax({
-            url: '/user-call/' + id,
+            url: '/user-call/' + id+'/'+snip +'/'+voice,
             type: 'get',
             data: {},
             success: function(data) {
-                console.log(data)
                 if (data.status == true) {
                     alert('Звонок на номер '+data.phone+' выполняется!');
                 } else {
