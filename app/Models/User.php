@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -43,10 +44,25 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-//    public function getRoles()
-//    {
-//        $asd =
-//       return getRoleClass::all();
-//    }
+    public function getRolesList()
+    {
+       return Auth::user()->getrolenames()->toArray();
+    }
+
+    public function getSubscriptionsInfoName()
+    {
+        $SubscriptionUser = SubscriptionUser::where('id_user',$this->id)->first();
+        if(!is_null($SubscriptionUser)){
+            return Subscription::find($SubscriptionUser->id_subscription)->info_name;
+        }
+     return 'Нет подписки';
+    }
+
+    public function getSubscriptions()
+    {
+        return SubscriptionUser::where('id_user',$this->id)->first();
+    }
+
+
 
 }

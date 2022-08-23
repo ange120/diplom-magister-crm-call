@@ -28,8 +28,9 @@ class UserController extends Controller
                 'id'=>$user->id,
                 'name'=>$user->name,
                 'email'=>$user->email,
-//                'role'=>  $this->getRoleUserById(ModelHasRoles::where('model_id',$user->id )->first()->role_id),
+                'subscriptions'=>  $user->getSubscriptionsInfoName(),
                 'role'=>  $user->getRoleNames(),
+                'phone_manager'=>  $user->phone_manager,
                 'created_at'=>$user->created_at,
                 'updated_at'=>$user->updated_at,
             ];
@@ -67,6 +68,7 @@ class UserController extends Controller
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'phone_manager'=>  $data['phone_manager'],
             'password' => Hash::make($data['password']),
         ]);
         $user->assignRole( $data['role']);
@@ -124,6 +126,7 @@ class UserController extends Controller
         }
         $user->name = $data['name'];
         $user->email = $data['email'];
+        $user->phone_manager = $data['phone_manager'];
         $user->save();
         return redirect()->back()->withSuccess('Пользователь успешно обновлён!');
     }

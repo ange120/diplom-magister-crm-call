@@ -26,6 +26,12 @@
     <!-- Daterange picker -->
     <link rel="stylesheet" href="/admin/plugins/daterangepicker/daterangepicker.css">
     <link href="/admin/dist/css/colorbox.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -141,6 +147,32 @@
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-tags"></i>
+                                <p>
+                                    Подписки
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{route('subscriptions_user.index')}}" class="nav-link">
+                                        <p>Все подписки</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('subscriptions_user.create')}}" class="nav-link">
+                                        <p>Создать новую подписку </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('subscriptionAllUsers')}}" class="nav-link">
+                                        <p>Назначить подписку</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-book"></i>
                                 <p>
                                     Статусы
@@ -156,6 +188,48 @@
                                 <li class="nav-item">
                                     <a href="{{route('status.create')}}" class="nav-link">
                                         <p>Добавить Статус</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon far fa-id-card"></i>
+                                <p>
+                                    SNIP
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{route('snip_by_admin.index')}}" class="nav-link">
+                                        <p>Все SNIP</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('snip_by_admin.create')}}" class="nav-link">
+                                        <p>Добавить SNIP</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-microphone"></i>
+                                <p>
+                                    Записи Голосов
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{route('voice_by_admin.index')}}" class="nav-link">
+                                        <p>Все записи голосов</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('voice_by_admin.create')}}" class="nav-link">
+                                        <p>Добавить запись голоса</p>
                                     </a>
                                 </li>
                             </ul>
@@ -221,6 +295,8 @@
     <script src="https://cdn.tiny.cloud/1/jxsqeq85qzdwuqqqruya91jqsrhqtxykhxtks6sn0t1kn69g/tinymce/5/tinymce.min.js"
         referrerpolicy="origin"></script>
     <script type="text/javascript" src="/packages/barryvdh/elfinder/js/standalonepopup.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+
     <script src="/admin/admin.js"></script>
 </body>
 
