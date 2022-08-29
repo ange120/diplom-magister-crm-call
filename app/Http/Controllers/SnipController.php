@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\InfoSnip;
 use Illuminate\Http\Request;
-
+use App\Service\UpdateConfig;
 
 class SnipController extends Controller
 {
@@ -51,13 +51,17 @@ class SnipController extends Controller
     public function store(Request $request)
     {
         $data =$request->all();
-         InfoSnip::create([
-            'ip_snip' => $data['ip_snip'] ,
-            'name_provider' => $data['name_provider'],
-            'number_provider' =>  $data['number_provider'],
-            'login_snip' =>  $data['login_snip'],
-            'password_snip' =>  $data['password_snip'],
-        ]);
+//         InfoSnip::create([
+//            'ip_snip' => $data['ip_snip'] ,
+//            'name_provider' => $data['name_provider'],
+//            'number_provider' =>  $data['number_provider'],
+//            'login_snip' =>  $data['login_snip'],
+//            'password_snip' =>  $data['password_snip'],
+//        ]);
+         $updateConfig = UpdateConfig::createNewSNIP($data['number_provider'], $data['password_snip']);
+        if($updateConfig !== true){
+            return view('user.snip.create', compact('updateConfig'));
+        }
         return redirect()->back()->withSuccess('SNIP успешно добавлен!');
     }
 
