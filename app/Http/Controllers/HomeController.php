@@ -46,7 +46,10 @@ class HomeController extends Controller
             ];
         }
         $listStatus = $this->getStatus();
-        $this->setSessionSubscription($user->id);
+        $role = Auth::user()->getrolenames();
+          if($role->contains('admin') !== true){
+              $this->setSessionSubscription($user->id);
+          }
         return view('user.home.index', compact('result','baseList',
             'listStatus', 'voice', 'snip'));
     }
