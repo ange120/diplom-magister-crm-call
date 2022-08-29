@@ -24,22 +24,22 @@ class UpdateConfig
             $client->open();
 
             $action = new UpdateConfigAction();
-            $action->setAction('NewCat');
-            $action->setCat('auth'.$number_provider);
-            $action->setCat('auth'.$number_provider);
-            $action->setAction('append');
-            $action->setVar('type');
-            $action->setValue('auth');
-            $action->setAction('append');
-            $action->setCat('auth'.$number_provider);
-            $action->setVar('auth_type');
-            $action->setValue('userpass');
-            $action->setCat('auth'.$number_provider);
-            $action->setVar('password');
-            $action->setValue($password_snip);
-            $action->setAction('append');
-            $action->setVar('username');
-            $action->setValue($number_provider);
+            $action->setAction('000000NewCat');
+            $action->setCat('000000:auth'.$number_provider);
+            $action->setCat('000001:auth'.$number_provider);
+            $action->setAction('000001:append');
+            $action->setVar('000001:type');
+            $action->setValue('000001:auth');
+            $action->setAction('000002:append');
+            $action->setCat('000002:auth'.$number_provider);
+            $action->setVar('000002:auth_type');
+            $action->setValue('000002:userpass');
+            $action->setCat('000003:auth'.$number_provider);
+            $action->setVar('000003:password');
+            $action->setValue('000003:'.$password_snip);
+            $action->setAction('000004:append');
+            $action->setVar('000004:username');
+            $action->setValue('000004:'.$number_provider);
 
             $client->send($action);
 
