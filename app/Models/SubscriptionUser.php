@@ -34,6 +34,9 @@ class SubscriptionUser extends Model
 
     function endDateSubscription()
     {
+        if(is_null($this->date_end_subscriptions)){
+            $this->date_end_subscriptions = Carbon::now()->getTimestamp();
+        }
         if (Carbon::parse($this->date_end_subscriptions)->getTimestamp() < Carbon::now()->getTimestamp()) {
             return false;
         }
