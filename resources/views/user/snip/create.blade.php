@@ -37,6 +37,9 @@
                         <!-- form start -->
                         <form action="{{ route('snip_by_user.store') }}" method="POST">
                             @csrf
+                            @if(isset($updateConfig))
+                                <div class="alert alert-danger">{{ $updateConfig }}</div>
+                            @endif
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputName">IP адрес</label>
