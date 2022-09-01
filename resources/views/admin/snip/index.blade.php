@@ -33,9 +33,6 @@
                                 ID
                             </th>
                             <th>
-                                IP
-                            </th>
-                            <th>
                                 Имя провайдера
                             </th>
                             <th>
@@ -57,9 +54,6 @@
                             <tr>
                                 <td>
                                     {{ $post['id']}}
-                                </td>
-                                <td>
-                                    {{ $post['ip_snip'] }}
                                 </td>
                                 <td>
                                     {{ $post['name_provider'] }}

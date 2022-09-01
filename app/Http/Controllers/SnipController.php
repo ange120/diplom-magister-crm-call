@@ -21,7 +21,6 @@ class SnipController extends Controller
 
             $result[] = [
                 'id' => $item->id,
-                'ip_snip' => $item->ip_snip,
                 'name_provider' => $item->name_provider,
                 'number_provider' => $item->number_provider,
                 'login_snip' => $item->login_snip,
@@ -57,7 +56,7 @@ class SnipController extends Controller
             return view('user.snip.create', compact('updateConfig'));
         }
         InfoSnip::create([
-            'ip_snip' => $data['ip_snip'] ,
+            'ip_snip' => 'null' ,
             'name_provider' => $data['name_provider'],
             'number_provider' =>  $data['number_provider'],
             'login_snip' =>  $data['login_snip'],
@@ -99,7 +98,6 @@ class SnipController extends Controller
     {
         $data = $request->all();
         $infoSnipModel = InfoSnip::find($id);
-        $infoSnipModel->ip_snip = $data['ip_snip'];
         $infoSnipModel->name_provider = $data['name_provider'];
         $infoSnipModel->number_provider =  $data['number_provider'];
         $infoSnipModel->login_snip = $data['login_snip'];

@@ -42,11 +42,7 @@
                             @endif
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="exampleInputName">IP адрес</label>
-                                    <input type="text" name="ip_snip" class="form-control" id="exampleInputName" placeholder="IP адрес" required >
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1"> Имя провайдера</label>
+                                    <label for="exampleInputEmail1"> Имя менеджера</label>
                                     <input type="text" name="name_provider" class="form-control" id="exampleInputEmail1" placeholder="Имя провайдера" required >
                                 </div>
                                 <div class="form-group">

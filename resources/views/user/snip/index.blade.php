@@ -33,10 +33,7 @@
                                 ID
                             </th>
                             <th>
-                                IP
-                            </th>
-                            <th>
-                                Имя провайдера
+                                Имя менеджера
                             </th>
                             <th>
                                 Номер авторизации
@@ -58,9 +55,6 @@
                             <tr>
                                 <td>
                                     {{ $post['id']}}
-                                </td>
-                                <td>
-                                    {{ $post['ip_snip'] }}
                                 </td>
                                 <td>
                                     {{ $post['name_provider'] }}
