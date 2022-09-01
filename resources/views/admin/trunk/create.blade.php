@@ -1,6 +1,6 @@
 @extends('layouts.admin_layout')
 
-@section('title', 'Добавить SNIP')
+@section('title', 'Добавить trunk')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Добавить SNIP</h1>
+                    <h1 class="m-0">Добавить trunk</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             @if (session('success'))
@@ -33,31 +33,27 @@
                 <div class="col-lg-12">
                     <div class="card card-primary">
                         <!-- form start -->
-                        <form action="{{ route('snip_by_admin.store') }}" method="POST">
+                        <form action="{{ route('trunk_by_admin.store') }}" method="POST">
                             @csrf
-                            @if(isset($updateConfig) )
-                                <div class="alert alert-danger">{{ $updateConfig }}</div>
+                            @if(isset($message) )
+                                <div class="alert alert-danger">{{ $message }}</div>
                             @endif
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="exampleInputName">IP адрес</label>
-                                    <input type="text" name="ip_snip" class="form-control" id="exampleInputName" placeholder="IP адрес" required >
+                                    <label for="exampleInputName">Sip сервер</label>
+                                    <input type="text" name="sip_server" class="form-control" id="exampleInputName" placeholder="Sip сервер" required >
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> Имя провайдера</label>
-                                    <input type="text" name="name_provider" class="form-control" id="exampleInputEmail1" placeholder="Имя провайдера" required >
+                                    <label for="exampleFormControlTextarea1">Логин</label>
+                                    <input type="text" name="login" class="form-control" id="exampleInputName" placeholder="Логин" required >
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> Номер авторизации</label>
-                                    <input type="text" name="number_provider" class="form-control" id="exampleInputEmail1" placeholder="Номер авторизации" required >
+                                    <label for="exampleInputPassword1">Пароль</label>
+                                    <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Пароль" required >
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> Назва аккаунту</label>
-                                    <input type="text" name="login_snip" class="form-control" id="exampleInputEmail1" placeholder="Назва аккаунту" required >
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1"> Пароль аккаунту</label>
-                                    <input type="password" name="password_snip" class="form-control" id="exampleInputEmail1" placeholder="Пароль аккаунту" required >
+                                    <label for="exampleInputPassword2">Подтверждение  Пароля</label>
+                                    <input type="password" name="confirm_password" class="form-control" id="exampleInputPassword2" placeholder="Подтверждение Пароля" required >
                                 </div>
                             </div>
                             <!-- /.card-body -->

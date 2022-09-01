@@ -33,7 +33,8 @@ Route::middleware(['role:user'])->group(function () {
     Route::resource('snip_by_user',\App\Http\Controllers\SnipController::class);
     //voice
     Route::resource('voice_by_user',\App\Http\Controllers\VoiceRecordController::class);
-
+    //trunk
+    Route::resource('trunk_by_user',\App\Http\Controllers\TrunkController::class);
 
 });
 
@@ -57,6 +58,7 @@ Route::middleware(['role:admin'])->prefix('admin_panel')->group(function () {
     Route::get('/subscription-all-user', [\App\Http\Controllers\Admin\SubscriptionUserController::class, 'getSubscriptionsUsers'])->name('subscriptionAllUsers');
     Route::get('/edit-subscription-user/{id}', [\App\Http\Controllers\Admin\SubscriptionUserController::class, 'editSubscriptionsUsers'])->name('editSubscriptionUser');
     Route::put('/update-subscription-user/{id}', [\App\Http\Controllers\Admin\SubscriptionUserController::class, 'updateSubscriptionsUsers'])->name('updateSubscriptionUser');
-
+    //trunk
+    Route::resource('trunk_by_admin',\App\Http\Controllers\Admin\AdminTrunkController::class);
 
 });

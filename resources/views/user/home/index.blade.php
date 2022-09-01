@@ -84,6 +84,7 @@
                                 ФИО
                             </th>
                             <th style="width: 30%">
+                                Действия
                             </th>
                         </tr>
                         </thead>

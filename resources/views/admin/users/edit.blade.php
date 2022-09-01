@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputName">Номер менеджера</label>
-                                    <input type="number" name="phone_manager" class="form-control" id="exampleInputName" placeholder="Номер менеджера" required >
+                                    <input type="number" name="phone_manager" class="form-control" id="exampleInputName" value="{{$arrayUser['phone_manager']}}" placeholder="Номер менеджера" required >
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Роль</label>

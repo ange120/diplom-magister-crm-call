@@ -234,6 +234,27 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-cogs"></i>
+                                <p>
+                                    Trunk
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{route('trunk_by_admin.index')}}" class="nav-link">
+                                        <p>Все trunks</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('trunk_by_admin.create')}}" class="nav-link">
+                                        <p>Добавить trunks</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

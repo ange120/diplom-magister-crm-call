@@ -53,4 +53,32 @@ class UpdateConfig
         return true;
     }
 
+    public static function createTrunk(string $sip_server, string $login, string $password)
+    {
+        $options = array(
+            'host' => env('ASTERISK_HOST'),
+            'scheme' => 'tcp://',
+            'port' => env('ASTERISK_PORT'),
+            'username' => env('ASTERISK_USERNAME'),
+            'secret' => env('ASTERISK_SECRET'),
+            'connect_timeout' => env('ASTERISK_CONNECT_TIMEOUT'),
+            'read_timeout' => env('ASTERISK_READ_TIMEOUT')
+        );
+        try {
+            $client = new ClientImpl($options);
+            $client->open();
+
+            $action = new UpdateConfigAction();
+            $client->send($action);
+
+            $action2 = new LogoffAction;
+            $client->send($action2);
+
+            $client->close();
+        } catch (\Throwable $e) {
+            return $e->getMessage();
+        }
+        return true;
+    }
+
 }

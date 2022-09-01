@@ -51,17 +51,18 @@ class SnipController extends Controller
     public function store(Request $request)
     {
         $data =$request->all();
-         InfoSnip::create([
+
+         $updateConfig = UpdateConfig::createNewSNIP($data['number_provider'], $data['password_snip']);
+        if($updateConfig !== true){
+            return view('user.snip.create', compact('updateConfig'));
+        }
+        InfoSnip::create([
             'ip_snip' => $data['ip_snip'] ,
             'name_provider' => $data['name_provider'],
             'number_provider' =>  $data['number_provider'],
             'login_snip' =>  $data['login_snip'],
             'password_snip' =>  $data['password_snip'],
         ]);
-         $updateConfig = UpdateConfig::createNewSNIP($data['number_provider'], $data['password_snip']);
-        if($updateConfig !== true){
-            return view('user.snip.create', compact('updateConfig'));
-        }
         return redirect()->back()->withSuccess('SNIP успешно добавлен!');
     }
 

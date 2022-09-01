@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\InfoSnip;
+use App\Service\UpdateConfig;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -52,6 +53,11 @@ class SnipAdminController extends Controller
     public function store(Request $request)
     {
         $data =$request->all();
+
+        $updateConfig = UpdateConfig::createNewSNIP($data['number_provider'], $data['password_snip']);
+        if($updateConfig !== true){
+            return view('user.snip.create', compact('updateConfig'));
+        }
         InfoSnip::create([
             'ip_snip' => $data['ip_snip'] ,
             'name_provider' => $data['name_provider'],

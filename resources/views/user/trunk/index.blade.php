@@ -1,6 +1,6 @@
 @extends('layouts.user_layout')
 
-@section('title', 'Все SNIP')
+@section('title', 'Все записи trunks')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Все SNIP</h1>
+                    <h1 class="m-0">Все записи trunks</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             @if (session('success'))
@@ -33,19 +33,10 @@
                                 ID
                             </th>
                             <th>
-                                IP
+                                sip сервер
                             </th>
                             <th>
-                                Имя провайдера
-                            </th>
-                            <th>
-                                Номер авторизации
-                            </th>
-                            <th>
-                                Назва аккаунту
-                            </th>
-                            <th>
-                                Пароль аккаунту
+                                Логин
                             </th>
                             <th style="width: 30%">
                                 Действия
@@ -60,29 +51,21 @@
                                     {{ $post['id']}}
                                 </td>
                                 <td>
-                                    {{ $post['ip_snip'] }}
+                                    {{ $post['sip_server'] }}
                                 </td>
                                 <td>
-                                    {{ $post['name_provider'] }}
-                                </td>
-                                <td>
-                                    {{ $post['number_provider'] }}
-                                </td>
-                                <td>
-                                    {{ $post['login_snip'] }}
-                                </td>
-                                <td>
-                                    {{ $post['password_snip'] }}
+                                    {{ $post['login'] }}
                                 </td>
                                 @if(session('subscriptionId') !== 1)
                                     @if(session('endSubscription') === true)
                                 <td class="project-actions text-right">
-                                    <a class="btn btn-warning btn-sm" href="{{ route('snip_by_user.edit', $post['id']) }}">
+                                    <a class="btn btn-warning btn-sm" href="{{ route('trunk_by_user.edit', $post['id']) }}">
                                         <i class="fas fa-pencil-alt">
                                         </i>
                                         Редактировать
                                     </a>
-                                    <form action="{{ route('snip_by_user.destroy',$post['id']) }}" method="POST"
+
+                                    <form action="{{ route('trunk_by_user.destroy',$post['id']) }}" method="POST"
                                           style="display: inline-block">
                                         @csrf
                                         @method('DELETE')
@@ -113,7 +96,7 @@
                         <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
 
                             <ul class="pagination">
-                                {{ $snipList->links()}}
+                                {{ $trunkRecordList->links()}}
                             </ul>
                         </div>
                     </div>
