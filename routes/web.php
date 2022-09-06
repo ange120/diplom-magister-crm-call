@@ -27,7 +27,7 @@ Auth::routes();
 Route::middleware(['role:user'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('logoutUser');
-    Route::get('/user-call/{id}/{snip_id}/{voice_id}', [App\Http\Controllers\HomeController::class, 'callUser'])->name('callUser');
+    Route::get('/user-call/{id}/{voice_id}', [App\Http\Controllers\HomeController::class, 'callUser'])->name('callUser');
     Route::post('/update-status', [App\Http\Controllers\HomeController::class, 'updateStatus'])->name('updateStatus');
     //snip
     Route::resource('snip_by_user',\App\Http\Controllers\SnipController::class);

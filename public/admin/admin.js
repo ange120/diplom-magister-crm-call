@@ -29,12 +29,11 @@ tinymce.init({
 
     function getSelected (id){
         let selected = document.querySelector("#selected_"+id)
-        let snip = document.querySelector("#select_snip").value
         let voice = document.querySelector("#select_voice").value
         selected.disabled = false
 
         $.ajax({
-            url: '/user-call/' + id+'/'+snip +'/'+voice,
+            url: '/user-call/' + id+'/'+voice,
             type: 'get',
             data: {},
             success: function(data) {

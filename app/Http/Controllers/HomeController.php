@@ -65,7 +65,7 @@ class HomeController extends Controller
         return redirect('/');
     }
 
-    public function callUser($id, $snip_id, $voice_id)
+    public function callUser($id,  $voice_id)
     {
         $phoneManager = Auth::user()->phone_manager;
 
