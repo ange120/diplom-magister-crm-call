@@ -29,7 +29,7 @@ class CollService
             $client = new ClientImpl($options);
             $client->open();
 
-            $action = new OriginateAction("SIP/".$phone);
+            $action = new OriginateAction("SIP/".$phone.'@941082');
             $action->setContext("outgoing_to_Ukraine");
             $action->setVariable('TEXTTOSPEEK', $voice);
             $action->setExtension('s');
