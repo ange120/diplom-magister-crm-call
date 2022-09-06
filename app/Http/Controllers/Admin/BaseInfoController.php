@@ -182,6 +182,15 @@ class BaseInfoController extends Controller
         return redirect()->back()->withSuccess('Записи успешно добавлены для пользователя!');
     }
 
+    public function updateUserBaseInfo(Request $request)
+    {
+        $data = $request->all();
+        $baseInfo = BaseInfo::find($data['id']);
+        $baseInfo->id_user = $data['user'];
+        $baseInfo->save();
+        return redirect()->back()->withSuccess('Запись успешно обновлена для пользователя!');
+    }
+
     protected function getStatus()
     {
         $status = [];

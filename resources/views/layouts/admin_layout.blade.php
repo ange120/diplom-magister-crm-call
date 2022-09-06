@@ -160,11 +160,6 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{route('subscriptions_user.create')}}" class="nav-link">
-                                        <p>Создать новую подписку </p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a href="{{route('subscriptionAllUsers')}}" class="nav-link">
                                         <p>Назначить подписку</p>
                                     </a>

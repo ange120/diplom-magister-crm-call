@@ -33,7 +33,7 @@
                             <h4 style="text-align: center">
                                 Назначить на пользователя
                             </h4>
-                            <select class="form-control select2 select2-hidden-accessible" name="user" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required>
+                            <select class="form-control select2 select2-hidden-accessible" name="user" style="width: 100%;-webkit-box-shadow: 0px 2px 9px 1px rgba(15, 255, 0, 0.2);-moz-box-shadow: 0px 2px 9px 1px rgba(15, 255, 0, 0.2);box-shadow: 0px 2px 9px 1px rgba(15, 255, 0, 0.2);" data-select2-id="1" tabindex="-1" aria-hidden="true" required>
                                 <option selected="selected" data-select2-id="3"></option>
                                 @foreach($userList as $user)
                                     <option value="{{$user->id}}" >{{$user->name}}</option>
@@ -82,12 +82,18 @@
                                         {{ $post['toUser'] }}
                                     </td>
                                     <td class="project-actions text-right">
-                                        <div class="form-check" @if($post['toUser'] === 'Не назначено')>
+                                        @if($post['toUser'] === 'Не назначено')
+                                        <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="{{$post['id']}}" name="post[]" id="flexCheckDefault">
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 Выбрать запись {{$post['id_client']}}
                                             </label>
-                                        </div @endif>
+                                        </div>
+                                        @else
+                                            <button type="button" class="btn btn-warning btn-sm coll-btn" data-toggle="modal" data-target="#exampleModal"
+                                                    onclick="getId( {{$post['id']}},{{$post['id_client']}})"> <i class="icon fa fa-solid fa-pen"></i>
+                                                Обновить пользователя</button>
+                                        @endif
                                     </td>
                                 </tr>
                             @empty
@@ -122,5 +128,51 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title text-center" id="exampleModalLabel">Обновить запись для пользователя</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route('baseUpdateUser') }}" method="POST">
+                    @csrf
+                    @method('POST')
+                <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="idRow" class="form-control-label">Запись:</label>
+                            <input type="text" name="id" class="form-control" id="idRow" style="display: none">
+                            <input type="text" class="form-control" id="idShow" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="form-control-label">Пользователь:</label>
+                            <select class="form-control select2 select2-hidden-accessible" name="user"  data-select2-id="1" tabindex="-1" aria-hidden="true" required>
+                                <option selected="selected" data-select2-id="3"></option>
+                                @foreach($userList as $user)
+                                    <option value="{{$user->id}}" >{{$user->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-primary">Обновить</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        function getId(idRow,idShow){
+            $('#idRow').val(idRow)
+            $('#idShow').val(idShow)
+        }
+    </script>
     <!-- /.content -->
 @endsection
