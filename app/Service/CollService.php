@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Models\VoiceRecord;
 use Illuminate\Support\Facades\Artisan;
 
 use PAMI\Client\Impl\ClientImpl;
@@ -10,8 +11,10 @@ use PAMI\Message\Action\LogoffAction;
 
 class CollService
 {
-    public static function collAsteriskSnipAndVoice(string $phoneManager, string $phone, string $snip_id, string $voice_id)
+    public static function collAsteriskVoice(string $phoneManager, string $phone, int $voice_id)
     {
+
+        $voice = VoiceRecord::find($voice_id)->text;
 
         $options = array(
             'host' => env('ASTERISK_HOST'),
@@ -23,17 +26,14 @@ class CollService
             'read_timeout' => env('ASTERISK_READ_TIMEOUT')
         );
         try {
-            $actionid = md5(uniqid());
             $client = new ClientImpl($options);
             $client->open();
 
-            $action = new OriginateAction("Local/" . $phoneManager . "@pabx");
-            $action->setContext("pabx");
-            $action->setExtension($phone);
-            $action->setCallerId($phone);
+            $action = new OriginateAction("SIP/".$phone);
+            $action->setContext("outgoing_to_Ukraine");
+            $action->setVariable('TEXTTOSPEEK', $voice);
+            $action->setExtension('s');
             $action->setPriority('1');
-            $action->setAsync(true);
-            $action->setActionID($actionid);
 
             $client->send($action);
 

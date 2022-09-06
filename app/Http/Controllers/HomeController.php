@@ -70,8 +70,7 @@ class HomeController extends Controller
         $phoneManager = Auth::user()->phone_manager;
 
         $userPhone = BaseInfo::find($id)->phone;
-        $callUser = CollService::collAsterisk($phoneManager,$userPhone);
-        //$callUser = CollService::collAsteriskSnipAndVoice($phoneManager,$userPhone,$snip_id,$voice_id);
+        $callUser = CollService::collAsteriskVoice($phoneManager,$userPhone,$voice_id);
         if( $callUser !== true){
             return response()->json(['status' => false, 'info' => "Ошибка во время вызова на номер ".$userPhone." \n"." \n".$callUser], 200);
         }

@@ -41,11 +41,16 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1"> Имя менеджера</label>
-                                    <input type="text" name="name_provider" class="form-control" id="exampleInputEmail1" placeholder="Имя провайдера" required >
+                                    <select onchange="getPhone()" id="userList" class="form-control select2 select2-hidden-accessible" name="name_provider" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" >
+                                        <option selected="selected" data-select2-id="3"></option>
+                                        @foreach($userList as $user)
+                                            <option value="{{$user->phone_manager}}" >{{$user->name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> Номер авторизации</label>
-                                    <input type="text" name="number_provider" class="form-control" id="exampleInputEmail1" placeholder="Номер авторизации" required >
+                                    <label for="userPhone"> Номер авторизации</label>
+                                    <input type="text" id="userPhone" name="number_provider" class="form-control"  placeholder="Номер авторизации" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1"> Назва аккаунту</label>
@@ -67,5 +72,11 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
+    <script>
+        function getPhone(){
+            $("#userPhone").val($("#userList").val())
+        }
+
+    </script>
     <!-- /.content -->
 @endsection
