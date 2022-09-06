@@ -168,10 +168,9 @@ class SubscriptionUserController extends Controller
      */
     public function editSubscriptionsUsers($id)
     {
-        $userAus = auth()->user();
-        $userName = $userAus->name;
+        $userAus = User::find($id);
         $subscription = SubscriptionUser::where('id_user', $id)->first();
-
+        $userName = $userAus->name;
         if(is_null($subscription)){
             $subscriptionUser = SubscriptionUser::create(
             ['id_user'=>$id, 'id_subscription'=>2,

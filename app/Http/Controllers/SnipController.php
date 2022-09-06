@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\InfoSnip;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Service\UpdateConfig;
 
@@ -38,7 +39,8 @@ class SnipController extends Controller
      */
     public function create()
     {
-        return view('user.snip.create');
+        $userList = User::all();
+        return view('user.snip.create', compact('userList'));
     }
 
     /**
