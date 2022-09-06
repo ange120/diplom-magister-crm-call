@@ -41,7 +41,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1">Текс записи</label>
-                                        <textarea class="form-control" name="text" id="exampleFormControlTextarea1" rows="3"> value="{{$voiceRecord->text}}"</textarea>
+                                        <textarea class="form-control" name="text" id="exampleFormControlTextarea1" rows="3">{{$voiceRecord->text}}</textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Язык записи</label>
