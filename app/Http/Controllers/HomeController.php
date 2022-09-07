@@ -8,6 +8,7 @@ use App\Models\Status;
 use App\Models\SubscriptionUser;
 use App\Models\VoiceRecord;
 use App\Service\CollService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,6 +37,7 @@ class HomeController extends Controller
         $voice = VoiceRecord::all();
         $snip = InfoSnip::all();
         $baseList = BaseInfo::where('id_user', $user->id)->paginate(15);
+        $infoSubscription = true;
         foreach ($baseList as $item){
             $result[] = [
                 'id'=> $item->id,
@@ -48,10 +50,10 @@ class HomeController extends Controller
         $listStatus = $this->getStatus();
         $role = Auth::user()->getrolenames();
           if($role->contains('admin') !== true){
-              $this->setSessionSubscription($user->id);
+            $infoSubscription = $this->setSessionSubscription($user->id);
           }
         return view('user.home.index', compact('result','baseList',
-            'listStatus', 'voice', 'snip'));
+            'listStatus', 'voice', 'snip', 'infoSubscription'));
     }
 
     public function logout(Request $request)
@@ -104,7 +106,15 @@ class HomeController extends Controller
     protected function setSessionSubscription($user_id)
     {
         $subActive = SubscriptionUser::where('id_user', $user_id)->first();
-        session()->put('endSubscription', $subActive->endDateSubscription());
-        session()->put('subscriptionId', $subActive->subscription->id);
+        $dateCarbon = Carbon::today();
+        if(!is_null($subActive)){
+            session()->put('endSubscription', $subActive->endDateSubscription());
+            session()->put('subscriptionId', $subActive->subscription->id);
+            return true;
+        }else{
+            session()->put('endSubscription', $dateCarbon->format('Y-m-d'));
+            session()->put('subscriptionId', 2);
+        }
+        return false;
     }
 }

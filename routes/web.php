@@ -46,6 +46,7 @@ Route::middleware(['role:admin'])->prefix('admin_panel')->group(function () {
     Route::get('/base-list', [\App\Http\Controllers\Admin\BaseInfoController::class, 'getBaseList'])->name('baseList');
     Route::post('/base-set-user', [\App\Http\Controllers\Admin\BaseInfoController::class, 'setUserBaseInfo'])->name('baseSetUser');
     Route::post('/base-update-user', [\App\Http\Controllers\Admin\BaseInfoController::class, 'updateUserBaseInfo'])->name('baseUpdateUser');
+    Route::post('/base-create-only', [\App\Http\Controllers\Admin\BaseInfoController::class, 'createOnly'])->name('baseCreateOnly');
 
     Route::resource('users',\App\Http\Controllers\Admin\UserController::class);
     Route::resource('base_info',\App\Http\Controllers\Admin\BaseInfoController::class);

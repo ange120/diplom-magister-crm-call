@@ -43,7 +43,8 @@ class BaseInfoController extends Controller
      */
     public function create()
     {
-        return view('admin.info.create');
+        $selectStatus = Status::all();
+        return view('admin.info.create', compact('selectStatus'));
     }
 
     /**
@@ -120,6 +121,36 @@ class BaseInfoController extends Controller
         $baseInfo->birthday = $birthday;
         $baseInfo->save();
         return redirect()->back()->withSuccess('Запись успешно обновлена!');
+    }
+
+    public function createOnly(Request $request)
+    {
+        $birthday = null;
+
+        $data = $request->all();
+
+        if (!is_null($data['birthday'])) {
+            $d1 = strtotime($data['birthday']);
+            $birthday = date("Y-m-d", $d1);
+        }
+
+        $status = Status::find($data['status'])->id;
+
+        BaseInfo::create([
+            'id_client' => $data['id_client'],
+            'phone' => $data['phone'],
+            'field_1' => $data['field_1'],
+            'field_2' => $data['field_2'],
+            'field_3' => $data['field_3'],
+            'manager' => $data['manager'],
+            'id_status' => $status,
+            'commit' => $data['commit'],
+            'country' => $data['country'],
+            'city' => $data['city'],
+            'sex' => $data['sex'],
+            'birthday' => $birthday,
+        ]);
+        return redirect()->back()->withSuccess('Запись успешно добавлена!');
     }
 
     /**
