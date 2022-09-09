@@ -36,13 +36,15 @@ Route::middleware(['role:user'])->group(function () {
     //trunk
     Route::resource('trunk_by_user',\App\Http\Controllers\TrunkController::class);
 
+    Route::get('download-sound', 'HomeController@downloadFile');
+
 });
 
 Route::middleware(['role:admin'])->prefix('admin_panel')->group(function () {
     Route::get('/', [App\Http\Controllers\Admin\HomeController::class, 'index']); // /admin
     Route::get('/admin_panel', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('homeAdmin'); // /admin
     Route::get('/logout-user', [App\Http\Controllers\Admin\HomeController::class, 'logout'])->name('logout'); // /admin
-    Route::get('/admin-call/{id}', [\App\Http\Controllers\Admin\BaseInfoController::class, 'callUserAdmin'])->name('callUserAdmin');
+    Route::get('/admin-call/{id}/{voice_id}', [\App\Http\Controllers\Admin\BaseInfoController::class, 'callUserAdmin'])->name('callUserAdmin');
     Route::get('/base-list', [\App\Http\Controllers\Admin\BaseInfoController::class, 'getBaseList'])->name('baseList');
     Route::post('/base-set-user', [\App\Http\Controllers\Admin\BaseInfoController::class, 'setUserBaseInfo'])->name('baseSetUser');
     Route::post('/base-update-user', [\App\Http\Controllers\Admin\BaseInfoController::class, 'updateUserBaseInfo'])->name('baseUpdateUser');

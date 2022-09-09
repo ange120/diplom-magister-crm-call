@@ -7,6 +7,7 @@ use App\Imports\ImportBaseInfo;
 use App\Models\BaseInfo;
 use App\Models\Status;
 use App\Models\User;
+use App\Models\VoiceRecord;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
@@ -23,6 +24,7 @@ class BaseInfoController extends Controller
     {
         $result = [];
         $baseList = BaseInfo::paginate(15);
+        $voice = VoiceRecord::all();
         foreach ($baseList as $item) {
 
                 $result[] = [
@@ -33,7 +35,7 @@ class BaseInfoController extends Controller
                     'user_info' => $item->user_info,
                 ];
         }
-        return view('admin.info.index', compact('result', 'baseList'));
+        return view('admin.info.index', compact('result', 'baseList', 'voice'));
     }
 
     /**
@@ -165,12 +167,12 @@ class BaseInfoController extends Controller
         return redirect()->back()->withSuccess('Запись успешно удалена!');
     }
 
-    public function callUserAdmin($id)
+    public function callUserAdmin($id, $voice_id)
     {
         $phoneManager = Auth::user()->phone_manager;
 
         $userPhone = BaseInfo::find($id)->phone;
-        $callUser = CollService::collAsterisk($phoneManager,$userPhone);
+        $callUser = CollService::collAsteriskVoice($phoneManager,$userPhone,$voice_id);
         if ($callUser) {
             return response()->json(['status' => false, 'info' => "Ошибка во время вызова на номер " . $userPhone . ""], 200);
         }

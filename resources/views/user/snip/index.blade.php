@@ -20,7 +20,9 @@
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-
+    @if(isset($deleteConfigSnip))
+        <div class="alert alert-danger">{{ $deleteConfigSnip }}</div>
+    @endif
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">

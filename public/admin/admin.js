@@ -47,8 +47,9 @@ tinymce.init({
     }
 
     function adminCall(id){
+        let voice = document.querySelector("#select_voice").value
         $.ajax({
-            url: '/admin_panel/admin-call/' + id,
+            url: '/admin_panel/admin-call/' + id + '/'+voice,
             type: 'get',
             data: {},
             success: function(data) {

@@ -37,6 +37,9 @@
                             @if(isset($errorInfo))
                                 <div class="alert alert-danger">{{ $errorInfo }}</div>
                             @endif
+                            @if(isset($message))
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @endif
 
                             <div class="card-body">
                                 <div class="card-body">

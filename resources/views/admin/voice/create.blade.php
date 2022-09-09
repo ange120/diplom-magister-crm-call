@@ -27,6 +27,38 @@
     </div>
     <!-- /.content-header -->
     <!-- Main content -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card card-primary">
+                        <!-- form start -->
+                        <form action="{{ route('base_info.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="exampleFormControlFile1">Выберите файл</label>
+                                    <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1" required>
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-info btn-sm coll-btn" data-toggle="modal" data-target="#exampleModal"
+                                    >
+                                        <i class="icon fa solid fa-question"></i>
+                                        Информация о структуре файла</button>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-success">Загрузить</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
     <section class="content">
         <div class="container-fluid">
             <div class="row">

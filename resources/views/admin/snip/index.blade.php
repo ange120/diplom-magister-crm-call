@@ -17,6 +17,9 @@
                     <h4><i class="icon fa fa-check"></i>{{ session('success') }}</h4>
                 </div>
             @endif
+            @if(isset($deleteConfigSnip))
+                <div class="alert alert-danger">{{ $deleteConfigSnip }}</div>
+            @endif
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->

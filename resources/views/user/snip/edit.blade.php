@@ -33,6 +33,9 @@
                         <form action="{{ route('snip_by_user.update', $infoSnip->id) }}" method="POST">
                             @csrf
                             @method('PUT')
+                            @if(isset($updateConfigSnip))
+                                <div class="alert alert-danger">{{ $updateConfigSnip }}</div>
+                            @endif
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputId">#</label>
