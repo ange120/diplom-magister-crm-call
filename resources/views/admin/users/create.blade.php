@@ -23,6 +23,9 @@
                     <h4><i class="icon fa fa-ban"></i>{{ session('error') }}</h4>
                 </div>
             @endif
+            @if(isset($message))
+                <div class="alert alert-danger">{{ $message }}</div>
+            @endif
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->

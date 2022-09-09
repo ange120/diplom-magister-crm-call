@@ -59,8 +59,16 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $roles = $this->getRoles();
-
+        $validator = Validator::make($request->all(), [
+            'name' => 'bail|required|unique:users',
+            'phone_manager' => 'required|unique:users',
+        ]);
+        if($validator->fails()){
+            return redirect()->back()->with('error',$validator->errors()->first());
+        }
         $data =$request->all();
+        $allUser = User::where('name', $data['name'])->first();
+
         if($data['password'] !== $data['confirm_password']){
             $errorInfo = 'Пароли не совпадают';
             return view('admin.users.create', compact('roles','errorInfo'));
@@ -112,6 +120,19 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $data = $request->all();
+
+        $phoneManagerValidate  = User::where('phone_manager', $data['phone_manager'])->first();
+        $nameValidate  = User::where('name', $data['name'])->first();
+        if(!is_null($nameValidate)){
+            if($user->id !== $nameValidate->id){
+                return redirect()->back()->with('error',"Такое Имя пользователя уже забронировано!");
+            }
+        }
+        if(!is_null($phoneManagerValidate)){
+            if($user->id !== $phoneManagerValidate->id){
+                return redirect()->back()->with('error',"Такой номер менеджера уже забронирован!");
+            }
+        }
         $roleId = ModelHasRoles::where('model_id',$data['id'] )->first()->role_id;
         $roleUser = $this->getRoleUserById($roleId);
         if(!is_null($data['password']) && !is_null($data['confirm_password'])){

@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Language;
 use App\Models\VoiceRecord;
+use App\Service\SendSound;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class VoiceAdminController extends Controller
 {
@@ -49,8 +51,14 @@ class VoiceAdminController extends Controller
      */
     public function store(Request $request)
     {
+        $languages = Language::all();
         $data =$request->all();
+        $voiceRecord = VoiceRecord::where('name',$data['name'])->first();
 
+        if(!is_null($voiceRecord)){
+            $message = 'Запись с таким именем уже существует!';
+            return view('admin.voice.create', compact('message','languages'));
+        }
         VoiceRecord::create([
             'name' => $data['name'] ,
             'text' => $data['text'],
@@ -113,5 +121,31 @@ class VoiceAdminController extends Controller
         $voiceRecord = VoiceRecord::find($id);
         $voiceRecord->delete();
         return redirect()->back()->withSuccess('Запись голоса успешно удалёна!');
+    }
+
+    public function voiceCreateSound(Request $request)
+    {
+        $languages = Language::all();
+        $data = $request->all();
+        $voiceRecord = VoiceRecord::where('name',$data['name'])->first();
+
+        if(!is_null($voiceRecord)){
+            $message = 'Запись с таким именем уже существует!';
+            return view('admin.voice.create', compact('message','languages'));
+        }
+
+        $send = SendSound::sendVoice($request->file('file')->store('files'));
+
+        if($send !== true){
+            $message = $send;
+            return view('admin.voice.create', compact('message','languages'));
+        }
+        VoiceRecord::create([
+            'name' => $data['name'] ,
+            'text' => 'Звуковой файл',
+            'id_language' => (int)$data['language'],
+            'type' => 'files',
+        ]);
+        return redirect()->back()->withSuccess('Запись голоса успешно обновлёна!');
     }
 }

@@ -33,6 +33,8 @@ Route::middleware(['role:user'])->group(function () {
     Route::resource('snip_by_user',\App\Http\Controllers\SnipController::class);
     //voice
     Route::resource('voice_by_user',\App\Http\Controllers\VoiceRecordController::class);
+    Route::post('/voice-create-sound-user', [\App\Http\Controllers\VoiceRecordController::class, 'voiceCreateSound'])->name('voiceCreateUserSound');
+
     //trunk
     Route::resource('trunk_by_user',\App\Http\Controllers\TrunkController::class);
 
@@ -57,6 +59,8 @@ Route::middleware(['role:admin'])->prefix('admin_panel')->group(function () {
     Route::resource('snip_by_admin',\App\Http\Controllers\Admin\SnipAdminController::class);
     //voice
     Route::resource('voice_by_admin',\App\Http\Controllers\Admin\VoiceAdminController::class);
+    Route::post('/voice-create-sound-admin', [\App\Http\Controllers\Admin\VoiceAdminController::class, 'voiceCreateSound'])->name('voiceCreateAdminSound');
+
     //Subscription
     Route::resource('subscriptions_user',\App\Http\Controllers\Admin\SubscriptionUserController::class);
     Route::get('/subscription-all-user', [\App\Http\Controllers\Admin\SubscriptionUserController::class, 'getSubscriptionsUsers'])->name('subscriptionAllUsers');
