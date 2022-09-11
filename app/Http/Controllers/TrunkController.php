@@ -16,16 +16,8 @@ class TrunkController extends Controller
      */
     public function index()
     {
-        $result = [];
         $trunkRecordList = Trunk::paginate(15);
-        foreach ($trunkRecordList as $item) {
-            $result[] = [
-                'id' => $item->id,
-                'sip_server' => $item->sip_server,
-                'login' => $item->login,
-            ];
-        }
-        return view('user.trunk.index', compact('result', 'trunkRecordList'));
+        return view('user.trunk.index', compact( 'trunkRecordList'));
     }
 
     /**

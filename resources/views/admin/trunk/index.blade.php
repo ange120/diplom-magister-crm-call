@@ -48,24 +48,24 @@
                         </thead>
                         <tbody>
 
-                        @forelse($result as $post)
+                        @forelse($trunkRecordList as $item)
                             <tr>
                                 <td>
-                                    {{ $post['id']}}
+                                    {{ $item->id }}
                                 </td>
                                 <td>
-                                    {{ $post['sip_server'] }}
+                                    {{ $item->sip_server }}
                                 </td>
                                 <td>
-                                    {{ $post['login'] }}
+                                    {{  $item->login }}
                                 </td>
                                 <td class="project-actions text-right">
-                                    <a class="btn btn-warning btn-sm" href="{{ route('trunk_by_admin.edit', $post['id']) }}">
+                                    <a class="btn btn-warning btn-sm" href="{{ route('trunk_by_admin.edit',  $item->id) }}">
                                         <i class="fas fa-pencil-alt">
                                         </i>
                                         Редактировать
                                     </a>
-                                    <form action="{{ route('trunk_by_admin.destroy',$post['id']) }}" method="POST"
+                                    <form action="{{ route('trunk_by_admin.destroy', $item->id) }}" method="POST"
                                           style="display: inline-block">
                                         @csrf
                                         @method('DELETE')

@@ -48,27 +48,27 @@
                         </thead>
                         <tbody>
 
-                        @forelse($result as $post)
+                        @forelse($trunkRecordList as $item)
                             <tr>
                                 <td>
-                                    {{ $post['id']}}
+                                    {{ $item->id }}
                                 </td>
                                 <td>
-                                    {{ $post['sip_server'] }}
+                                    {{ $item->sip_server }}
                                 </td>
                                 <td>
-                                    {{ $post['login'] }}
+                                    {{  $item->login }}
                                 </td>
                                 @if(session('subscriptionId') !== 1)
                                     @if(session('endSubscription') === true)
                                 <td class="project-actions text-right">
-                                    <a class="btn btn-warning btn-sm" href="{{ route('trunk_by_user.edit', $post['id']) }}">
+                                    <a class="btn btn-warning btn-sm" href="{{ route('trunk_by_user.edit',  $item->id) }}">
                                         <i class="fas fa-pencil-alt">
                                         </i>
                                         Редактировать
                                     </a>
 
-                                    <form action="{{ route('trunk_by_user.destroy',$post['id']) }}" method="POST"
+                                    <form action="{{ route('trunk_by_user.destroy', $item->id) }}" method="POST"
                                           style="display: inline-block">
                                         @csrf
                                         @method('DELETE')
