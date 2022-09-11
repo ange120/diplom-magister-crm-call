@@ -90,38 +90,29 @@ class UpdateConfig
             $action = new UpdateConfigAction();
             $action->setSrcFilename('sip.conf');
             $action->setDstFilename('sip.conf');
-            $action->setReload('no');
-            $action->setAction('NewCat');
-            $action->setCat(''.$number_provider);
-
-            $client->send($action);
-
-            $action = new UpdateConfigAction();
-            $action->setSrcFilename('sip.conf');
-            $action->setDstFilename('sip.conf');
             $action->setReload('yes');
-            $action->setAction('append');
+            $action->setAction('Update');
             $action->setCat(''.$number_provider);
             $action->setVar('secret');
             $action->setValue(''.$password_snip);
-            $action->setAction('append');
+            $action->setAction('Update');
             $action->setCat(''.$number_provider);
             $action->setVar('host');
             $action->setValue('dynamic');
-            $action->setAction('append');
+            $action->setAction('Update');
             $action->setCat(''.$number_provider);
             $action->setVar('transport');
             $action->setValue('udp');
-            $action->setAction('append');
+            $action->setAction('Update');
             $action->setCat(''.$number_provider);
             $action->setVar('type');
             $action->setValue('friend');
-            $action->setAction('append');
+            $action->setAction('Update');
             $action->setCat(''.$number_provider);
             $action->setVar('context');
             $action->setValue('outgoing');
             $action->setCat(''.$number_provider);
-            $action->setAction('append');
+            $action->setAction('Update');
             $action->setVar('nat');
             $action->setValue('force_rport,comedia');
 
@@ -154,19 +145,9 @@ class UpdateConfig
             $action = new UpdateConfigAction();
             $action->setSrcFilename('sip.conf');
             $action->setDstFilename('sip.conf');
-            $action->setReload('no');
-            $action->setAction('NewCat');
-            $action->setCat(''.$number_provider);
-
-            $client->send($action);
-
-            $action = new UpdateConfigAction();
-            $action->setSrcFilename('sip.conf');
-            $action->setDstFilename('sip.conf');
             $action->setReload('yes');
-            $action->setAction('append');
+            $action->setAction('DelCat');
             $action->setCat(''.$number_provider);
-            $action->setVar('secret');
 
             $client->send($action);
 
@@ -259,33 +240,24 @@ class UpdateConfig
             $action = new UpdateConfigAction();
             $action->setSrcFilename('sip.conf');
             $action->setDstFilename('sip.conf');
-            $action->setReload('no');
-            $action->setAction('NewCat');
-            $action->setCat(''.$login.'(zadarma)');
-
-            $client->send($action);
-
-            $action = new UpdateConfigAction();
-            $action->setSrcFilename('sip.conf');
-            $action->setDstFilename('sip.conf');
             $action->setReload('yes');
-            $action->setAction('append');
+            $action->setAction('Update');
             $action->setCat(''.$login.'(zadarma)');
             $action->setVar('defaultuser');
             $action->setValue(''.$login);
-            $action->setAction('append');
+            $action->setAction('Update');
             $action->setCat(''.$login.'(zadarma)');
             $action->setVar('trunkname');
             $action->setValue(''.$login);
-            $action->setAction('append');
+            $action->setAction('Update');
             $action->setCat(''.$login.'(zadarma)');
             $action->setVar('fromuser');
             $action->setValue(''.$login);
-            $action->setAction('append');
+            $action->setAction('Update');
             $action->setCat(''.$login.'(zadarma)');
             $action->setVar('callbackextension');
             $action->setValue(''.$login);
-            $action->setAction('append');
+            $action->setAction('Update');
             $action->setCat(''.$login.'(zadarma)');
             $action->setVar('secret');
             $action->setValue(''.$password);
@@ -320,33 +292,8 @@ class UpdateConfig
             $action = new UpdateConfigAction();
             $action->setSrcFilename('sip.conf');
             $action->setDstFilename('sip.conf');
-            $action->setReload('no');
-            $action->setAction('NewCat');
-            $action->setCat(''.$login.'(zadarma)');
-
-            $client->send($action);
-
-            $action = new UpdateConfigAction();
-            $action->setSrcFilename('sip.conf');
-            $action->setDstFilename('sip.conf');
             $action->setReload('yes');
-            $action->setAction('append');
-            $action->setCat(''.$login.'(zadarma)');
-            $action->setVar('defaultuser');
-            $action->setValue(''.$login);
-            $action->setAction('append');
-            $action->setCat(''.$login.'(zadarma)');
-            $action->setVar('trunkname');
-            $action->setValue(''.$login);
-            $action->setAction('append');
-            $action->setCat(''.$login.'(zadarma)');
-            $action->setVar('fromuser');
-            $action->setValue(''.$login);
-            $action->setAction('append');
-            $action->setCat(''.$login.'(zadarma)');
-            $action->setVar('callbackextension');
-            $action->setValue(''.$login);
-            $action->setAction('append');
+            $action->setAction('DelCat');
             $action->setCat(''.$login.'(zadarma)');
 
             $client->send($action);
