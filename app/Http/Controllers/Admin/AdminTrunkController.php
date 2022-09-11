@@ -109,6 +109,10 @@ class AdminTrunkController extends Controller
                 return view('admin.trunk.edit', compact('trunk','errorInfo'));
             }
         }
+        $message = UpdateConfig::updateTrunk($trunk->login, $trunk->sip_server,  $trunk->password);
+        if($message !== true){
+            return view('admin.snip.index', compact('message'));
+        }
         $trunk->sip_server = $data['sip_server'];
         $trunk->login = $data['login'];
         $trunk->save();
@@ -125,6 +129,10 @@ class AdminTrunkController extends Controller
     public function destroy($id)
     {
         $trunk = Trunk::find($id);
+        $message = UpdateConfig::deleteTrunk($trunk->login);
+        if($message !== true){
+            return view('admin.snip.index', compact('message'));
+        }
         $trunk->delete();
         return redirect()->back()->withSuccess('Trunk успешно удалён!');
     }

@@ -32,8 +32,8 @@
                             @csrf
                             @method('PUT')
 
-                            @if(isset($errorInfo))
-                                <div class="alert alert-danger">{{ $errorInfo }}</div>
+                            @if(isset($message))
+                                <div class="alert alert-danger">{{ $message }}</div>
                             @endif
 
                             <div class="card-body">

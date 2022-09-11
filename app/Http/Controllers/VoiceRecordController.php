@@ -6,6 +6,7 @@ use App\Models\Language;
 use App\Models\VoiceRecord;
 use App\Service\SendSound;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VoiceRecordController extends Controller
 {
@@ -125,6 +126,7 @@ class VoiceRecordController extends Controller
     {
         $languages = Language::all();
         $data = $request->all();
+        $user = Auth::user();
         $voiceRecord = VoiceRecord::where('name',$data['name'])->first();
 
         if(!is_null($voiceRecord)){
@@ -132,7 +134,7 @@ class VoiceRecordController extends Controller
             return view('user.voice.create', compact('message','languages'));
         }
 
-        $send = SendSound::sendVoice($request->file('file')->store('files'));
+        $send = SendSound::sendVoice($request->file('file')->store('files'), $user->phone_manager);
 
         if($send !== true){
             $message = $send;

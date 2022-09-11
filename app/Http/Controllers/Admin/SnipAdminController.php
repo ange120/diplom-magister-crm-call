@@ -102,6 +102,10 @@ class SnipAdminController extends Controller
     {
         $data = $request->all();
         $infoSnipModel = InfoSnip::find($id);
+        $deleteConfigSnip = UpdateConfig::updateSNIP($infoSnipModel->number_provider, $infoSnipModel->password_snip);
+        if($deleteConfigSnip !== true){
+            return view('user.snip.index', compact('deleteConfigSnip'));
+        }
         $infoSnipModel->name_provider = $data['name_provider'];
         $infoSnipModel->number_provider =  $data['number_provider'];
         $infoSnipModel->login_snip = $data['login_snip'];
@@ -120,6 +124,10 @@ class SnipAdminController extends Controller
     public function destroy($id)
     {
         $infoSnip = InfoSnip::find($id);
+        $deleteConfigSnip = UpdateConfig::deleteSNIP($infoSnip->number_provider);
+        if($deleteConfigSnip !== true){
+            return view('admin.snip.index', compact('deleteConfigSnip'));
+        }
         $infoSnip->delete();
         return redirect()->back()->withSuccess('SNIP успешно удалён!');
     }
