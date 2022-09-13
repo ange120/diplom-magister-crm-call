@@ -56,8 +56,8 @@ class UpdateConfig
             $action->setCat(''.$number_provider);
             $action->setVar('context');
             $action->setValue('outgoing');
-            $action->setCat(''.$number_provider);
             $action->setAction('append');
+            $action->setCat(''.$number_provider);
             $action->setVar('nat');
             $action->setValue('force_rport,comedia');
 
@@ -113,6 +113,7 @@ class UpdateConfig
             $action->setValue('outgoing');
             $action->setCat(''.$number_provider);
             $action->setAction('Update');
+            $action->setCat(''.$number_provider);
             $action->setVar('nat');
             $action->setValue('force_rport,comedia');
 
@@ -181,7 +182,8 @@ class UpdateConfig
             $action->setDstFilename('sip.conf');
             $action->setReload('no');
             $action->setAction('NewCat');
-            $action->setCat(''.$login.'(zadarma)');
+            $action->setOptions('inherit="zadarma"');
+            $action->setCat(''.$login);
 
             $client->send($action);
 
@@ -190,23 +192,24 @@ class UpdateConfig
             $action->setDstFilename('sip.conf');
             $action->setReload('yes');
             $action->setAction('append');
-            $action->setCat(''.$login.'(zadarma)');
+            $action->setOptions('inherit="zadarma"');
+            $action->setCat(''.$login);
             $action->setVar('defaultuser');
             $action->setValue(''.$login);
             $action->setAction('append');
-            $action->setCat(''.$login.'(zadarma)');
+            $action->setCat(''.$login);
             $action->setVar('trunkname');
             $action->setValue(''.$login);
             $action->setAction('append');
-            $action->setCat(''.$login.'(zadarma)');
+            $action->setCat(''.$login);
             $action->setVar('fromuser');
             $action->setValue(''.$login);
             $action->setAction('append');
-            $action->setCat(''.$login.'(zadarma)');
+            $action->setCat(''.$login);
             $action->setVar('callbackextension');
             $action->setValue(''.$login);
             $action->setAction('append');
-            $action->setCat(''.$login.'(zadarma)');
+            $action->setCat(''.$login);
             $action->setVar('secret');
             $action->setValue(''.$password);
 
