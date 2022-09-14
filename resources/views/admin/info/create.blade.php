@@ -29,7 +29,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="col-sm-6">
-            <h1 class="m-0">Загрузить запись</h1>
+            <h1 class="m-0">Загрузить записи</h1>
         </div><!-- /.col -->
         <div class="container-fluid">
             <div class="row">
@@ -66,7 +66,7 @@
     </section>
     <section class="content">
         <div class="col-sm-6">
-            <h1 class="m-0">Загрузить записи на менеджера</h1>
+            <h1 class="m-0">Загрузить записи на пользователя</h1>
         </div><!-- /.col -->
         <div class="container-fluid">
             <div class="row">
