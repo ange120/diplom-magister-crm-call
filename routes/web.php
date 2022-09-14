@@ -41,7 +41,35 @@ Route::middleware(['role:user'])->group(function () {
     Route::get('download-sound', 'HomeController@downloadFile');
 
 });
+Route::middleware(['role:super_admin'])->prefix('super_admin_panel')->group(function () {
+    Route::get('/', [App\Http\Controllers\Admin\HomeController::class, 'index']); // /admin
+    Route::get('/admin_panel', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('homeAdmin'); // /admin
+    Route::get('/logout-user', [App\Http\Controllers\Admin\HomeController::class, 'logout'])->name('logout'); // /admin
+    Route::get('/admin-call/{id}/{voice_id}', [\App\Http\Controllers\Admin\BaseInfoController::class, 'callUserAdmin'])->name('callUserAdmin');
+    Route::get('/base-list', [\App\Http\Controllers\Admin\BaseInfoController::class, 'getBaseList'])->name('baseList');
+    Route::post('/base-set-user', [\App\Http\Controllers\Admin\BaseInfoController::class, 'setUserBaseInfo'])->name('baseSetUser');
+    Route::post('/base-update-user', [\App\Http\Controllers\Admin\BaseInfoController::class, 'updateUserBaseInfo'])->name('baseUpdateUser');
+    Route::post('/base-create-only', [\App\Http\Controllers\Admin\BaseInfoController::class, 'createOnly'])->name('baseCreateOnly');
+    Route::post('/base-create-to-user', [\App\Http\Controllers\Admin\BaseInfoController::class, 'createToUserOnly'])->name('baseCreateToUser');
 
+    Route::resource('users',\App\Http\Controllers\Admin\UserController::class);
+    Route::resource('base_info',\App\Http\Controllers\Admin\BaseInfoController::class);
+    Route::resource('status',\App\Http\Controllers\Admin\StatusController::class);
+    //snip
+    Route::resource('snip_by_admin',\App\Http\Controllers\Admin\SnipAdminController::class);
+    //voice
+    Route::resource('voice_by_admin',\App\Http\Controllers\Admin\VoiceAdminController::class);
+    Route::post('/voice-create-sound-admin', [\App\Http\Controllers\Admin\VoiceAdminController::class, 'voiceCreateSound'])->name('voiceCreateAdminSound');
+
+    //Subscription
+    Route::resource('subscriptions_user',\App\Http\Controllers\Admin\SubscriptionUserController::class);
+    Route::get('/subscription-all-user', [\App\Http\Controllers\Admin\SubscriptionUserController::class, 'getSubscriptionsUsers'])->name('subscriptionAllUsers');
+    Route::get('/edit-subscription-user/{id}', [\App\Http\Controllers\Admin\SubscriptionUserController::class, 'editSubscriptionsUsers'])->name('editSubscriptionUser');
+    Route::put('/update-subscription-user/{id}', [\App\Http\Controllers\Admin\SubscriptionUserController::class, 'updateSubscriptionsUsers'])->name('updateSubscriptionUser');
+    //trunk
+    Route::resource('trunk_by_admin',\App\Http\Controllers\Admin\AdminTrunkController::class);
+
+});
 Route::middleware(['role:admin'])->prefix('admin_panel')->group(function () {
     Route::get('/', [App\Http\Controllers\Admin\HomeController::class, 'index']); // /admin
     Route::get('/admin_panel', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('homeAdmin'); // /admin
@@ -71,3 +99,4 @@ Route::middleware(['role:admin'])->prefix('admin_panel')->group(function () {
     Route::resource('trunk_by_admin',\App\Http\Controllers\Admin\AdminTrunkController::class);
 
 });
+

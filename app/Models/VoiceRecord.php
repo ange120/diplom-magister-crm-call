@@ -14,7 +14,7 @@ class VoiceRecord extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'name', 'text', 'id_language'
+        'name', 'text', 'id_language', 'type'
     ];
     public function languages()
     {
