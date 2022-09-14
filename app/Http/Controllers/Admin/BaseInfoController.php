@@ -26,10 +26,11 @@ class BaseInfoController extends Controller
         $result = [];
 
         $role = Auth::user()->getrolenames();
-        if($role->contains('manager') == true){
-            $baseList = BaseInfo::where('id_manager', Auth::user()->id)->paginate(15);
+        if($role->contains('admin') == true){
+            $baseList = BaseInfo::where('id_admin', Auth::user()->id)->paginate(15);
+        }else{
+            $baseList = BaseInfo::paginate(15);
         }
-        $baseList = BaseInfo::paginate(15);
         $voice = VoiceRecord::all();
         foreach ($baseList as $item) {
 
@@ -80,7 +81,9 @@ class BaseInfoController extends Controller
     public function createToUserOnly(Request $request)
     {
         $data = $request->all();
+
         session()->put('user_id', $data['user']);
+        session()->put('id_admin',  Auth::user()->id);
         try {
             Excel::import(new ImportBaseInfoToUser, $request->file('file')->store('files'));
         } catch (\Throwable $throwable) {

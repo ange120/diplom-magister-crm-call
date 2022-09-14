@@ -26,7 +26,8 @@ class ImportBaseInfoToUser implements ToModel
             'id_status' => Status::where('name', $row[7])->first()->id,
             'commit' => $row[8],
             'user_info' => $row[9],
-            'id_admin' => session('user_id'),
+            'id_user' => session('user_id'),
+            'id_admin' => session('id_admin'),
         ]);
     }
 }

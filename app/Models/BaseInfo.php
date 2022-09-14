@@ -16,7 +16,7 @@ class BaseInfo extends Model
 
     protected $fillable = [
         'id_client', 'phone', 'field_1', 'field_2', 'field_3','field_4','manager','id_status',  'id_user', 'commit', 'user_info',
-        'country', 'city', 'sex', 'birthday', 'id_manager'
+        'country', 'city', 'sex', 'birthday', 'id_admin'
     ];
 
 }
