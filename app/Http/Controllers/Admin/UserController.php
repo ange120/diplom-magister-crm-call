@@ -71,7 +71,7 @@ class UserController extends Controller
 
         if($data['password'] !== $data['confirm_password']){
             $errorInfo = 'Пароли не совпадают';
-            return view('admin.users.create', compact('roles','errorInfo'));
+            return redirect()->back()->with('error',$errorInfo);
         }
         $user = User::create([
             'name' => $data['name'],

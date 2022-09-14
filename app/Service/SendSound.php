@@ -1,20 +1,23 @@
 <?php
 
 namespace App\Service;
-
+use CURLFile;
 class SendSound
 {
     public static function sendVoice(string $audio, string $phone_manager)
     {
-        $data = array("voiceData" => $audio, 'phone_manager' => $phone_manager);
-        $data_string = json_encode($data);
-        $ch = curl_init('https://example.com');
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/json')
-        );
-        $result = curl_exec($ch);
+        $newFile =  substr(stristr($audio, '/'), 1);
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'http://192.168.137.23/'.$newFile,
+            CURLOPT_RETURNTRANSFER => '1',
+            CURLOPT_CUSTOMREQUEST => 'PUT',
+            CURLOPT_POSTFIELDS => array(new CURLFILE($newFile)),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
         return true;
     }
 }

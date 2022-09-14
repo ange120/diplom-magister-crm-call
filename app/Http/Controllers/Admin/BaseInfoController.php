@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Imports\ImportBaseInfo;
+use App\Imports\ImportBaseInfoToUser;
 use App\Models\BaseInfo;
 use App\Models\Status;
 use App\Models\User;
@@ -23,6 +24,11 @@ class BaseInfoController extends Controller
     public function index()
     {
         $result = [];
+
+        $role = Auth::user()->getrolenames();
+        if($role->contains('manager') == true){
+            $baseList = BaseInfo::where('id_manager', Auth::user()->id)->paginate(15);
+        }
         $baseList = BaseInfo::paginate(15);
         $voice = VoiceRecord::all();
         foreach ($baseList as $item) {
@@ -46,7 +52,8 @@ class BaseInfoController extends Controller
     public function create()
     {
         $selectStatus = Status::all();
-        return view('admin.info.create', compact('selectStatus'));
+        $userList = User::all();
+        return view('admin.info.create', compact('selectStatus','userList'));
     }
 
     /**
@@ -63,6 +70,23 @@ class BaseInfoController extends Controller
             return redirect()->back()->with('error', "Ошибка. Пожалуйста, уберите заголовки в файле или проверьте на наличие новых статусов.");
         }
 
+        return redirect()->back()->withSuccess('Файл успешно загружен!');
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function createToUserOnly(Request $request)
+    {
+        $data = $request->all();
+        session()->put('user_id', $data['user']);
+        try {
+            Excel::import(new ImportBaseInfoToUser, $request->file('file')->store('files'));
+        } catch (\Throwable $throwable) {
+            return redirect()->back()->with('error', "Ошибка. Пожалуйста, уберите заголовки в файле или проверьте на наличие новых статусов.");
+        }
+        session()->forget('user_id');
         return redirect()->back()->withSuccess('Файл успешно загружен!');
     }
 

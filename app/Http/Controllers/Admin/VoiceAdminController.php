@@ -136,7 +136,7 @@ class VoiceAdminController extends Controller
             return view('admin.voice.create', compact('message','languages'));
         }
 
-        $send = SendSound::sendVoice($request->file('file')->store('files'), $user->phone_manager);
+        $send = SendSound::sendVoice($request->file('file')->store('files'),  $data['name'],$user->phone_manager);
 
         if($send !== true){
             $message = $send;

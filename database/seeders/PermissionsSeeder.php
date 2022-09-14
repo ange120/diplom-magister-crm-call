@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 
-class RolesSeeder extends Seeder
+class PermissionsSeeder extends Seeder
 {
     public $data = [
         [
