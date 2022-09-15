@@ -54,10 +54,11 @@ class SnipAdminController extends Controller
     public function store(Request $request)
     {
         $data =$request->all();
+        $userList = User::all();
 
         $updateConfig = UpdateConfig::createNewSNIP($data['number_provider'], $data['password_snip']);
         if($updateConfig !== true){
-            return view('admin.snip.create', compact('updateConfig'));
+            return view('admin.snip.create', compact('updateConfig', 'userList'));
         }
         InfoSnip::create([
             'ip_snip' => 'null',
