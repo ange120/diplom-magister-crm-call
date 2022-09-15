@@ -55,6 +55,15 @@
                                     <input type="text" name="number_provider" class="form-control" id="userPhone" placeholder="Номер авторизации" readonly >
                                 </div>
                                 <div class="form-group">
+                                    <label for="exampleInputEmail1">Trunk</label>
+                                    <select  class="form-control select2 select2-hidden-accessible" name="id_trunk" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" >
+                                        <option selected="selected" data-select2-id="3"></option>
+                                        @foreach($trunkList as $trunk)
+                                            <option value="{{$trunk->id}}" >{{$trunk->login}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label for="exampleInputEmail1"> Назва аккаунту</label>
                                     <input type="text" name="login_snip" class="form-control" id="exampleInputEmail1" placeholder="Назва аккаунту" required >
                                 </div>

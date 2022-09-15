@@ -47,6 +47,9 @@
                             <th>
                                 Пароль аккаунту
                             </th>
+                            <th>
+                                Trunk
+                            </th>
                             <th style="width: 30%">
                             </th>
                         </tr>
@@ -69,6 +72,9 @@
                                 </td>
                                 <td>
                                     {{ $post['password_snip'] }}
+                                </td>
+                                <td>
+                                    {{ $post['trunk'] }}
                                 </td>
                                 <td class="project-actions text-right">
                                     <a class="btn btn-warning btn-sm" href="{{ route('snip_by_admin.edit', $post['id']) }}">

@@ -6,6 +6,7 @@ use App\Models\BaseInfo;
 use App\Models\InfoSnip;
 use App\Models\Status;
 use App\Models\SubscriptionUser;
+use App\Models\Trunk;
 use App\Models\VoiceRecord;
 use App\Service\CollService;
 use Carbon\Carbon;
@@ -72,11 +73,52 @@ class HomeController extends Controller
         $phoneManager = Auth::user()->phone_manager;
 
         $userPhone = BaseInfo::find($id)->phone;
-        $callUser = CollService::collAsteriskVoice($phoneManager,$userPhone,$voice_id);
+        $snipUser = InfoSnip::where('number_provider', '=',$phoneManager)->first();
+        if(is_null($snipUser)){
+            return response()->json(['status' => false, 'info' => "У вас не настроен аккаунт для звонков"], 200);
+        }
+        $trunk_login = Trunk::find($snipUser->id_trunk);
+        if(is_null($trunk_login)){
+            return response()->json(['status' => false, 'info' => "У вас не настроен аккаунт для звонков"], 200);
+        }
+        $callUser = CollService::collAsteriskVoice($phoneManager,$userPhone,$voice_id, $trunk_login->login);
         if( $callUser !== true){
             return response()->json(['status' => false, 'info' => "Ошибка во время вызова на номер ".$userPhone." \n"." \n".$callUser], 200);
         }
         return response()->json(['status' => true, 'phone' => "$userPhone"], 200);
+    }
+
+    public function callManyUser(Request $request)
+    {
+        $user = Auth::user();
+        $phoneManager = $user->phone_manager;
+        $data = $request->all();
+        $lastClient = BaseInfo::orderby('id', 'desc')->first()->id_client;
+
+        $snipUser = InfoSnip::where('number_provider', '=',$phoneManager)->first();
+        if(is_null($snipUser)){
+            return redirect()->back()->with('error','У вас не настроен аккаунт для звонков');
+        }
+        $trunk_login = Trunk::find($snipUser->id_trunk);
+        if(is_null($trunk_login)){
+            return redirect()->back()->with('error','У вас не настроен аккаунт для звонков');
+        }
+
+        if(is_null($data['count_end'])){
+            $toCall = BaseInfo::whereBetween('id_client', [$data['count_start'], $lastClient])->get();
+        }else{
+            $toCall = BaseInfo::whereBetween('id_client', [$data['count_start'], $data['count_end']])->get();
+        }
+        if($toCall->count() == 0){
+            return redirect()->back()->with('error','Данных записей не существует');
+        }
+        foreach ($toCall as $item){
+            $callUser = CollService::collAsteriskVoice($phoneManager,$item->phone,$data['language'], $trunk_login->login);
+            if( $callUser !== true){
+                return redirect()->back()->with('error','Ошибка во время вызова на номер '.$item->phone." Описание ошибки: ".$callUser);
+            }
+        }
+        return redirect()->back()->withSuccess('Звонки на выбранных пользователь выполняются');
     }
 
     public function updateStatus(Request $request)

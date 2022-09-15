@@ -46,6 +46,9 @@
                             <th>
                                 Пароль аккаунту
                             </th>
+                            <th>
+                                Trunk
+                            </th>
                             <th style="width: 30%">
                                 Действия
                             </th>
@@ -70,31 +73,35 @@
                                 <td>
                                     {{ $post['password_snip'] }}
                                 </td>
+                                <td>
+                                    {{ $post['trunk'] }}
+                                </td>
                                 @if(session('subscriptionId') !== 1)
                                     @if(session('endSubscription') === true)
-                                <td class="project-actions text-right">
-                                    <a class="btn btn-warning btn-sm" href="{{ route('snip_by_user.edit', $post['id']) }}">
-                                        <i class="fas fa-pencil-alt">
-                                        </i>
-                                        Редактировать
-                                    </a>
-                                    <form action="{{ route('snip_by_user.destroy',$post['id']) }}" method="POST"
-                                          style="display: inline-block">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm delete-btn">
-                                            <i class="fas fa-trash">
-                                            </i>
-                                            Удалить
-                                        </button>
-                                    </form>
-                                        @else
+                                        <td class="project-actions text-right">
+                                            <a class="btn btn-warning btn-sm"
+                                               href="{{ route('snip_by_user.edit', $post['id']) }}">
+                                                <i class="fas fa-pencil-alt">
+                                                </i>
+                                                Редактировать
+                                            </a>
+                                            <form action="{{ route('snip_by_user.destroy',$post['id']) }}" method="POST"
+                                                  style="display: inline-block">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm delete-btn">
+                                                    <i class="fas fa-trash">
+                                                    </i>
+                                                    Удалить
+                                                </button>
+                                            </form>
+                                            @else
 
-                                        @endif
-                                    @else
+                                            @endif
+                                            @else
 
-                                    @endif
-                                </td>
+                                            @endif
+                                        </td>
                             </tr>
                         @empty
                             <div class="alert alert-warning" role="alert">

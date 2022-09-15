@@ -30,8 +30,12 @@ tinymce.init({
     function getSelected (id){
         let selected = document.querySelector("#selected_"+id)
         let voice = document.querySelector("#select_voice").value
-        selected.disabled = false
 
+        if(voice == ''){
+            return  alert('Выберете запись голоса для звонка');
+        }
+
+        selected.disabled = false
         $.ajax({
             url: '/user-call/' + id+'/'+voice,
             type: 'get',
@@ -46,14 +50,67 @@ tinymce.init({
         });
     }
 
+    function updateStatus(id){
+        let selected = document.querySelector("#selected_"+id)
+        selected.disabled = false
+    }
+
+    function deleteUsers()
+    {
+        let count_start =  $('#in_form_count_start').val()
+        let count_end =  $('#in_form_count_end').val()
+        if(count_start === ''){
+            alert('Введите значение поля "Отобрать от:"');
+            return  false;
+        }
+        if(count_end === ''){
+            count_end = 0
+        }
+        let form = {
+            count_start: count_start,
+            count_end: count_end,
+        };
+
+        $.ajax({
+            type: "GET",
+            url: '/admin_panel/admin-delete-many/'+ count_start+ '/'+ count_end,
+            data: form,
+            dataType: "json",
+            encode: true,
+            success: function(data) {
+                console.log(data)
+                if (data.status == true) {
+                    alert(data.info);
+                    location.reload()
+                } else {
+                    alert(data.info);
+                }
+            }
+        });
+    }
+
+    function setVoice(){
+        let voice = document.querySelector("#select_voice").value
+        if(voice == ''){
+            alert('Выберете запись голоса для звонка');
+            return  false;
+        }
+
+        let lang = document.querySelector("#set_value_language")
+
+        lang.value = voice;
+        return true;
+    }
     function adminCall(id){
         let voice = document.querySelector("#select_voice").value
+        if(voice == ''){
+            return  alert('Выберете запись голоса для звонка');
+        }
         $.ajax({
             url: '/admin_panel/admin-call/' + id + '/'+voice,
             type: 'get',
             data: {},
             success: function(data) {
-                console.log(data)
                 if (data.status == true) {
                     alert('Звонок на номер '+data.phone+' выполняется!');
                 } else {

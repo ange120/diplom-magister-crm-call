@@ -17,6 +17,12 @@
                     <h4><i class="icon fa fa-check"></i>{{ session('success') }}</h4>
                 </div>
             @endif
+            @if (session()->has('error'))
+                <div class="alert alert-danger" id="AlertError" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-ban"></i>{{ session('error') }}</h4>
+                </div>
+            @endif
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
@@ -27,9 +33,9 @@
             <div class="card">
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm" style="padding-top: 2%;">
+                        <div class="col-3" style="padding-top: 2%;">
                             <div class="form-group">
-                                <label for="exampleInputName"><h4>Голос</h4></label>
+                                <label for="exampleInputName">Голос</label>
                                 <select id="select_voice" class="form-control select2 select2-hidden-accessible"
                                         name="language" style="width: 100%;" data-select2-id="1" tabindex="-1"
                                         aria-hidden="true" required>
@@ -37,8 +43,36 @@
                                         <option value="{{$value->id}}">{{$value->name}}</option>
                                     @endforeach
                                 </select>
-
                             </div>
+                        </div>
+                        <div class="col-9" style="padding-top: 2%;">
+                            <form id="filterForm" class="form-row" action="{{ route('callManyUserAdmin') }}" onsubmit="return setVoice()" method="POST">
+                                @csrf
+                                <input id="set_value_language" name="language" style="display: none">
+                                <div class="col-2">
+                                    <label for="in_form_count_start">Отобрать от:</label>
+                                    <input type="number" min="1"  name="count_start" class="form-control"
+                                           id="in_form_count_start" placeholder="ID записи" required>
+                                </div>
+                                <div class="col-2">
+                                    <label for="in_form_count_end">Отобрать до:</label>
+                                    <input type="number" min="1" name="count_end" class="form-control"
+                                           id="in_form_count_end" placeholder="ID записи">
+                                </div>
+                                <div class="col " style=" display: flex;align-items: flex-end; margin-bottom: 0.7%;">
+                                    <button type="submit" class="btn btn-info btn-sm" style="margin-left: 1%; margin-right: 1%;">
+                                        <i class="fas fa-phone">
+                                        </i>
+                                        Сделать звонок на пользователей
+                                    </button>
+                                    <button type="button" onclick="deleteUsers()" class="btn btn-danger btn-sm"  style="margin-left: 1%; margin-right: 1%;">
+                                        <i class="fas fa-phone">
+                                        </i>
+                                        Удалить выбранных пользователей
+                                    </button>
+                                </div>
+
+                            </form>
                         </div>
                     </div>
                 </div>

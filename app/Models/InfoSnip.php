@@ -14,6 +14,11 @@ class InfoSnip extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'ip_snip','name_provider','number_provider','login_snip','password_snip'
+        'ip_snip','name_provider','number_provider','login_snip','password_snip', 'id_trunk'
     ];
+
+    public function trunk()
+    {
+        return $this->belongsTo(Trunk::class,'id_trunk','id');
+    }
 }

@@ -11,7 +11,7 @@ use PAMI\Message\Action\LogoffAction;
 
 class CollService
 {
-    public static function collAsteriskVoice(string $phoneManager, string $phone, int $voice_id)
+    public static function collAsteriskVoice(string $phoneManager, string $phone, int $voice_id, string $trunk_login)
     {
 
         $voice = VoiceRecord::find($voice_id)->text;
@@ -31,7 +31,7 @@ class CollService
 
             $action = new OriginateAction("SIP/".$phone.'@941082');
             $action->setContext("outgoing");
-            $action->setVariable('TEXTTOSPEEK', $voice);
+            $action->setVariable('VOICE', $voice);
             $action->setVariable('MANAGER',$phoneManager);
             $action->setExtension('s');
             $action->setPriority('1');

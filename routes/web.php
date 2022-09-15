@@ -28,6 +28,8 @@ Route::middleware(['role:user'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('logoutUser');
     Route::get('/user-call/{id}/{voice_id}', [App\Http\Controllers\HomeController::class, 'callUser'])->name('callUser');
+    Route::post('/user-call-many', [App\Http\Controllers\HomeController::class, 'callManyUser'])->name('callManyUser');
+
     Route::post('/update-status', [App\Http\Controllers\HomeController::class, 'updateStatus'])->name('updateStatus');
     //snip
     Route::resource('snip_by_user',\App\Http\Controllers\SnipController::class);
@@ -46,6 +48,8 @@ Route::middleware(['role:admin||super_admin'])->prefix('admin_panel')->group(fun
     Route::get('/admin_panel', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('homeAdmin'); // /admin
     Route::get('/logout-user', [App\Http\Controllers\Admin\HomeController::class, 'logout'])->name('logout'); // /admin
     Route::get('/admin-call/{id}/{voice_id}', [\App\Http\Controllers\Admin\BaseInfoController::class, 'callUserAdmin'])->name('callUserAdmin');
+    Route::post('/admin-call-many', [\App\Http\Controllers\Admin\BaseInfoController::class, 'callManyUserAdmin'])->name('callManyUserAdmin');
+    Route::get('/admin-delete-many/{count_start}/{count_end}', [\App\Http\Controllers\Admin\BaseInfoController::class, 'deleteManyUserAdmin'])->name('deleteManyUserAdmin');
     Route::get('/base-list', [\App\Http\Controllers\Admin\BaseInfoController::class, 'getBaseList'])->name('baseList');
     Route::post('/base-set-user', [\App\Http\Controllers\Admin\BaseInfoController::class, 'setUserBaseInfo'])->name('baseSetUser');
     Route::post('/base-update-user', [\App\Http\Controllers\Admin\BaseInfoController::class, 'updateUserBaseInfo'])->name('baseUpdateUser');

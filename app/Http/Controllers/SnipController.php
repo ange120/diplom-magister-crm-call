@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\InfoSnip;
+use App\Models\Trunk;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Service\UpdateConfig;
@@ -26,6 +27,7 @@ class SnipController extends Controller
                 'number_provider' => $item->number_provider,
                 'login_snip' => $item->login_snip,
                 'password_snip' => $item->password_snip,
+                'trunk' => $item->trunk->login,
             ];
         }
 
@@ -40,7 +42,8 @@ class SnipController extends Controller
     public function create()
     {
         $userList = User::all();
-        return view('user.snip.create', compact('userList'));
+        $trunkList = Trunk::all();
+        return view('user.snip.create',  compact('userList', 'trunkList'));
     }
 
     /**
@@ -52,17 +55,24 @@ class SnipController extends Controller
     public function store(Request $request)
     {
         $data =$request->all();
-
+        $userList = User::all();
+        $trunkList = Trunk::all();
          $updateConfig = UpdateConfig::createNewSNIP($data['number_provider'], $data['password_snip']);
         if($updateConfig !== true){
-            return view('user.snip.create', compact('updateConfig'));
+            return view('user.snip.create', compact('updateConfig', 'userList', 'trunkList'));
         }
+        $findTrunk = InfoSnip::where('id_trunk', $data['id_trunk'])->first();
+        if(!is_null($findTrunk)){
+            return redirect()->back()->with('error','Этот trunk зарезервирован за другим пользователем');
+        }
+
         InfoSnip::create([
             'ip_snip' => 'null' ,
             'name_provider' => $data['name_provider'],
             'number_provider' =>  $data['number_provider'],
             'login_snip' =>  $data['login_snip'],
             'password_snip' =>  $data['password_snip'],
+            'id_trunk' =>  $data['id_trunk'],
         ]);
         return redirect()->back()->withSuccess('SNIP успешно добавлен!');
     }
@@ -85,8 +95,10 @@ class SnipController extends Controller
      */
     public function edit($id)
     {
-         $infoSnip = InfoSnip::find($id);
-        return view('user.snip.edit', compact('infoSnip'));
+        $userList = User::all();
+        $trunkList = Trunk::all();
+        $infoSnip = InfoSnip::find($id);
+        return view('user.snip.edit', compact('infoSnip', 'userList', 'trunkList'));
     }
 
     /**

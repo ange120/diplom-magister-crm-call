@@ -39,9 +39,9 @@
             <div class="card">
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm" style="padding-top: 2%;">
+                        <div class="col-sm-4" style="padding-top: 2%;">
                             <div class="form-group">
-                                <label for="exampleInputName"><h4>Голос</h4></label>
+                                <label for="exampleInputName">Голос</label>
                                 <select id="select_voice" class="form-control select2 select2-hidden-accessible"
                                         name="language" style="width: 100%;" data-select2-id="1" tabindex="-1"
                                         aria-hidden="true" required>
@@ -49,8 +49,31 @@
                                         <option value="{{$value->id}}">{{$value->name}}</option>
                                     @endforeach
                                 </select>
-
                             </div>
+                        </div>
+                        <div class="col-sm-8" style="padding-top: 2%;">
+                            <form class="form-row" action="{{ route('callManyUser') }}" onsubmit="return setVoice()" method="POST">
+                                @csrf
+                                <input id="set_value_language" name="language" style="display: none">
+                                <div class="col">
+                                    <label for="exampleInputName">Отобрать от:</label>
+                                    <input type="number" min="1"  name="count_start" class="form-control"
+                                           id="exampleInputName" placeholder="ID записи" required>
+                                </div>
+                                <div class="col">
+                                    <label for="exampleInputName">Отобрать до:</label>
+                                    <input type="number" min="0" max="" name="count_end" class="form-control"
+                                           id="exampleInputName" placeholder="ID записи">
+                                </div>
+                                <div class="col " style=" display: flex;align-items: flex-end; margin-bottom: 0.7%;">
+                                    <button type="submit" class="btn btn-info btn-sm">
+                                        <i class="fas fa-phone">
+                                        </i>
+                                        Сделать звонок на пользователей
+                                    </button>
+                                </div>
+
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -82,11 +105,11 @@
                             </th>
                         </tr>
                         </thead>
-                            <tbody>
-                            @forelse($result as $post)
-                                <form action="{{ route('updateStatus') }}" method="POST">
-                                    @csrf
-                                    @method('POST')
+                        <tbody>
+                        @forelse($result as $post)
+                            <form action="{{ route('updateStatus') }}" method="POST">
+                                @csrf
+                                @method('POST')
                                 <tr>
                                     <td>
                                         {{ $post['id_client']}}
@@ -95,10 +118,13 @@
                                         {{ $post['phone'] }}
                                     </td>
                                     <td>
-                                        <select disabled class="form-control select2 select2-hidden-accessible" name="status" style="width: 100%;" id="selected_{{$post['id']}}" data-select2-id="1" tabindex="-1" aria-hidden="true" required>
+                                        <select disabled class="form-control select2 select2-hidden-accessible"
+                                                name="status" style="width: 100%;" id="selected_{{$post['id']}}"
+                                                data-select2-id="1" tabindex="-1" aria-hidden="true" required>
                                             <option selected="selected" data-select2-id="3"></option>
                                             @foreach($listStatus as $status)
-                                                <option  @if($status == $post['status']) selected @endif>{{$status}}</option>
+                                                <option
+                                                    @if($status == $post['status']) selected @endif>{{$status}}</option>
                                             @endforeach
                                         </select>
                                         <input name="idUser" value="{{$post['id']}}" hidden>
@@ -107,6 +133,9 @@
                                         {{ $post['user_info'] }}
                                     </td>
                                     <td class="project-actions text-right">
+                                        <a class="btn btn-warning btn-sm coll-btn" onclick="updateStatus( {{$post['id']}})">
+                                            Обновить статус
+                                        </a>
                                         <a class="btn btn-info btn-sm coll-btn" onclick="getSelected( {{$post['id']}})">
                                             <i class="fas fa-phone">
                                             </i>
@@ -115,19 +144,19 @@
                                         <button type="submit" class="btn btn-success btn-sm">
                                             <i class="fas fa-check">
                                             </i>
-                                            Подтвердить звонок
+                                            Подтвердить
                                         </button>
                                     </td>
                                 </tr>
-                                </form>
-                            @empty
-                                <div class="alert alert-warning" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                    <h4><i class="icon fa fa-exclamation-triangle"></i>Записи отсутствуют!</h4>
-                                </div>
-                            @endforelse
+                            </form>
+                        @empty
+                            <div class="alert alert-warning" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <h4><i class="icon fa fa-exclamation-triangle"></i>Записи отсутствуют!</h4>
+                            </div>
+                        @endforelse
 
-                            </tbody>
+                        </tbody>
                     </table>
                     <div class="col-sm-12 col-md-7" style="margin-top: 1rem;">
                         <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
@@ -144,4 +173,6 @@
     </section>
     <!-- /.content -->
 @endsection
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\InfoSnip;
+use App\Models\Trunk;
 use App\Models\User;
 use App\Service\UpdateConfig;
 use Illuminate\Http\Request;
@@ -28,6 +29,7 @@ class SnipAdminController extends Controller
                 'number_provider' => $item->number_provider,
                 'login_snip' => $item->login_snip,
                 'password_snip' => $item->password_snip,
+                'trunk' => $item->trunk->login,
             ];
         }
 
@@ -42,7 +44,8 @@ class SnipAdminController extends Controller
     public function create()
     {
         $userList = User::all();
-        return view('admin.snip.create', compact('userList'));
+        $trunkList = Trunk::all();
+        return view('admin.snip.create', compact('userList', 'trunkList'));
     }
 
     /**
@@ -55,17 +58,26 @@ class SnipAdminController extends Controller
     {
         $data =$request->all();
         $userList = User::all();
+        $trunkList = Trunk::all();
 
         $updateConfig = UpdateConfig::createNewSNIP($data['number_provider'], $data['password_snip']);
         if($updateConfig !== true){
-            return view('admin.snip.create', compact('updateConfig', 'userList'));
+            return view('admin.snip.create', compact('updateConfig', 'userList', 'trunkList'));
         }
+        $findTrunk = InfoSnip::where('id_trunk', $data['id_trunk'])->first();
+
+        if(!is_null($findTrunk)){
+
+            return redirect()->back()->with('error','Этот trunk зарезервирован за другим пользователем ');
+        }
+
         InfoSnip::create([
             'ip_snip' => 'null',
             'name_provider' => $data['name_provider'],
             'number_provider' =>  $data['number_provider'],
             'login_snip' =>  $data['login_snip'],
             'password_snip' =>  $data['password_snip'],
+            'id_trunk' =>  $data['id_trunk'],
         ]);
         return redirect()->back()->withSuccess('SNIP успешно добавлен!');
     }
@@ -88,8 +100,10 @@ class SnipAdminController extends Controller
      */
     public function edit($id)
     {
+        $userList = User::all();
+        $trunkList = Trunk::all();
         $infoSnip = InfoSnip::find($id);
-        return view('admin.snip.edit', compact('infoSnip'));
+        return view('admin.snip.edit', compact('infoSnip', 'userList', 'trunkList'));
     }
 
     /**
@@ -105,12 +119,13 @@ class SnipAdminController extends Controller
         $infoSnipModel = InfoSnip::find($id);
         $deleteConfigSnip = UpdateConfig::updateSNIP($infoSnipModel->number_provider, $infoSnipModel->password_snip);
         if($deleteConfigSnip !== true){
-            return view('user.snip.index', compact('deleteConfigSnip'));
+            return view('user.snip.edit', compact('deleteConfigSnip'));
         }
         $infoSnipModel->name_provider = $data['name_provider'];
         $infoSnipModel->number_provider =  $data['number_provider'];
         $infoSnipModel->login_snip = $data['login_snip'];
         $infoSnipModel->password_snip =  $data['password_snip'];
+        $infoSnipModel->id_trunk =  $data['id_trunk'];
         $infoSnipModel->save();
 
         return redirect()->back()->withSuccess('SNIP успешно обновлён!');

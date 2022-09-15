@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Imports\ImportBaseInfo;
 use App\Imports\ImportBaseInfoToUser;
 use App\Models\BaseInfo;
+use App\Models\InfoSnip;
 use App\Models\Status;
+use App\Models\Trunk;
 use App\Models\User;
 use App\Models\VoiceRecord;
 use Illuminate\Http\Request;
@@ -26,12 +28,12 @@ class BaseInfoController extends Controller
     {
         $result = [];
 
-        $role = Auth::user()->getrolenames();
+/*        $role = Auth::user()->getrolenames();
         if($role->contains('admin') == true){
             $baseList = BaseInfo::where('id_admin', Auth::user()->id)->paginate(15);
-        }else{
-            $baseList = BaseInfo::paginate(15);
         }
+*/
+        $baseList = BaseInfo::paginate(15);
         $voice = VoiceRecord::all();
         foreach ($baseList as $item) {
 
@@ -205,11 +207,71 @@ class BaseInfoController extends Controller
         $phoneManager = Auth::user()->phone_manager;
 
         $userPhone = BaseInfo::find($id)->phone;
-        $callUser = CollService::collAsteriskVoice($phoneManager,$userPhone,$voice_id);
+        $snipUser = InfoSnip::where('number_provider', '=',$phoneManager)->first();
+        if(is_null($snipUser)){
+            return response()->json(['status' => false, 'info' => "У вас не настроен аккаунт для звонков"], 200);
+        }
+        $trunk_login = Trunk::find($snipUser->id_trunk);
+        if(is_null($trunk_login)){
+            return response()->json(['status' => false, 'info' => "У вас не настроен аккаунт для звонков"], 200);
+        }
+        $callUser = CollService::collAsteriskVoice($phoneManager,$userPhone,$voice_id, $trunk_login->login);
         if ($callUser) {
-            return response()->json(['status' => false, 'info' => "Ошибка во время вызова на номер " . $userPhone . ""], 200);
+            return response()->json(['status' => false, 'info' => "Ошибка во время вызова на номер ".$userPhone." \n"." \n".$callUser], 200);
         }
         return response()->json(['status' => true, 'phone' => "$userPhone"], 200);
+    }
+
+    public function callManyUserAdmin(Request $request)
+    {
+        $data = $request->all();
+        $user = Auth::user();
+        $phoneManager = $user->phone_manager;
+        $lastClient = BaseInfo::orderby('id', 'desc')->first()->id_client;
+
+        $snipUser = InfoSnip::where('number_provider', '=',$phoneManager)->first();
+        if(is_null($snipUser)){
+            return redirect()->back()->with('error','У вас не настроен аккаунт для звонков');
+        }
+        $trunk_login = Trunk::find($snipUser->id_trunk);
+        if(is_null($trunk_login)){
+            return redirect()->back()->with('error','У вас не настроен аккаунт для звонков');
+        }
+
+        if(is_null($data['count_end'])){
+            $toCall = BaseInfo::whereBetween('id_client', [$data['count_start'], $lastClient])->get();
+        }else{
+            $toCall = BaseInfo::whereBetween('id_client', [$data['count_start'], $data['count_end']])->get();
+        }
+        if($toCall->count() == 0){
+            return redirect()->back()->with('error','Данных записей не существует');
+        }
+        foreach ($toCall as $item){
+            $callUser = CollService::collAsteriskVoice($phoneManager,$item->phone,$data['language'], $trunk_login->login);
+
+            if( $callUser !== true){
+                return redirect()->back()->with('error','Ошибка во время вызова на номер '.$item->phone." Описание ошибки: ".$callUser);
+            }
+        }
+        return redirect()->back()->withSuccess('Звонки на выбранных пользователь выполняются');
+    }
+
+    public function deleteManyUserAdmin($count_start, $count_end)
+    {
+        $lastClient = BaseInfo::orderby('id', 'desc')->first()->id_client;
+
+        if($count_end === 0){
+            $toCall = BaseInfo::whereBetween('id_client', [$count_start, $lastClient])->get();
+        }else{
+            $toCall = BaseInfo::whereBetween('id_client', [$count_start, $count_end])->get();
+        }
+        if($toCall->count() == 0){
+            return response()->json(['status' => false, 'info' => 'Данных записей не существует'], 200);
+        }
+        foreach ($toCall as $item){
+            $item->delete();
+        }
+        return response()->json(['status' => true, 'info' => 'Записи успешно удалены'], 200);
     }
 
     public function getBaseList()
