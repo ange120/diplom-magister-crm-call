@@ -126,6 +126,7 @@ class VoiceRecordController extends Controller
     {
         $languages = Language::all();
         $data = $request->all();
+        $file = $request->file('file');
         $user = Auth::user();
         $voiceRecord = VoiceRecord::where('name',$data['name'])->first();
 
@@ -133,19 +134,34 @@ class VoiceRecordController extends Controller
             $message = 'Запись с таким именем уже существует!';
             return view('user.voice.create', compact('message','languages'));
         }
+        try {
+            $saveFile = $this->saveFile($file);
 
-        $send = SendSound::sendVoice($request->file('file')->store('files'), $user->phone_manager);
-
-        if($send !== true){
-            $message = $send;
-            return view('user.voice.create', compact('message','languages'));
+            $send = SendSound::sendVoice($saveFile,  $data['name'], $user->phone_manager);
+            if ($send !== true) {
+                $message = $send;
+                return view('user.voice.create', compact('message', 'languages'));
+            }
+            VoiceRecord::create([
+                'name' => $data['name'],
+                'text' => $file->getClientOriginalName(),
+                'id_language' => (int)$data['language'],
+                'type' => 'files',
+            ]);
+        } catch (\Throwable $e) {
+            $message = $e->getMessage();
+            return view('user.voice.create', compact('message', 'languages'));
         }
-        VoiceRecord::create([
-            'name' => $data['name'] ,
-            'text' => 'Звуковой файл',
-            'id_language' => (int)$data['language'],
-            'type' => 'files',
-        ]);
         return redirect()->back()->withSuccess('Запись голоса успешно обновлёна!');
+    }
+
+    protected function saveFile($file)
+    {
+        try {
+            $file->move(public_path() . '/files/sound', $file->getClientOriginalName());
+        }catch (\Throwable $e) {
+            $e->getMessage();
+        }
+        return  public_path() . '/files/sound/'.$file->getClientOriginalName();
     }
 }
