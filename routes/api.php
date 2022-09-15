@@ -14,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('base-info', [\App\Http\Controllers\Admin\BaseInfoController::class, 'storeEcp']);
+Route::get('user-info', [\App\Http\Controllers\Admin\BaseInfoController::class, 'userInfo']);
+Route::get('voice-info', [\App\Http\Controllers\Admin\BaseInfoController::class, 'voiceInfo']);

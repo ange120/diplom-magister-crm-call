@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\ExportVoice;
 use App\Http\Controllers\Controller;
 use App\Models\Language;
 use App\Models\VoiceRecord;
@@ -9,6 +10,7 @@ use App\Service\SendSound;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class VoiceAdminController extends Controller
 {
@@ -123,7 +125,10 @@ class VoiceAdminController extends Controller
         $voiceRecord->delete();
         return redirect()->back()->withSuccess('Запись голоса успешно удалёна!');
     }
-
+    public function voiceInfo()
+    {
+        return Excel::download(new ExportVoice(), 'voice.xlsx');
+    }
     public function voiceCreateSound(Request $request)
     {
         $languages = Language::all();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\ExportUsers;
 use App\Http\Controllers\Controller;
 use App\Models\ModelHasRoles;
 use App\Models\User;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\Roles;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -82,7 +84,10 @@ class UserController extends Controller
         $user->assignRole( $data['role']);
         return redirect()->back()->withSuccess('Пользователь успешно добавлен!');
     }
-
+    public function userInfo()
+    {
+        return Excel::download(new ExportUsers(), 'user.xlsx');
+    }
     /**
      * Display the specified resource.
      *

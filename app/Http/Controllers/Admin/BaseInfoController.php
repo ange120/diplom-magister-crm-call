@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\ExportBaseInfo;
 use App\Http\Controllers\Controller;
 use App\Imports\ImportBaseInfo;
 use App\Imports\ImportBaseInfoToUser;
@@ -72,6 +73,11 @@ class BaseInfoController extends Controller
         }
 
         return redirect()->back()->withSuccess('Файл успешно загружен!');
+    }
+
+    public function storeEcp()
+    {
+        return Excel::download(new ExportBaseInfo(), 'baseInfo.xlsx');
     }
 
     /**
