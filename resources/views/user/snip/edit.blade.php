@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1"> Имя менеджера</label>
-                                    <select onchange="getPhone()" id="userList" class="form-control select2 select2-hidden-accessible" name="name_provider" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" >
+                                    <select onchange="getPhone()" id="userList" class="form-control select2 select2-hidden-accessible" name="name_provider" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required>
                                         <option selected="selected" data-select2-id="3"></option>
                                         @foreach($userList as $user)
                                             <option value="{{$user->phone_manager}}" @if($user->phone_manager == $infoSnip->name_provider) selected @endif>{{$user->name}}</option>
