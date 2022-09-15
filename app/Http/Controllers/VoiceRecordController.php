@@ -51,7 +51,7 @@ class VoiceRecordController extends Controller
     public function store(Request $request)
     {
         $data =$request->all();
-
+        $languages = Language::all();
         $voiceRecord = VoiceRecord::where('name',$data['name'])->first();
 
         if(!is_null($voiceRecord)){
@@ -144,7 +144,7 @@ class VoiceRecordController extends Controller
             }
             VoiceRecord::create([
                 'name' => $data['name'],
-                'text' => $file->getClientOriginalName(),
+                'text' => preg_replace('/\.\w+$/', '', $file->getClientOriginalName()),
                 'id_language' => (int)$data['language'],
                 'type' => 'files',
             ]);

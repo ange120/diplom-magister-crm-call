@@ -138,7 +138,6 @@ class VoiceAdminController extends Controller
         }
         try {
             $saveFile = $this->saveFile($file);
-
             $send = SendSound::sendVoice($saveFile,  $data['name'], $user->phone_manager);
             if ($send !== true) {
                 $message = $send;
@@ -146,7 +145,7 @@ class VoiceAdminController extends Controller
             }
             VoiceRecord::create([
                 'name' => $data['name'],
-                'text' => $file->getClientOriginalName(),
+                'text' =>  preg_replace('/\.\w+$/', '', $file->getClientOriginalName()),
                 'id_language' => (int)$data['language'],
                 'type' => 'files',
             ]);
