@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Trunk</label>
-                                    <select  class="form-control select2 select2-hidden-accessible" name="id_trunk" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" >
+                                    <select  class="form-control select2 select2-hidden-accessible" name="id_trunk" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required>
                                         <option selected="selected" data-select2-id="3"></option>
                                         @foreach($trunkList as $trunk)
                                             <option value="{{$trunk->id}}" >{{$trunk->login}}</option>
