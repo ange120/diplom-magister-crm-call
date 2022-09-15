@@ -29,7 +29,7 @@ class CollService
             $client = new ClientImpl($options);
             $client->open();
 
-            $action = new OriginateAction("SIP/".$phone.'@941082');
+            $action = new OriginateAction("SIP/".$phone.'@siplink');
             $action->setContext("outgoing");
             $action->setVariable('VOICE', $voice);
             $action->setVariable('MANAGER',$phoneManager);
