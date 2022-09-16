@@ -64,6 +64,7 @@ class VoiceAdminController extends Controller
             'name' => $data['name'],
             'text' => $data['text'],
             'id_language' => (int)$data['language'],
+            'type' => 'type_text_voice',
         ]);
         return redirect()->back()->withSuccess('Запись успешно добавлена!');
     }

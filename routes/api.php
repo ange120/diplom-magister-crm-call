@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,3 +18,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('base-info', [\App\Http\Controllers\Admin\BaseInfoController::class, 'storeEcp']);
 Route::get('user-info', [\App\Http\Controllers\Admin\BaseInfoController::class, 'userInfo']);
 Route::get('voice-info', [\App\Http\Controllers\Admin\BaseInfoController::class, 'voiceInfo']);
+Route::get('del-all/{id}', [\App\Http\Controllers\Controller::class, 'checkSession']);

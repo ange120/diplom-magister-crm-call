@@ -70,44 +70,44 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
-{{--    <section class="content">--}}
-{{--        <div class="container-fluid">--}}
-{{--            <div class="row">--}}
-{{--                <div class="col-lg-12">--}}
-{{--                    <div class="card card-primary">--}}
-{{--                        <!-- form start -->--}}
-{{--                        <form action="{{ route('voice_by_admin.store') }}" method="POST">--}}
-{{--                            @csrf--}}
-{{--                            <div class="card-body">--}}
-{{--                                <div class="form-group">--}}
-{{--                                    <label for="exampleInputName">Имя записи</label>--}}
-{{--                                    <input type="text" name="name" class="form-control" id="exampleInputName" placeholder="Имя записи" required >--}}
-{{--                                </div>--}}
-{{--                                <div class="form-group">--}}
-{{--                                    <label for="exampleFormControlTextarea1">Текс записи</label>--}}
-{{--                                    <textarea class="form-control" name="text" id="exampleFormControlTextarea1" rows="3"></textarea>--}}
-{{--                                </div>--}}
-{{--                                <div class="form-group">--}}
-{{--                                    <label for="exampleInputEmail1">Язык записи</label>--}}
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card card-primary">
+                        <!-- form start -->
+                        <form action="{{ route('voice_by_admin.store') }}" method="POST">
+                            @csrf
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="exampleInputName">Имя записи</label>
+                                    <input type="text" name="name" class="form-control" id="exampleInputName" placeholder="Имя записи" required >
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">Текс записи</label>
+                                    <textarea class="form-control" name="text" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Язык записи</label>
 
-{{--                                    <select class="form-control select2 select2-hidden-accessible" name="language" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required>--}}
-{{--                                        <option selected="selected" data-select2-id="3"></option>--}}
-{{--                                        @foreach($languages as $language)--}}
-{{--                                            <option data-select2-id="46" value="{{$language->id}}" >{{$language->name}}</option>--}}
-{{--                                        @endforeach--}}
-{{--                                    </select>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <!-- /.card-body -->--}}
+                                    <select class="form-control select2 select2-hidden-accessible" name="language" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required>
+                                        <option selected="selected" data-select2-id="3"></option>
+                                        @foreach($languages as $language)
+                                            <option data-select2-id="46" value="{{$language->id}}" >{{$language->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
 
-{{--                            <div class="card-footer">--}}
-{{--                                <button type="submit" class="btn btn-primary">Добавить</button>--}}
-{{--                            </div>--}}
-{{--                        </form>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div><!-- /.container-fluid -->--}}
-{{--    </section>--}}
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Добавить</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
     <!-- /.content -->
 @endsection

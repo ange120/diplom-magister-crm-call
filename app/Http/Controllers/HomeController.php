@@ -23,7 +23,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->setSessInfo();
+        $this->checkSession();
     }
 
     /**
@@ -70,6 +70,7 @@ class HomeController extends Controller
 
     public function callUser($id,  $voice_id)
     {
+
         $phoneManager = Auth::user()->phone_manager;
 
         $userPhone = BaseInfo::find($id)->phone;
@@ -81,7 +82,9 @@ class HomeController extends Controller
         if(is_null($trunk_login)){
             return response()->json(['status' => false, 'info' => "У вас не настроен аккаунт для звонков"], 200);
         }
-        $callUser = CollService::collAsteriskVoice($phoneManager,$userPhone,$voice_id, $trunk_login->login);
+        $callService = new CollService();
+
+        $callUser = $callService->collAsterisk($phoneManager,$userPhone,$voice_id, $trunk_login->login);
         if( $callUser !== true){
             return response()->json(['status' => false, 'info' => "Ошибка во время вызова на номер ".$userPhone." \n"." \n".$callUser], 200);
         }
@@ -93,6 +96,7 @@ class HomeController extends Controller
         $user = Auth::user();
         $phoneManager = $user->phone_manager;
         $data = $request->all();
+        $callService = new CollService();
         $lastClient = BaseInfo::orderby('id', 'desc')->first()->id_client;
 
         $snipUser = InfoSnip::where('number_provider', '=',$phoneManager)->first();
@@ -112,8 +116,9 @@ class HomeController extends Controller
         if($toCall->count() == 0){
             return redirect()->back()->with('error','Данных записей не существует');
         }
+
         foreach ($toCall as $item){
-            $callUser = CollService::collAsteriskVoice($phoneManager,$item->phone,$data['language'], $trunk_login->login);
+            $callUser = $callService->collAsterisk($phoneManager,$item->phone,$data['language'], $trunk_login->login);
             if( $callUser !== true){
                 return redirect()->back()->with('error','Ошибка во время вызова на номер '.$item->phone." Описание ошибки: ".$callUser);
             }
