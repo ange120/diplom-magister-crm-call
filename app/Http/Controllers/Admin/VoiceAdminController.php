@@ -101,14 +101,14 @@ class VoiceAdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->all();
-        $voiceRecord = VoiceRecord::find($id);
-        $voiceRecord->name = $data['name'];
-        $voiceRecord->text = $data['text'];
-        $voiceRecord->id_language = $data['language'];
-        $voiceRecord->save();
-
-        return redirect()->back()->withSuccess('Запись голоса успешно обновлёна!');
+//        $data = $request->all();
+//        $voiceRecord = VoiceRecord::find($id);
+//        $voiceRecord->name = $data['name'];
+//        $voiceRecord->text = $data['text'];
+//        $voiceRecord->id_language = $data['language'];
+//        $voiceRecord->save();
+//
+//        return redirect()->back()->withSuccess('Запись голоса успешно обновлёна!');
     }
 
     /**

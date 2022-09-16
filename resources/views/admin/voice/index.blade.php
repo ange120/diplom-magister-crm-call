@@ -68,11 +68,11 @@
                                     {{ $post['language'] }}
                                 </td>
                                 <td class="project-actions text-right">
-                                    <a class="btn btn-warning btn-sm" href="{{ route('voice_by_admin.edit', $post['id']) }}">
-                                        <i class="fas fa-pencil-alt">
-                                        </i>
-                                        Редактировать
-                                    </a>
+{{--                                    <a class="btn btn-warning btn-sm" href="{{ route('voice_by_admin.edit', $post['id']) }}">--}}
+{{--                                        <i class="fas fa-pencil-alt">--}}
+{{--                                        </i>--}}
+{{--                                        Редактировать--}}
+{{--                                    </a>--}}
                                     <form action="{{ route('voice_by_admin.destroy',$post['id']) }}" method="POST"
                                           style="display: inline-block">
                                         @csrf

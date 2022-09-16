@@ -71,11 +71,11 @@
                                 @if(session('subscriptionId') !== 1)
                                     @if(session('endSubscription') === true)
                                 <td class="project-actions text-right">
-                                    <a class="btn btn-warning btn-sm" href="{{ route('voice_by_user.edit', $post['id']) }}">
-                                        <i class="fas fa-pencil-alt">
-                                        </i>
-                                        Редактировать
-                                    </a>
+{{--                                    <a class="btn btn-warning btn-sm" href="{{ route('voice_by_user.edit', $post['id']) }}">--}}
+{{--                                        <i class="fas fa-pencil-alt">--}}
+{{--                                        </i>--}}
+{{--                                        Редактировать--}}
+{{--                                    </a>--}}
 
                                     <form action="{{ route('voice_by_user.destroy',$post['id']) }}" method="POST"
                                           style="display: inline-block">
