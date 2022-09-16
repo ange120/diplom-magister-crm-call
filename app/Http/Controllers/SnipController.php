@@ -115,7 +115,7 @@ class SnipController extends Controller
 
         $updateConfigSnip = UpdateConfig::updateSNIP($data['number_provider'], $data['password_snip']);
         if($updateConfigSnip !== true){
-            return view('user.snip.edit', compact('updateConfigSnip'));
+            return redirect()->back()->with('error', $updateConfigSnip);
         }
         $infoSnipModel->name_provider = $data['name_provider'];
         $infoSnipModel->number_provider =  $data['number_provider'];
@@ -137,7 +137,7 @@ class SnipController extends Controller
         $infoSnip = InfoSnip::find($id);
         $deleteConfigSnip = UpdateConfig::deleteSNIP($infoSnip->number_provider);
         if($deleteConfigSnip !== true){
-            return view('user.snip.index', compact('deleteConfigSnip'));
+            return redirect()->back()->with('error', $deleteConfigSnip);
         }
         $infoSnip->delete();
         return redirect()->back()->withSuccess('SNIP успешно удалён!');

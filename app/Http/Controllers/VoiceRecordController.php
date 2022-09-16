@@ -117,7 +117,13 @@ class VoiceRecordController extends Controller
      */
     public function destroy($id)
     {
+        $user = Auth::user();
         $voiceRecord = VoiceRecord::find($id);
+        $send = SendSound::deleteVoice($voiceRecord->text, $user->phone_manager);
+        if ($send !== true) {
+            $message = $send;
+            return redirect()->back()->with('error', $message);
+        }
         $voiceRecord->delete();
         return redirect()->back()->withSuccess('Запись голоса успешно удалёна!');
     }

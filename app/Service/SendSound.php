@@ -9,16 +9,18 @@ class SendSound
     public static function sendVoice(string $audio, string $phone_manager)
     {
         try {
-            $curl = curl_init();
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => 'http://192.168.137.23/webdav/',
-                CURLOPT_RETURNTRANSFER => '1',
-                CURLOPT_CUSTOMREQUEST => 'PUT',
-                CURLOPT_POSTFIELDS => array(new CURLFILE($audio)),
-            ));
+            shell_exec("curl -X PUT http://192.168.137.23/ --upload-file ".$audio);
 
-            curl_exec($curl);
-            curl_close($curl);
+        } catch (\Throwable $e) {
+            return $e->getMessage();
+        }
+        return true;
+    }
+
+    public static function deleteVoice(string $FileName, string $phone_manager)
+    {
+        try {
+            shell_exec("curl -X DELETE http://192.168.137.23/".$FileName);
         } catch (\Throwable $e) {
             return $e->getMessage();
         }

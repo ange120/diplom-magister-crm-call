@@ -18,6 +18,7 @@ class HomeController extends Controller
         $base_count = BaseInfo::all()->count();
         $voice_count = VoiceRecord::all()->count();
         $snip_count = InfoSnip::all()->count();
+        $this->setSessInfo();
         return view('admin.home.index',compact('user_count', 'base_count', 'voice_count', 'snip_count'));
     }
 

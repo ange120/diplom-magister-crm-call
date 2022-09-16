@@ -54,13 +54,11 @@ class VoiceAdminController extends Controller
      */
     public function store(Request $request)
     {
-        $languages = Language::all();
         $data =$request->all();
         $voiceRecord = VoiceRecord::where('name',$data['name'])->first();
 
         if(!is_null($voiceRecord)){
-            $message = 'Запись с таким именем уже существует!';
-            return view('admin.voice.create', compact('message','languages'));
+            return redirect()->back()->with('error', 'Запись с таким именем уже существует!');
         }
         VoiceRecord::create([
             'name' => $data['name'] ,
@@ -121,7 +119,15 @@ class VoiceAdminController extends Controller
      */
     public function destroy($id)
     {
+        //$this->test();
+        $user = Auth::user();
         $voiceRecord = VoiceRecord::find($id);
+//        unlink(public_path('files\sound'.$voiceRecord->text));
+        $send = SendSound::deleteVoice($voiceRecord->text, $user->phone_manager);
+        if ($send !== true) {
+            $message = $send;
+            return redirect()->back()->with('error', $message);
+        }
         $voiceRecord->delete();
         return redirect()->back()->withSuccess('Запись голоса успешно удалёна!');
     }
@@ -138,8 +144,7 @@ class VoiceAdminController extends Controller
         $voiceRecord = VoiceRecord::where('name',$data['name'])->first();
 
         if(!is_null($voiceRecord)){
-            $message = 'Запись с таким именем уже существует!';
-            return view('admin.voice.create', compact('message','languages'));
+            return redirect()->back()->with('error', 'Запись с таким именем уже существует!');
         }
         try {
             $saveFile = $this->saveFile($file);
@@ -155,8 +160,7 @@ class VoiceAdminController extends Controller
                 'type' => 'files',
             ]);
         } catch (\Throwable $e) {
-            $message = $e->getMessage();
-            return view('admin.voice.create', compact('message', 'languages'));
+            return redirect()->back()->with('error', $e->getMessage());
         }
         return redirect()->back()->withSuccess('Запись голоса успешно обновлёна!');
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\InfoSnip;
 use App\Models\Trunk;
 use App\Service\UpdateConfig;
 use Illuminate\Http\Request;
@@ -40,14 +41,12 @@ class AdminTrunkController extends Controller
     public function store(Request $request)
     {
         $data =$request->all();
-        $message = '';
         if($data['password'] !== $data['confirm_password']){
-            $message = 'Пароли не совпадают';
-            return view('admin.trunk.create', compact('message'));
+            return redirect()->back()->with('error', 'Пароли не совпадают');
         }
         $message = UpdateConfig::createTrunk($data['sip_server'], $data['login'],$data['password']);
         if($message !== true){
-            return view('admin.trunk.create', compact('message'));
+            return redirect()->back()->with('error', $message);
         }
         Trunk::create([
             'sip_server' => $data['sip_server'],
@@ -98,13 +97,12 @@ class AdminTrunkController extends Controller
             if($data['password'] === $data['confirm_password']){
                 $trunk->password = $data['password'];
             }else{
-                $errorInfo = 'Пароли не совпадают!';
-                return view('admin.trunk.edit', compact('trunk','errorInfo'));
+                return redirect()->back()->with('error','Пароли не совпадают!');
             }
         }
         $message = UpdateConfig::updateTrunk($trunk->login, $trunk->sip_server,  $trunk->password);
         if($message !== true){
-            return view('admin.snip.index', compact('message'));
+            return redirect()->back()->with('error', $message);
         }
         $trunk->sip_server = $data['sip_server'];
         $trunk->login = $data['login'];
@@ -122,9 +120,12 @@ class AdminTrunkController extends Controller
     public function destroy($id)
     {
         $trunk = Trunk::find($id);
+        if(!is_null(InfoSnip::where('id_trunk', $id)->first())){
+            return redirect()->back()->with('error','Этот trunk зарезервирован за sip. Снимите данный trunk из sip аккаунта для дальнейшего удаления');
+        }
         $message = UpdateConfig::deleteTrunk($trunk->login);
         if($message !== true){
-            return view('admin.snip.index', compact('message'));
+            return redirect()->back()->with('error', $message);
         }
         $trunk->delete();
         return redirect()->back()->withSuccess('Trunk успешно удалён!');

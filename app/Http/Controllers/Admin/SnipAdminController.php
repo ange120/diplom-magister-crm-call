@@ -68,7 +68,7 @@ class SnipAdminController extends Controller
 
         if(!is_null($findTrunk)){
 
-            return redirect()->back()->with('error','Этот trunk зарезервирован за другим пользователем ');
+            return redirect()->back()->with('error','Этот trunk зарезервирован за другим пользователем');
         }
 
         InfoSnip::create([
@@ -142,7 +142,7 @@ class SnipAdminController extends Controller
         $infoSnip = InfoSnip::find($id);
         $deleteConfigSnip = UpdateConfig::deleteSNIP($infoSnip->number_provider);
         if($deleteConfigSnip !== true){
-            return view('admin.snip.index', compact('deleteConfigSnip'));
+            return redirect()->back()->with('error', $deleteConfigSnip);
         }
         $infoSnip->delete();
         return redirect()->back()->withSuccess('SNIP успешно удалён!');

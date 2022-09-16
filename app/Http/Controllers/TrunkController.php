@@ -38,11 +38,9 @@ class TrunkController extends Controller
      */
     public function store(Request $request)
     {
-        $message = '';
         $data =$request->all();
         if($data['password'] !== $data['confirm_password']){
-            $message  = 'Пароли не совпадают';
-            return view('user.trunk.create', compact('message'));
+            return redirect()->back()->with('error', 'Пароли не совпадают');
         }
 
         Trunk::create([
@@ -52,7 +50,7 @@ class TrunkController extends Controller
         ]);
         $message = UpdateConfig::createTrunk($data['sip_server'], $data['login'],$data['password']);
         if($message !== true){
-            return view('user.snip.create', compact('message'));
+            return redirect()->back()->with('error', $message);
         }
         return redirect()->back()->withSuccess('Trunk успешно добавлен!');
     }
@@ -97,13 +95,12 @@ class TrunkController extends Controller
             if($data['password'] === $data['confirm_password']){
                 $trunk->password = $data['password'];
             }else{
-                $errorInfo = 'Пароли не совпадают!';
-                return view('user.trunk.edit', compact('trunk','errorInfo'));
+                return redirect()->back()->with('error', 'Пароли не совпадают!');
             }
         }
         $message = UpdateConfig::updateTrunk($data['sip_server'], $data['login'],$data['password']);
         if($message !== true){
-            return view('user.snip.edit', compact('message'));
+            return redirect()->back()->with('error', $message);
         }
         $trunk->sip_server = $data['sip_server'];
         $trunk->login = $data['login'];
@@ -124,7 +121,7 @@ class TrunkController extends Controller
         $trunk = Trunk::find($id);
         $message = UpdateConfig::deleteTrunk($trunk->login);
         if($message !== true){
-            return view('user.snip.index', compact('message'));
+            return redirect()->back()->with('error', $message);
         }
         $trunk->delete();
         return redirect()->back()->withSuccess('Trunk успешно удалён!');

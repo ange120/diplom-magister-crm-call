@@ -148,7 +148,6 @@ class BaseInfoController extends Controller
         $baseInfo->field_2 = $data['field_2'];
         $baseInfo->field_3 = $data['field_3'];
         $baseInfo->field_4 = $data['field_4'];
-        $baseInfo->manager = $data['manager'];
         $baseInfo->id_status = $userStatus;
         $baseInfo->commit = $data['commit'];
         $baseInfo->user_info = $data['user_info'];
@@ -179,9 +178,10 @@ class BaseInfoController extends Controller
             'field_1' => $data['field_1'],
             'field_2' => $data['field_2'],
             'field_3' => $data['field_3'],
-            'manager' => $data['manager'],
+            'field_4' => $data['field_4'],
             'id_status' => $status,
             'commit' => $data['commit'],
+            'user_info' => $data['user_info'],
             'country' => $data['country'],
             'city' => $data['city'],
             'sex' => $data['sex'],

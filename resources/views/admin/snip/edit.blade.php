@@ -1,6 +1,6 @@
 @extends('layouts.admin_layout')
 
-@section('title', 'Редактирование SNIP')
+@section('title', 'Редактирование SIP')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -8,13 +8,19 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Редактирование SNIP: {{$infoSnip->login_snip }}</h1>
+                    <h1 class="m-0">Редактирование SIP: {{$infoSnip->login_snip }}</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             @if (session('success'))
                 <div class="alert alert-success" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                     <h4><i class="icon fa fa-check"></i>{{ session('success') }}</h4>
+                </div>
+            @endif
+            @if (session()->has('error'))
+                <div class="alert alert-danger" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-ban"></i>{{ session('error') }}</h4>
                 </div>
             @endif
         </div><!-- /.container-fluid -->

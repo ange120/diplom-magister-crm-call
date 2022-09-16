@@ -19,6 +19,12 @@
                     <h4><i class="icon fa fa-check"></i>{{ session('success') }}</h4>
                 </div>
             @endif
+            @if (session()->has('error'))
+                <div class="alert alert-danger" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-ban"></i>{{ session('error') }}</h4>
+                </div>
+            @endif
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->

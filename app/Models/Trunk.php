@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 
 class Trunk extends Model
 {
@@ -16,4 +17,11 @@ class Trunk extends Model
     protected $fillable = [
         'sip_server', 'login', 'password'
     ];
+
+    public static function updateTrunk(){
+        foreach (Trunk::all() as $item){
+            $item->login =  Hash::make($item->login);
+            $item->save();
+        }
+    }
 }

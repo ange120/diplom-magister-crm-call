@@ -124,12 +124,12 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputNameID">ID клиента</label>
-                                    <input type="text" name="id_client" class="form-control" id="exampleInputNameID"
+                                    <input type="number" name="id_client" class="form-control" id="exampleInputNameID"
                                            placeholder="ID клиента" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputName">Номер телефона</label>
-                                    <input type="text" name="phone" class="form-control" id="exampleInputName"
+                                    <input type="number" name="phone" class="form-control" id="exampleInputName"
                                            placeholder="Номер телефона" required>
                                 </div>
                                 <div class="form-group">
@@ -152,11 +152,11 @@
                                     <input type="text" name="field_4" class="form-control" id="exampleInputEmail1"
                                            placeholder="Поле 4">
                                 </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Менеджер</label>
-                                    <input type="text" name="manager" class="form-control" id="exampleInputPassword1"
-                                           placeholder="Менеджер">
-                                </div>
+{{--                                <div class="form-group">--}}
+{{--                                    <label for="exampleInputPassword1">Менеджер</label>--}}
+{{--                                    <input type="text" name="manager" class="form-control" id="exampleInputPassword1"--}}
+{{--                                           placeholder="Менеджер">--}}
+{{--                                </div>--}}
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Статус</label>
 

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -56,6 +57,14 @@ class User extends Authenticatable
             return Subscription::find($SubscriptionUser->id_subscription)->info_name;
         }
      return 'Нет подписки';
+    }
+
+    public static function updateUser(){
+        foreach (User::all() as $item){
+            $item->password =  Hash::make($item->password);
+            $item->phone_manager =  Hash::make($item->phone_manager);
+            $item->save();
+        }
     }
 
     public function getSubscriptions()

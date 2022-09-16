@@ -91,19 +91,19 @@
                         <a href="#" class="nav-link">
                             <i class="nav-icon far fa-id-card"></i>
                             <p>
-                                SNIP
+                                SIP
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{route('snip_by_user.index')}}" class="nav-link">
-                                    <p>Все SNIP</p>
+                                    <p>Все SIP</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('snip_by_user.create')}}" class="nav-link">
-                                    <p>Добавить SNIP</p>
+                                    <p>Добавить SIP</p>
                                 </a>
                             </li>
                         </ul>
