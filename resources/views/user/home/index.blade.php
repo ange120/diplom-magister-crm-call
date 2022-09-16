@@ -39,7 +39,7 @@
             <div class="card">
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-4" style="padding-top: 2%;">
+                        <div class="col-4" style="padding-top: 2%;">
                             <div class="form-group">
                                 <label for="exampleInputName">Голос</label>
                                 <select id="select_voice" class="form-control select2 select2-hidden-accessible"
@@ -55,12 +55,12 @@
                             <form class="form-row" action="{{ route('callManyUser') }}" onsubmit="return setVoice()" method="POST">
                                 @csrf
                                 <input id="set_value_language" name="language" style="display: none">
-                                <div class="col">
+                                <div class="col-3">
                                     <label for="exampleInputName">Отобрать от:</label>
                                     <input type="number" min="1"  name="count_start" class="form-control"
                                            id="exampleInputName" placeholder="ID записи" required>
                                 </div>
-                                <div class="col">
+                                <div class="col-3">
                                     <label for="exampleInputName">Отобрать до:</label>
                                     <input type="number" min="0" max="" name="count_end" class="form-control"
                                            id="exampleInputName" placeholder="ID записи">

@@ -49,19 +49,19 @@ class VoiceAdminController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $data =$request->all();
-        $voiceRecord = VoiceRecord::where('name',$data['name'])->first();
+        $data = $request->all();
+        $voiceRecord = VoiceRecord::where('name', $data['name'])->first();
 
-        if(!is_null($voiceRecord)){
+        if (!is_null($voiceRecord)) {
             return redirect()->back()->with('error', 'Запись с таким именем уже существует!');
         }
         VoiceRecord::create([
-            'name' => $data['name'] ,
+            'name' => $data['name'],
             'text' => $data['text'],
             'id_language' => (int)$data['language'],
         ]);
@@ -71,7 +71,7 @@ class VoiceAdminController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -82,7 +82,7 @@ class VoiceAdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -95,8 +95,8 @@ class VoiceAdminController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -105,7 +105,7 @@ class VoiceAdminController extends Controller
         $voiceRecord = VoiceRecord::find($id);
         $voiceRecord->name = $data['name'];
         $voiceRecord->text = $data['text'];
-        $voiceRecord->id_language =  $data['language'];
+        $voiceRecord->id_language = $data['language'];
         $voiceRecord->save();
 
         return redirect()->back()->withSuccess('Запись голоса успешно обновлёна!');
@@ -114,15 +114,17 @@ class VoiceAdminController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //$this->test();
         $user = Auth::user();
         $voiceRecord = VoiceRecord::find($id);
-//        unlink(public_path('files\sound'.$voiceRecord->text));
+        $deleteLocal = $this->deleteFile($voiceRecord->type);
+        if($deleteLocal !== true){
+            return redirect()->back()->with('error', $deleteLocal);
+        }
         $send = SendSound::deleteVoice($voiceRecord->text, $user->phone_manager);
         if ($send !== true) {
             $message = $send;
@@ -131,19 +133,21 @@ class VoiceAdminController extends Controller
         $voiceRecord->delete();
         return redirect()->back()->withSuccess('Запись голоса успешно удалёна!');
     }
+
     public function voiceInfo()
     {
         return Excel::download(new ExportVoice(), 'voice.xlsx');
     }
+
     public function voiceCreateSound(Request $request)
     {
         $languages = Language::all();
         $data = $request->all();
         $file = $request->file('file');
         $user = Auth::user();
-        $voiceRecord = VoiceRecord::where('name',$data['name'])->first();
+        $voiceRecord = VoiceRecord::where('name', $data['name'])->first();
 
-        if(!is_null($voiceRecord)){
+        if (!is_null($voiceRecord)) {
             return redirect()->back()->with('error', 'Запись с таким именем уже существует!');
         }
         try {
@@ -155,9 +159,9 @@ class VoiceAdminController extends Controller
             }
             VoiceRecord::create([
                 'name' => $data['name'],
-                'text' =>  preg_replace('/\.\w+$/', '', $file->getClientOriginalName()),
+                'text' => preg_replace('/\.\w+$/', '', $file->getClientOriginalName()),
                 'id_language' => (int)$data['language'],
-                'type' => 'files',
+                'type' => $file->getClientOriginalName(),
             ]);
         } catch (\Throwable $e) {
             return redirect()->back()->with('error', $e->getMessage());
@@ -169,10 +173,20 @@ class VoiceAdminController extends Controller
     {
         try {
             $file->move(public_path() . '/files/sound', $file->getClientOriginalName());
-        }catch (\Throwable $e) {
-           $e->getMessage();
+        } catch (\Throwable $e) {
+            $e->getMessage();
         }
-        return  public_path() . '/files/sound/'.$file->getClientOriginalName();
+        return public_path() . '/files/sound/' . $file->getClientOriginalName();
+    }
+
+    protected function deleteFile($name)
+    {
+        try {
+            unlink(public_path('files/sound/' . $name));
+        } catch (\Throwable $e) {
+            return  $e->getMessage();
+        }
+        return true;
     }
 
 

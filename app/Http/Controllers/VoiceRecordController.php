@@ -119,6 +119,10 @@ class VoiceRecordController extends Controller
     {
         $user = Auth::user();
         $voiceRecord = VoiceRecord::find($id);
+        $deleteLocal = $this->deleteFile($voiceRecord->type);
+        if($deleteLocal !== true){
+            return redirect()->back()->with('error', $deleteLocal);
+        }
         $send = SendSound::deleteVoice($voiceRecord->text, $user->phone_manager);
         if ($send !== true) {
             $message = $send;
@@ -152,7 +156,7 @@ class VoiceRecordController extends Controller
                 'name' => $data['name'],
                 'text' => preg_replace('/\.\w+$/', '', $file->getClientOriginalName()),
                 'id_language' => (int)$data['language'],
-                'type' => 'files',
+                'type' => $file->getClientOriginalName(),
             ]);
         } catch (\Throwable $e) {
             $message = $e->getMessage();
@@ -169,5 +173,15 @@ class VoiceRecordController extends Controller
             $e->getMessage();
         }
         return  public_path() . '/files/sound/'.$file->getClientOriginalName();
+    }
+
+    protected function deleteFile($name)
+    {
+        try {
+            unlink(public_path('files/sound/' . $name));
+        } catch (\Throwable $e) {
+            return  $e->getMessage();
+        }
+        return true;
     }
 }
