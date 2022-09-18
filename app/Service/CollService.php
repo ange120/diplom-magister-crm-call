@@ -39,10 +39,10 @@ class CollService
             $client = new ClientImpl($options);
             $client->open();
 
-            $action = new OriginateAction("SIP/" . $phone . '@siplink');
+            $action = new OriginateAction("SIP/".$phone.'@'.$trunk_login);
             $action->setContext("outgoing");
             $action->setVariable('VOICE', $voice);
-            $action->setVariable('MANAGER', $phoneManager);
+            $action->setVariable('MANAGER',$phoneManager);
             $action->setExtension('s');
             $action->setPriority('1');
 
