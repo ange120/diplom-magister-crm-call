@@ -24,11 +24,12 @@ class CollService
         );
         $voice = VoiceRecord::find($voice_id);
 
-        if ($voice->type === 'type_text_voice') {
-            $result = $this->collTextAsterisk($options, $voice->text, $phoneManager, $phone, $trunk_login);
-        } else {
+        if ($voice->type !== 'type_text_voice') {
             $result = $this->callVoiceAsterisk($options, $voice->text, $phoneManager, $phone, $trunk_login);
         }
+//        else {
+//            $result = $this->collTextAsterisk($options, $voice->text, $phoneManager, $phone, $trunk_login);
+//        }
         return $result;
     }
 

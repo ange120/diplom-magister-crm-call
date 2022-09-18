@@ -120,14 +120,16 @@ class VoiceRecordController extends Controller
     {
         $user = Auth::user();
         $voiceRecord = VoiceRecord::find($id);
-        $deleteLocal = $this->deleteFile($voiceRecord->type);
-        if($deleteLocal !== true){
-            return redirect()->back()->with('error', $deleteLocal);
-        }
-        $send = SendSound::deleteVoice($voiceRecord->text, $user->phone_manager);
-        if ($send !== true) {
-            $message = $send;
-            return redirect()->back()->with('error', $message);
+        if($voiceRecord->type !== 'type_text_voice'){
+            $deleteLocal = $this->deleteFile($voiceRecord->type);
+            if($deleteLocal !== true){
+                return redirect()->back()->with('error', $deleteLocal);
+            }
+            $send = SendSound::deleteVoice($voiceRecord->text, $user->phone_manager);
+            if ($send !== true) {
+                $message = $send;
+                return redirect()->back()->with('error', $message);
+            }
         }
         $voiceRecord->delete();
         return redirect()->back()->withSuccess('Запись голоса успешно удалёна!');
