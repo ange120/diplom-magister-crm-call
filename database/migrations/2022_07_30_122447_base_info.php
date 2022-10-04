@@ -22,7 +22,7 @@ class BaseInfo extends Migration
             $table->string('field_3')->nullable();
             $table->string('field_4')->nullable();
             $table->string('manager')->nullable();
-            $table->foreignId('id_status')->constrained('statuses');
+            $table->foreignId('id_status')->constrained('statuses')->onDelete('cascade');
             $table->integer('id_user')->nullable();
             $table->string('commit')->nullable();
             $table->string('user_info')->nullable();

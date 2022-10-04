@@ -314,6 +314,34 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
 
     <script src="/admin/admin.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#statuslist").change(function () {
+                var status = this.value;
+                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                var url = '{{ route("getbase_info", ":status") }}';
+                url = url.replace(':status', status );
+                $.ajax({
+                url: url,
+                type: 'get',
+                dataType: 'json',
+               success: function(response){
+                var appendHtml = "";
+                for(let i = 0; i < response.length; i++) {
+                    let obj = response[i];
+                    var editurl = '{{ route("base_info.edit", ":status") }}';
+                    editurl = editurl.replace(':status', obj.id );
+                    appendHtml+='<tr><td>'+obj.id_client+'</td><td>'+obj.phone+'</td><td>'+obj.status+'</td><td>'+obj.user_info+'</td><td class="project-actions text-right"><a class="btn btn-info btn-sm" onclick="adminCall('+obj.id+')"><i class="fas fa-phone"></i>Звонок</a><a class="btn btn-warning btn-sm" href="'+editurl+'"><i class="fas fa-pencil-alt"></i>Редактировать</a><form action="{{ route("base_info.destroy", '+obj.id+') }}" method="POST" style="display: inline-block"> @csrf    @method("DELETE")<button type="submit" class="btn btn-danger btn-sm delete-btn"><i class="fas fa-trash"> </i> Удалить</button> </form></td></tr>';
+                    console.log(appendHtml);
+                }
+                 $("#baseinfotable tbody").empty();
+                 $("#baseinfotable tbody").append(appendHtml);
+                console.log(response[0]);
+               }
+             });
+            });
+        });
+    </script>
 </body>
 
 </html>

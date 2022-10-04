@@ -59,6 +59,18 @@
                                     <input type="number" min="1" name="count_end" class="form-control"
                                            id="in_form_count_end" placeholder="ID записи">
                                 </div>
+                                <div class="col-3">
+                                    <label for="statuslist">Статус:</label>
+                                    <select class="form-control select2 "
+                                                name="status" style="width: 100%;" id="statuslist"
+                                                 tabindex="-1">
+                                            <option selected="selected" value="0">Select Статус</option>
+                                            @foreach($allStatus as $status)
+                                                <option
+                                                value="{{$status->id}}">{{$status->name}}</option>
+                                            @endforeach
+                                        </select>
+                                </div>  
                                 <div class="col " style=" display: flex;align-items: flex-end; margin-bottom: 0.7%;">
                                     <button type="submit" class="btn btn-info btn-sm" style="margin-left: 1%; margin-right: 1%;">
                                         <i class="fas fa-phone">
@@ -84,7 +96,7 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-body p-0">
-                    <table class="table table-striped projects">
+                    <table class="table table-striped projects" id="baseinfotable">
                         <thead>
                         <tr>
                             <th style="width: 5%">
@@ -167,3 +179,4 @@
     </section>
     <!-- /.content -->
 @endsection
+
