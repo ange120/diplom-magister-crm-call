@@ -51,7 +51,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-8" style="padding-top: 2%;">
+                        <div class="col-sm-8" style="padding-top: 2%;" id="data-a">
                             <form class="form-row" action="{{ route('callManyUser') }}" onsubmit="return setVoice()" method="POST">
                                 @csrf
                                 <input id="set_value_language" name="language" style="display: none">
@@ -64,6 +64,18 @@
                                     <label for="exampleInputName">Отобрать до:</label>
                                     <input type="number" min="0" max="" name="count_end" class="form-control"
                                            id="exampleInputName" placeholder="ID записи">
+                                </div>
+                                <div class="col-3">
+                                    <label for="statuslist">Статус:</label>
+                                    <select class="form-control select2 "
+                                                name="status" style="width: 100%;" id="statuslist"
+                                                 tabindex="-1">
+                                            <option selected="selected" value="0">Select Статус</option>
+                                            @foreach($allStatus as $status)
+                                                <option
+                                                value="{{$status->id}}">{{$status->name}}</option>
+                                            @endforeach
+                                        </select>
                                 </div>
                                 <div class="col " style=" display: flex;align-items: flex-end; margin-bottom: 0.7%;">
                                     <button type="submit" class="btn btn-info btn-sm">
@@ -85,7 +97,7 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-body p-0">
-                    <table class="table table-striped projects">
+                    <table class="table table-striped projects" id="baseinfotable">
                         <thead>
                         <tr>
                             <th style="width: 5%">
@@ -176,3 +188,4 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
+

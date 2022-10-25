@@ -17,7 +17,7 @@ class CreateVoiceRecordsTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('text');
-            $table->foreignId('id_language')->constrained('languages');
+            $table->foreignId('id_language')->constrained('languages')->onDelete('cascade');
         });
     }
     /**

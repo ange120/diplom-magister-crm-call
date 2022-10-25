@@ -15,7 +15,7 @@ class CreateSubscriptionUsersTable extends Migration
     {
         Schema::create('subscriptions_users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_subscription')->constrained('subscriptions');
+            $table->foreignId('id_subscription')->constrained('subscriptions')->onDelete('cascade');
             $table->foreignId('id_user')->constrained('users');
             $table->date('date_start_subscriptions');
             $table->date('date_end_subscriptions');

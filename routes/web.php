@@ -26,6 +26,7 @@ Auth::routes();
 
 Route::middleware(['role:user'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/getbaseinfo/{status}', [App\Http\Controllers\HomeController::class, 'getBaseInfo'])->name('getbaseinfo');
     Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('logoutUser');
     Route::get('/user-call/{id}/{voice_id}', [App\Http\Controllers\HomeController::class, 'callUser'])->name('callUser');
     Route::post('/user-call-many', [App\Http\Controllers\HomeController::class, 'callManyUser'])->name('callManyUser');
@@ -58,6 +59,7 @@ Route::middleware(['role:admin||super_admin'])->prefix('admin_panel')->group(fun
 
     Route::resource('users',\App\Http\Controllers\Admin\UserController::class);
     Route::resource('base_info',\App\Http\Controllers\Admin\BaseInfoController::class);
+    Route::get('getbaseinfo/{status}', [\App\Http\Controllers\Admin\BaseInfoController::class, 'getBaseInfo'])->name('getbase_info');
     Route::resource('status',\App\Http\Controllers\Admin\StatusController::class);
     //snip
     Route::resource('snip_by_admin',\App\Http\Controllers\Admin\SnipAdminController::class);

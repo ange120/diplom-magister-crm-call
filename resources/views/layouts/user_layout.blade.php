@@ -213,6 +213,29 @@
         referrerpolicy="origin"></script>
 <script type="text/javascript" src="/packages/barryvdh/elfinder/js/standalonepopup.js"></script>
 <script src="/admin/admin.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#statuslist").change(function () {
+            var status = this.value;
+            
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            var url = '{{ route("getbaseinfo", ":status") }}';
+            url = url.replace(':status', status );
+            $.ajax({
+            url: url,
+            type: 'get',
+            dataType: 'json',
+           success: function(response){
+            $("#baseinfotable tbody").empty();
+            $("#baseinfotable tbody").html(response);
+            
+            console.log(response);
+           }
+         });
+        });
+    });
+</script>
 </body>
 
 </html>

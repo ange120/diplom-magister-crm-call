@@ -35,6 +35,7 @@ class BaseInfoController extends Controller
 */
         $baseList = BaseInfo::paginate(15);
         $voice = VoiceRecord::all();
+        $allStatus = Status::all();
         foreach ($baseList as $item) {
 
                 $result[] = [
@@ -45,7 +46,7 @@ class BaseInfoController extends Controller
                     'user_info' => $item->user_info,
                 ];
         }
-        return view('admin.info.index', compact('result', 'baseList', 'voice'));
+        return view('admin.info.index', compact('result', 'baseList', 'voice','allStatus'));
     }
 
     /**
@@ -331,5 +332,30 @@ class BaseInfoController extends Controller
             $status[] = $item->name;
         }
         return $status;
+    }
+
+    public function getBaseInfo($status)
+    {
+        if($status>0)
+            $baseList = BaseInfo::where('id_status' , $status)->paginate(15);
+        else
+            $baseList = BaseInfo::paginate(15);
+        if($baseList->count()) {  
+            foreach ($baseList as $item) {
+
+                $result[] = [
+                    'id' => $item->id,
+                    'id_client' => $item->id_client,
+                    'phone' => $item->phone,
+                    'status' => Status::find($item->id_status)->name,
+                    'user_info' => $item->user_info,
+                ];
+            }
+
+    }else
+    {
+        $result = [];
+    }
+        return response()->json($result);
     }
 }

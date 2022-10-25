@@ -38,6 +38,7 @@ class HomeController extends Controller
         $voice = VoiceRecord::all();
         $snip = InfoSnip::all();
         $baseList = BaseInfo::where('id_user', $user->id)->paginate(15);
+        $allStatus = Status::all();
         $infoSubscription = true;
         foreach ($baseList as $item){
             $result[] = [
@@ -54,7 +55,7 @@ class HomeController extends Controller
             $infoSubscription = $this->setSessionSubscription($user->id);
           }
         return view('user.home.index', compact('result','baseList',
-            'listStatus', 'voice', 'snip', 'infoSubscription'));
+            'listStatus', 'voice', 'snip', 'infoSubscription','allStatus'));
     }
 
     public function logout(Request $request)
@@ -128,6 +129,7 @@ class HomeController extends Controller
 
     public function updateStatus(Request $request)
     {
+        dd("hello");
         $data = $request->all();
         if(!key_exists('status',$data)){
             return redirect()->back()->with('error', "Сдеайте сначала звонок!");
@@ -163,5 +165,64 @@ class HomeController extends Controller
             session()->put('subscriptionId', 2);
         }
         return false;
+    }
+    public function getBaseInfo($status)
+    {
+        $user = Auth::user();
+        if($status>0)
+            $baseList = BaseInfo::where('id_user', $user->id)
+                                ->where('id_status' , $status)->paginate(15);
+        else
+            $baseList = BaseInfo::where('id_user', $user->id)->paginate(15);
+        $listStatus = $this->getStatus();
+        $result = "";
+        foreach ($baseList as $item){
+            $statuses = Status::find( $item->id_status)->name;
+            $result.='<form action="{{ route("updateStatus") }}" method="POST">
+            <meta name="csrf-token" content="xxx">
+            <tr>
+                <td>
+                   '.$item->id_client.'
+                </td>
+                <td>
+                    '.$item->phone.'
+                </td>
+                <td>
+                    <select disabled class="form-control select2 select2-hidden-accessible"
+                            name="status" style="width: 100%;" id="selected_'.$item->id.'"
+                            data-select2-id="1" tabindex="-1" aria-hidden="true" required>
+                        <option selected="selected" data-select2-id="3"></option>';
+                        foreach($listStatus as $status)
+                        {
+                            $result.='<option ';
+                                if($status == $statuses) 
+                                $result.='  selected ';
+                            $result.='> '.$status.'</options>';
+                        }
+                        $result.='</select>
+                    <input name="idUser" value="'.$item->id.'" hidden>
+                </td>
+                <td>
+                    '.$item->user_info.'
+                </td>
+                <td class="project-actions text-right">
+                    <a class="btn btn-warning btn-sm coll-btn" onclick="updateStatus( '.$item->id.')">
+                        Обновить статус
+                    </a>
+                    <a class="btn btn-info btn-sm coll-btn" onclick="getSelected( '.$item->id.')">
+                        <i class="fas fa-phone">
+                        </i>
+                        Звонок
+                    </a>
+                    <button type="submit" class="btn btn-success btn-sm">
+                        <i class="fas fa-check">
+                        </i>
+                        Подтвердить
+                    </button>
+                </td>
+            </tr>
+        </form>'; 
+    }
+        return response()->json($result);
     }
 }
