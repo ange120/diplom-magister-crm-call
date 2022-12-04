@@ -12,9 +12,11 @@ use App\Service\CollService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\LocalizationController;
 
 class HomeController extends Controller
 {
+    private $localizationController;
     /**
      * Create a new controller instance.
      *
@@ -22,6 +24,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
+        $this->localizationController = new LocalizationController();
         $this->middleware('auth');
         $this->checkSession();
     }
@@ -34,6 +37,7 @@ class HomeController extends Controller
     public function index()
     {
         $result = [];
+        $page_menu = $this->localizationController->localisationDashBoard();
         $user = Auth::user();
         $voice = VoiceRecord::all();
         $snip = InfoSnip::all();
@@ -55,7 +59,7 @@ class HomeController extends Controller
             $infoSubscription = $this->setSessionSubscription($user->id);
           }
         return view('user.home.index', compact('result','baseList',
-            'listStatus', 'voice', 'snip', 'infoSubscription','allStatus'));
+            'listStatus', 'voice', 'snip', 'infoSubscription','allStatus', 'page_menu', ''));
     }
 
     public function logout(Request $request)
@@ -129,7 +133,6 @@ class HomeController extends Controller
 
     public function updateStatus(Request $request)
     {
-        dd("hello");
         $data = $request->all();
         if(!key_exists('status',$data)){
             return redirect()->back()->with('error', "Сдеайте сначала звонок!");
@@ -195,7 +198,7 @@ class HomeController extends Controller
                         foreach($listStatus as $status)
                         {
                             $result.='<option ';
-                                if($status == $statuses) 
+                                if($status == $statuses)
                                 $result.='  selected ';
                             $result.='> '.$status.'</options>';
                         }
@@ -221,7 +224,7 @@ class HomeController extends Controller
                     </button>
                 </td>
             </tr>
-        </form>'; 
+        </form>';
     }
         return response()->json($result);
     }

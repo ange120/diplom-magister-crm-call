@@ -13,17 +13,20 @@ class CreateUserLocalizationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('languages', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('short_name');
-        });
-
-        Schema::create('user_localizations', function (Blueprint $table) {
-            $table->id();
-            $table->string('email')->index();
-            $table->foreignId('id_languages')->constrained('languages');
-        });
+        if(!Schema::hasTable('languages')){
+            Schema::create('languages', function (Blueprint $table) {
+                $table->id();
+                $table->string('name');
+                $table->string('short_name');
+            });
+        }
+        if(!Schema::hasTable('user_localizations')){
+            Schema::create('user_localizations', function (Blueprint $table) {
+                $table->id();
+                $table->string('email')->index();
+                $table->foreignId('id_languages')->constrained('languages');
+            });
+        }
     }
 
     /**

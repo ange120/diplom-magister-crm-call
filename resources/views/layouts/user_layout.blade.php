@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Панель пользователя - @yield('title')</title>
+    <title>Панель  - @yield('title')</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -218,7 +218,7 @@
     $(function () {
         $("#statuslist").change(function () {
             var status = this.value;
-            
+
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             var url = '{{ route("getbaseinfo", ":status") }}';
             url = url.replace(':status', status );
@@ -229,7 +229,7 @@
            success: function(response){
             $("#baseinfotable tbody").empty();
             $("#baseinfotable tbody").html(response);
-            
+
             console.log(response);
            }
          });

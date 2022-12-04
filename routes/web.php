@@ -31,6 +31,7 @@ Route::middleware(['role:user'])->group(function () {
     Route::get('/user-call/{id}/{voice_id}', [App\Http\Controllers\HomeController::class, 'callUser'])->name('callUser');
     Route::post('/user-call-many', [App\Http\Controllers\HomeController::class, 'callManyUser'])->name('callManyUser');
 
+    Route::get('/test',[\App\Http\Controllers\LocalizationController::class, 'localisationDashBoard']);
     Route::post('/update-status', [App\Http\Controllers\HomeController::class, 'updateStatus'])->name('updateStatus');
     //snip
     Route::resource('snip_by_user',\App\Http\Controllers\SnipController::class);

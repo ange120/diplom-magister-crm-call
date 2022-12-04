@@ -13,9 +13,13 @@ class AddStipTrunk extends Migration
      */
     public function up()
     {
-        Schema::table('info_snips', function (Blueprint $table) {
-            $table->foreignId('id_trunk')->constrained('trunks')->onDelete('cascade');
-        });
+        if (!Schema::hasColumn('info_snips', 'id_trunk'))
+        {
+            Schema::table('info_snips', function (Blueprint $table) {
+                $table->foreignId('id_trunk')->constrained('trunks')->onDelete('cascade');
+            });
+        }
+
     }
 
     /**
