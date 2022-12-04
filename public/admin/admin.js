@@ -32,7 +32,7 @@ tinymce.init({
         let voice = document.querySelector("#select_voice").value
 
         if(voice == ''){
-            return  alert('Выберете запись голоса для звонка');
+            return  alert('Віберіть запис голосу для дзвінка');
         }
 
         selected.disabled = false
@@ -42,7 +42,7 @@ tinymce.init({
             data: {},
             success: function(data) {
                 if (data.status == true) {
-                    alert('Звонок на номер '+data.phone+' выполняется!');
+                    alert('Дзвінок на номер '+data.phone+' виконується!');
                 } else {
                     alert(data.info);
                 }
@@ -60,7 +60,7 @@ tinymce.init({
         let count_start =  $('#in_form_count_start').val()
         let count_end =  $('#in_form_count_end').val()
         if(count_start === ''){
-            alert('Введите значение поля "Отобрать от:"');
+            alert('Заповніть значення поля "Вибрать від:"');
             return  false;
         }
         if(count_end === ''){
@@ -92,7 +92,7 @@ tinymce.init({
     function setVoice(){
         let voice = document.querySelector("#select_voice").value
         if(voice == ''){
-            alert('Выберете запись голоса для звонка');
+            alert('Віберіть запис голосу для дзвінка');
             return  false;
         }
 
@@ -104,7 +104,7 @@ tinymce.init({
     function adminCall(id){
         let voice = document.querySelector("#select_voice").value
         if(voice == ''){
-            return  alert('Выберете запись голоса для звонка');
+            return  alert('Віберіть запис голосу для дзвінка');
         }
         $.ajax({
             url: '/admin_panel/admin-call/' + id + '/'+voice,
@@ -112,7 +112,7 @@ tinymce.init({
             data: {},
             success: function(data) {
                 if (data.status == true) {
-                    alert('Звонок на номер '+data.phone+' выполняется!');
+                    alert('Дзвінок на номер '+data.phone+' виконується!');
                 } else {
                     alert(data.info);
                 }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Панель  - @yield('title')</title>
+    <title> {{$page_menu['header_title']}} - @yield('title')</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -51,10 +51,16 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
                     <li class="user-footer">
+                        <a class="btn btn-default btn-flat float-right  btn-block " href="{{route('getSettingsPage')}}">
+                            <i class="fa fa-cogs" aria-hidden="true"></i>
+                            {{$page_menu['menu_btn_settings']}}
+                        </a>
+                    </li>
+                    <li class="user-footer">
                         <a class="btn btn-default btn-flat float-right  btn-block " href="#"
                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i class="fa fa-fw fa-power-off"></i>
-                            Log Out
+                            {{$page_menu['header_title_log-out']}}
                         </a>
                         <form id="logout-form" action="{{ route('logoutUser') }}" method="GET" style="display: none;"></form>
                     </li>
@@ -66,7 +72,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="{{ route('home') }}" class="brand-link">
-            <span class="brand-text font-weight-light">Меню</span>
+            <span class="brand-text font-weight-light">{{$page_menu['header_title_menu']}}</span>
         </a>
 
         <!-- Sidebar -->
@@ -83,7 +89,7 @@
                         <a href="{{ route('home') }}" class="nav-link">
                             <i class="nav-icon fas fa-newspaper"></i>
                             <p>
-                                Записи
+                                {{$page_menu['menu_btn_record']}}
                             </p>
                         </a>
                     </li>
@@ -91,19 +97,19 @@
                         <a href="#" class="nav-link">
                             <i class="nav-icon far fa-id-card"></i>
                             <p>
-                                SIP
+                                {{$page_menu['menu_btn_SIP']}}
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{route('snip_by_user.index')}}" class="nav-link">
-                                    <p>Все SIP</p>
+                                    <p>{{$page_menu['menu_btn_all_SIP']}}</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('snip_by_user.create')}}" class="nav-link">
-                                    <p>Добавить SIP</p>
+                                    <p>{{$page_menu['menu_btn_add_SIP']}}</p>
                                 </a>
                             </li>
                         </ul>
@@ -112,19 +118,19 @@
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-microphone"></i>
                             <p>
-                                Записи Голосов
+                                {{$page_menu['menu_btn_recordings_of_voices']}}
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{route('voice_by_user.index')}}" class="nav-link">
-                                    <p>Все записи голосов</p>
+                                    <p>{{$page_menu['menu_btn_all_recordings_of_voices']}}</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('voice_by_user.create')}}" class="nav-link">
-                                    <p>Добавить запись голоса</p>
+                                    <p>{{$page_menu['menu_btn_add_recordings_of_voices']}}</p>
                                 </a>
                             </li>
                         </ul>

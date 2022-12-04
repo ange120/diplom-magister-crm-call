@@ -31,12 +31,13 @@ Route::middleware(['role:user'])->group(function () {
     Route::get('/user-call/{id}/{voice_id}', [App\Http\Controllers\HomeController::class, 'callUser'])->name('callUser');
     Route::post('/user-call-many', [App\Http\Controllers\HomeController::class, 'callManyUser'])->name('callManyUser');
 
-    Route::get('/test',[\App\Http\Controllers\LocalizationController::class, 'localisationDashBoard']);
+    Route::get('/settings-user', [\App\Http\Controllers\LocalizationController::class, 'index'])->name('getSettingsPage');
+    Route::put('/update-language-user', [\App\Http\Controllers\LocalizationController::class, 'updateLanguage'])->name('updateLanguagePage');
     Route::post('/update-status', [App\Http\Controllers\HomeController::class, 'updateStatus'])->name('updateStatus');
     //snip
-    Route::resource('snip_by_user',\App\Http\Controllers\SnipController::class);
+    Route::resource('snip_by_user', \App\Http\Controllers\SnipController::class);
     //voice
-    Route::resource('voice_by_user',\App\Http\Controllers\VoiceRecordController::class);
+    Route::resource('voice_by_user', \App\Http\Controllers\VoiceRecordController::class);
     Route::post('/voice-create-sound-user', [\App\Http\Controllers\VoiceRecordController::class, 'voiceCreateSound'])->name('voiceCreateUserSound');
 
     //trunk
@@ -58,23 +59,23 @@ Route::middleware(['role:admin||super_admin'])->prefix('admin_panel')->group(fun
     Route::post('/base-create-only', [\App\Http\Controllers\Admin\BaseInfoController::class, 'createOnly'])->name('baseCreateOnly');
     Route::post('/base-create-to-user', [\App\Http\Controllers\Admin\BaseInfoController::class, 'createToUserOnly'])->name('baseCreateToUser');
 
-    Route::resource('users',\App\Http\Controllers\Admin\UserController::class);
-    Route::resource('base_info',\App\Http\Controllers\Admin\BaseInfoController::class);
+    Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
+    Route::resource('base_info', \App\Http\Controllers\Admin\BaseInfoController::class);
     Route::get('getbaseinfo/{status}', [\App\Http\Controllers\Admin\BaseInfoController::class, 'getBaseInfo'])->name('getbase_info');
-    Route::resource('status',\App\Http\Controllers\Admin\StatusController::class);
+    Route::resource('status', \App\Http\Controllers\Admin\StatusController::class);
     //snip
-    Route::resource('snip_by_admin',\App\Http\Controllers\Admin\SnipAdminController::class);
+    Route::resource('snip_by_admin', \App\Http\Controllers\Admin\SnipAdminController::class);
     //voice
-    Route::resource('voice_by_admin',\App\Http\Controllers\Admin\VoiceAdminController::class);
+    Route::resource('voice_by_admin', \App\Http\Controllers\Admin\VoiceAdminController::class);
     Route::post('/voice-create-sound-admin', [\App\Http\Controllers\Admin\VoiceAdminController::class, 'voiceCreateSound'])->name('voiceCreateAdminSound');
 
     //Subscription
-    Route::resource('subscriptions_user',\App\Http\Controllers\Admin\SubscriptionUserController::class);
+    Route::resource('subscriptions_user', \App\Http\Controllers\Admin\SubscriptionUserController::class);
     Route::get('/subscription-all-user', [\App\Http\Controllers\Admin\SubscriptionUserController::class, 'getSubscriptionsUsers'])->name('subscriptionAllUsers');
     Route::get('/edit-subscription-user/{id}', [\App\Http\Controllers\Admin\SubscriptionUserController::class, 'editSubscriptionsUsers'])->name('editSubscriptionUser');
     Route::put('/update-subscription-user/{id}', [\App\Http\Controllers\Admin\SubscriptionUserController::class, 'updateSubscriptionsUsers'])->name('updateSubscriptionUser');
     //trunk
-    Route::resource('trunk_by_admin',\App\Http\Controllers\Admin\AdminTrunkController::class);
+    Route::resource('trunk_by_admin', \App\Http\Controllers\Admin\AdminTrunkController::class);
 
 });
 

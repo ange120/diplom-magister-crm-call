@@ -17,6 +17,7 @@ use App\Http\Controllers\LocalizationController;
 class HomeController extends Controller
 {
     private $localizationController;
+    private $menuPageUser;
     /**
      * Create a new controller instance.
      *
@@ -37,8 +38,9 @@ class HomeController extends Controller
     public function index()
     {
         $result = [];
-        $page_menu = $this->localizationController->localisationDashBoard();
         $user = Auth::user();
+        $page_menu = $this->localizationController->localisationDashBoardByUser();
+        $pageListKeyLanguage = $this->localizationController->localisationPage('record_user');
         $voice = VoiceRecord::all();
         $snip = InfoSnip::all();
         $baseList = BaseInfo::where('id_user', $user->id)->paginate(15);
@@ -59,7 +61,7 @@ class HomeController extends Controller
             $infoSubscription = $this->setSessionSubscription($user->id);
           }
         return view('user.home.index', compact('result','baseList',
-            'listStatus', 'voice', 'snip', 'infoSubscription','allStatus', 'page_menu', ''));
+            'listStatus', 'voice', 'snip', 'infoSubscription','allStatus', 'page_menu', 'pageListKeyLanguage'));
     }
 
     public function logout(Request $request)
@@ -77,21 +79,22 @@ class HomeController extends Controller
     {
 
         $phoneManager = Auth::user()->phone_manager;
+        $pageListKeyLanguage = $this->localizationController->localisationPage('record_user');
 
         $userPhone = BaseInfo::find($id)->phone;
         $snipUser = InfoSnip::where('number_provider', '=',$phoneManager)->first();
         if(is_null($snipUser)){
-            return response()->json(['status' => false, 'info' => "У вас не настроен аккаунт для звонков"], 200);
+            return response()->json(['status' => false, 'info' => $pageListKeyLanguage['error_label_no_account_is_set_up_for_calls']], 200);
         }
         $trunk_login = Trunk::find($snipUser->id_trunk);
         if(is_null($trunk_login)){
-            return response()->json(['status' => false, 'info' => "У вас не настроен аккаунт для звонков"], 200);
+            return response()->json(['status' => false, 'info' => $pageListKeyLanguage['error_label_no_account_is_set_up_for_calls']], 200);
         }
         $callService = new CollService();
 
         $callUser = $callService->collAsterisk($phoneManager,$userPhone,$voice_id, $trunk_login->login);
         if( $callUser !== true){
-            return response()->json(['status' => false, 'info' => "Ошибка во время вызова на номер ".$userPhone." \n"." \n".$callUser], 200);
+            return response()->json(['status' => false, 'info' => $pageListKeyLanguage['error_during_a_call_to_a_number']." ".$userPhone." \n"." \n".$callUser], 200);
         }
         return response()->json(['status' => true, 'phone' => "$userPhone"], 200);
     }
@@ -100,17 +103,18 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $phoneManager = $user->phone_manager;
+        $pageListKeyLanguage = $this->localizationController->localisationPage('record_user');
         $data = $request->all();
         $callService = new CollService();
         $lastClient = BaseInfo::orderby('id', 'desc')->first()->id_client;
 
         $snipUser = InfoSnip::where('number_provider', '=',$phoneManager)->first();
         if(is_null($snipUser)){
-            return redirect()->back()->with('error','У вас не настроен аккаунт для звонков');
+            return redirect()->back()->with('error', $pageListKeyLanguage['error_label_no_account_is_set_up_for_calls']);
         }
         $trunk_login = Trunk::find($snipUser->id_trunk);
         if(is_null($trunk_login)){
-            return redirect()->back()->with('error','У вас не настроен аккаунт для звонков');
+            return redirect()->back()->with('error', $pageListKeyLanguage['error_label_no_account_is_set_up_for_calls']);
         }
 
         if(is_null($data['count_end'])){
@@ -119,29 +123,30 @@ class HomeController extends Controller
             $toCall = BaseInfo::whereBetween('id_client', [$data['count_start'], $data['count_end']])->get();
         }
         if($toCall->count() == 0){
-            return redirect()->back()->with('error','Данных записей не существует');
+            return redirect()->back()->with('error', $pageListKeyLanguage['error_records_not_exist']);
         }
 
         foreach ($toCall as $item){
             $callUser = $callService->collAsterisk($phoneManager,$item->phone,$data['language'], $trunk_login->login);
             if( $callUser !== true){
-                return redirect()->back()->with('error','Ошибка во время вызова на номер '.$item->phone." Описание ошибки: ".$callUser);
+                return redirect()->back()->with('error', $pageListKeyLanguage['error_during_a_call_to_a_number'].' '.$item->phone." \n"." \n".$callUser);
             }
         }
-        return redirect()->back()->withSuccess('Звонки на выбранных пользователь выполняются');
+        return redirect()->back()->withSuccess($pageListKeyLanguage['label_calls_selected_users']);
     }
 
     public function updateStatus(Request $request)
     {
+        $pageListKeyLanguage = $this->localizationController->localisationPage('record_user');
         $data = $request->all();
         if(!key_exists('status',$data)){
-            return redirect()->back()->with('error', "Сдеайте сначала звонок!");
+            return redirect()->back()->with('error', $pageListKeyLanguage['label_make_the_call_first']);
         }
         $userStatus = Status::where('name', $data['status'])->first()->id;
         $record = BaseInfo::find($data['idUser']);
         $record->id_status = $userStatus;
         $record->save();
-        return redirect()->back()->withSuccess('Статус обновлён!');
+        return redirect()->back()->withSuccess($pageListKeyLanguage['label_record_update']);
     }
 
     protected function getStatus()

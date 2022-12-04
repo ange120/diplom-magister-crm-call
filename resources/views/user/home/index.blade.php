@@ -1,6 +1,6 @@
 @extends('layouts.user_layout')
 
-@section('title', 'Все статьи')
+@section('title', $pageListKeyLanguage['title_label'])
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Все записи</h1>
+                    <h1 class="m-0">{{$pageListKeyLanguage['title_label']}}</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             @if (session('success'))
@@ -26,7 +26,7 @@
             @if ($infoSubscription === false)
                 <div class="alert alert-danger" id="AlertError" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <h4><i class="icon fa fa-ban"></i>Пожалуйста, установите подписку для данного пользователя.</h4>
+                    <h4><i class="icon fa fa-ban"></i>Будь ласка, встановіть підписку для цього користувача.</h4>
                 </div>
             @endif
         </div><!-- /.container-fluid -->
@@ -41,7 +41,7 @@
                     <div class="row">
                         <div class="col-4" style="padding-top: 2%;">
                             <div class="form-group">
-                                <label for="exampleInputName">Голос</label>
+                                <label for="exampleInputName">{{$pageListKeyLanguage['label_voice']}}</label>
                                 <select id="select_voice" class="form-control select2 select2-hidden-accessible"
                                         name="language" style="width: 100%;" data-select2-id="1" tabindex="-1"
                                         aria-hidden="true" required>
@@ -56,21 +56,21 @@
                                 @csrf
                                 <input id="set_value_language" name="language" style="display: none">
                                 <div class="col-3">
-                                    <label for="exampleInputName">Отобрать от:</label>
+                                    <label for="exampleInputName">{{$pageListKeyLanguage['label_count_start']}}:</label>
                                     <input type="number" min="1"  name="count_start" class="form-control"
                                            id="exampleInputName" placeholder="ID записи" required>
                                 </div>
                                 <div class="col-3">
-                                    <label for="exampleInputName">Отобрать до:</label>
+                                    <label for="exampleInputName">{{$pageListKeyLanguage['label_count_end']}}:</label>
                                     <input type="number" min="0" max="" name="count_end" class="form-control"
                                            id="exampleInputName" placeholder="ID записи">
                                 </div>
                                 <div class="col-3">
-                                    <label for="statuslist">Статус:</label>
+                                    <label for="statuslist">{{$pageListKeyLanguage['label_status']}}:</label>
                                     <select class="form-control select2 "
                                                 name="status" style="width: 100%;" id="statuslist"
                                                  tabindex="-1">
-                                            <option selected="selected" value="0">Select Статус</option>
+                                            <option selected="selected" value="0">{{$pageListKeyLanguage['label_select_status']}}</option>
                                             @foreach($allStatus as $status)
                                                 <option
                                                 value="{{$status->id}}">{{$status->name}}</option>
@@ -81,7 +81,7 @@
                                     <button type="submit" class="btn btn-info btn-sm">
                                         <i class="fas fa-phone">
                                         </i>
-                                        Сделать звонок на пользователей
+                                        {{$pageListKeyLanguage['label_call']}}
                                     </button>
                                 </div>
 
@@ -104,16 +104,16 @@
                                 ID
                             </th>
                             <th>
-                                Номер телефна
+                                {{$pageListKeyLanguage['table_phone']}}
                             </th>
                             <th>
-                                Статус
+                                {{$pageListKeyLanguage['table_status']}}
                             </th>
                             <th>
-                                ФИО
+                                {{$pageListKeyLanguage['table_user']}}
                             </th>
                             <th style="width: 30%">
-                                Действия
+                                {{$pageListKeyLanguage['table_label_btn']}}
                             </th>
                         </tr>
                         </thead>
@@ -146,17 +146,17 @@
                                     </td>
                                     <td class="project-actions text-right">
                                         <a class="btn btn-warning btn-sm coll-btn" onclick="updateStatus( {{$post['id']}})">
-                                            Обновить статус
+                                            {{$pageListKeyLanguage['btn_update_status']}}
                                         </a>
                                         <a class="btn btn-info btn-sm coll-btn" onclick="getSelected( {{$post['id']}})">
                                             <i class="fas fa-phone">
                                             </i>
-                                            Звонок
+                                            {{$pageListKeyLanguage['btn_call']}}
                                         </a>
                                         <button type="submit" class="btn btn-success btn-sm">
                                             <i class="fas fa-check">
                                             </i>
-                                            Подтвердить
+                                            {{$pageListKeyLanguage['btn_save_status']}}
                                         </button>
                                     </td>
                                 </tr>
@@ -164,7 +164,7 @@
                         @empty
                             <div class="alert alert-warning" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                <h4><i class="icon fa fa-exclamation-triangle"></i>Записи отсутствуют!</h4>
+                                <h4><i class="icon fa fa-exclamation-triangle"></i>{{$pageListKeyLanguage['label_not_have_record']}}}!</h4>
                             </div>
                         @endforelse
 
