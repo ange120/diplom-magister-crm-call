@@ -10,6 +10,14 @@ use Illuminate\Support\Facades\Auth;
 
 class VoiceRecordController extends Controller
 {
+
+    protected $localizationController;
+
+    public function __construct()
+    {
+        $this->localizationController = new LocalizationController();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +26,11 @@ class VoiceRecordController extends Controller
     public function index()
     {
         $result = [];
+        $pageListKeyLanguage = $this->localizationController->localisationPage('voice_by_user');
         $voiceRecordList = VoiceRecord::paginate(15);
+
+
+
         foreach ($voiceRecordList as $item) {
 
             $result[] = [
@@ -28,7 +40,7 @@ class VoiceRecordController extends Controller
                 'language' => Language::find($item->id_language)->name,
             ];
         }
-        return view('user.voice.index', compact('result', 'voiceRecordList'));
+        return view('user.voice.index', compact('result', 'voiceRecordList', 'pageListKeyLanguage'));
     }
 
     /**
@@ -39,7 +51,9 @@ class VoiceRecordController extends Controller
     public function create()
     {
         $languages = Language::all();
-        return view('user.voice.create', compact('languages'));
+        $pageListKeyLanguage = $this->localizationController->localisationPage('voice_by_user_edit');
+
+        return view('user.voice.create', compact('languages', 'pageListKeyLanguage'));
     }
 
     /**
@@ -53,10 +67,11 @@ class VoiceRecordController extends Controller
         $data =$request->all();
         $languages = Language::all();
         $voiceRecord = VoiceRecord::where('name',$data['name'])->first();
+        $pageListKeyLanguage = $this->localizationController->localisationPage('voice_by_user_edit');
 
         if(!is_null($voiceRecord)){
-            $message = 'Запись с таким именем уже существует!';
-            return view('user.voice.create', compact('message','languages'));
+            $message = $pageListKeyLanguage['error_info_name_already_exists'];
+            return view('user.voice.create', compact('message','languages','pageListKeyLanguage'));
         }
         VoiceRecord::create([
             'name' => $data['name'] ,
@@ -64,7 +79,7 @@ class VoiceRecordController extends Controller
             'id_language' => (int)$data['language'],
             'type' => 'type_text_voice',
         ]);
-        return redirect()->back()->withSuccess('Запись успешно добавлена!');
+        return redirect()->back()->withSuccess($pageListKeyLanguage['info_record_update']);
     }
 
     /**
@@ -119,6 +134,7 @@ class VoiceRecordController extends Controller
     public function destroy($id)
     {
         $user = Auth::user();
+        $pageListKeyLanguage = $this->localizationController->localisationPage('voice_by_user');
         $voiceRecord = VoiceRecord::find($id);
         if($voiceRecord->type !== 'type_text_voice'){
             $deleteLocal = $this->deleteFile($voiceRecord->type);
@@ -132,7 +148,7 @@ class VoiceRecordController extends Controller
             }
         }
         $voiceRecord->delete();
-        return redirect()->back()->withSuccess('Запись голоса успешно удалёна!');
+        return redirect()->back()->withSuccess($pageListKeyLanguage['info_delete']);
     }
 
     public function voiceCreateSound(Request $request)

@@ -1,3 +1,4 @@
+@php($page_menu = session()->get('user_menu'))
 <!DOCTYPE html>
 <html lang="ru">
 

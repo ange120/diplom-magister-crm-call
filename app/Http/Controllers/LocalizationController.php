@@ -8,6 +8,7 @@ use App\Models\Language;
 use App\Models\LocalizationPages;
 use App\Models\UserLocalization;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LocalizationController extends Controller
 {
@@ -18,9 +19,9 @@ class LocalizationController extends Controller
         $result = [];
 
         try {
-            $page_menu = $this->localisationDashBoardByUser();
-
+            $this->setUserMenuInSession();
             $user = auth()->user();
+            $pageListKeyLanguage = $this->localisationPage('settings_user');
 
             $idSelected = UserLocalization::where('email', $user->email)->first();
             $id_languages = 1;
@@ -35,7 +36,7 @@ class LocalizationController extends Controller
             $message = $throwable->getMessage();
             $line = $throwable->getLine();
         }
-        return view('user.settings.index', compact('language', 'id_languages', 'page_menu'));;
+        return view('user.settings.index', compact('language', 'id_languages','pageListKeyLanguage'));;
     }
 
 
@@ -53,9 +54,19 @@ class LocalizationController extends Controller
                 'id_languages' => $lang->id
             ]);
         }
-        return redirect()->back()->withSuccess('Language успешно обновлён!');
+        $this->setUserMenuInSession();
+        return redirect()->back()->withSuccess($this->localisationPage('settings_user')['info_language_update']);
     }
 
+    public function setUserMenuInSession()
+    {
+        $role = Auth::user()->getrolenames();
+        if ($role->contains('admin') !== true) {
+            session()->put('user_menu', $this->localisationDashBoardByUser());
+        }else{
+            session()->put('user_menu', $this->localisationDashBoardByUser());
+        }
+    }
 
     /**
      * @return array|false

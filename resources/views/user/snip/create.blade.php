@@ -1,6 +1,6 @@
 @extends('layouts.user_layout')
 
-@section('title', 'Добавить SNIP')
+@section('title', $pageListKeyLanguage['header_page'])
 
 @section('content')
     @if(session('subscriptionId') !== 1)
@@ -10,7 +10,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Добавить SNIP</h1>
+                    <h1 class="m-0">{{$pageListKeyLanguage['header_page']}}</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             @if (session('success'))
@@ -42,7 +42,7 @@
                             @endif
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> Имя менеджера</label>
+                                    <label for="exampleInputEmail1">{{$pageListKeyLanguage['label_name_manager']}}</label>
                                     <select onchange="getPhone()" id="userList" class="form-control select2 select2-hidden-accessible" name="name_provider" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required >
                                         <option selected="selected" data-select2-id="3"></option>
                                         @foreach($userList as $user)
@@ -51,7 +51,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="userPhone"> Номер авторизации</label>
+                                    <label for="userPhone">{{$pageListKeyLanguage['label_phone_manager']}}</label>
                                     <input type="text" name="number_provider" class="form-control" id="userPhone" placeholder="Номер авторизации" readonly >
                                 </div>
                                 <div class="form-group">
@@ -64,18 +64,18 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> Назва аккаунту</label>
+                                    <label for="exampleInputEmail1">{{$pageListKeyLanguage['label_name_login']}}</label>
                                     <input type="text" name="login_snip" class="form-control" id="exampleInputEmail1" placeholder="Назва аккаунту" required >
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> Пароль аккаунту</label>
+                                    <label for="exampleInputEmail1">{{$pageListKeyLanguage['label_password']}}</label>
                                     <input type="password" name="password_snip" class="form-control" id="exampleInputEmail1" placeholder="Пароль аккаунту" required >
                                 </div>
                             </div>
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Добавить</button>
+                                <button type="submit" class="btn btn-primary">{{$pageListKeyLanguage['btn_save']}}</button>
                             </div>
                         </form>
                     </div>

@@ -10,6 +10,14 @@ use App\Service\UpdateConfig;
 
 class SnipController extends Controller
 {
+
+    protected $localizationController;
+
+    public function __construct()
+    {
+        $this->localizationController = new LocalizationController();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,6 +27,9 @@ class SnipController extends Controller
     {
         $result = [];
         $snipList = InfoSnip::paginate(15);
+
+        $pageListKeyLanguage = $this->localizationController->localisationPage('sip_page');
+
         foreach ($snipList as $item) {
 
             $result[] = [
@@ -31,7 +42,7 @@ class SnipController extends Controller
             ];
         }
 
-        return view('user.snip.index', compact('result', 'snipList'));
+        return view('user.snip.index', compact('result', 'snipList', 'pageListKeyLanguage'));
     }
 
     /**
@@ -43,7 +54,10 @@ class SnipController extends Controller
     {
         $userList = User::all();
         $trunkList = Trunk::all();
-        return view('user.snip.create',  compact('userList', 'trunkList'));
+
+        $pageListKeyLanguage = $this->localizationController->localisationPage('crate_snip');
+
+        return view('user.snip.create',  compact('userList', 'trunkList', 'pageListKeyLanguage'));
     }
 
     /**
@@ -57,13 +71,16 @@ class SnipController extends Controller
         $data =$request->all();
         $userList = User::all();
         $trunkList = Trunk::all();
-         $updateConfig = UpdateConfig::createNewSNIP($data['number_provider'], $data['password_snip']);
+        $pageListKeyLanguage = $this->localizationController->localisationPage('crate_snip');
+        $updateConfig = UpdateConfig::createNewSNIP($data['number_provider'], $data['password_snip']);
         if($updateConfig !== true){
             return view('user.snip.create', compact('updateConfig', 'userList', 'trunkList'));
         }
+
+
         $findTrunk = InfoSnip::where('id_trunk', $data['id_trunk'])->first();
         if(!is_null($findTrunk)){
-            return redirect()->back()->with('error','Этот trunk зарезервирован за другим пользователем');
+            return redirect()->back()->with('error', $pageListKeyLanguage['error_info_save']);
         }
 
         InfoSnip::create([
@@ -74,7 +91,7 @@ class SnipController extends Controller
             'password_snip' =>  $data['password_snip'],
             'id_trunk' =>  $data['id_trunk'],
         ]);
-        return redirect()->back()->withSuccess('SNIP успешно добавлен!');
+        return redirect()->back()->withSuccess( $pageListKeyLanguage['save_add']);
     }
 
     /**
@@ -98,7 +115,9 @@ class SnipController extends Controller
         $userList = User::all();
         $trunkList = Trunk::all();
         $infoSnip = InfoSnip::find($id);
-        return view('user.snip.edit', compact('infoSnip', 'userList', 'trunkList'));
+        $pageListKeyLanguage = $this->localizationController->localisationPage('edit_sip');
+
+        return view('user.snip.edit', compact('infoSnip', 'userList', 'trunkList', 'pageListKeyLanguage'));
     }
 
     /**
@@ -112,7 +131,7 @@ class SnipController extends Controller
     {
         $data = $request->all();
         $infoSnipModel = InfoSnip::find($id);
-
+        $pageListKeyLanguage = $this->localizationController->localisationPage('edit_sip');
         $updateConfigSnip = UpdateConfig::updateSNIP($data['number_provider'], $data['password_snip']);
         if($updateConfigSnip !== true){
             return redirect()->back()->with('error', $updateConfigSnip);
@@ -123,7 +142,7 @@ class SnipController extends Controller
         $infoSnipModel->password_snip =  $data['password_snip'];
         $infoSnipModel->save();
 
-        return redirect()->back()->withSuccess('SNIP успешно обновлён!');
+        return redirect()->back()->withSuccess($pageListKeyLanguage['info_update_done']);
     }
 
     /**
@@ -135,11 +154,12 @@ class SnipController extends Controller
     public function destroy($id)
     {
         $infoSnip = InfoSnip::find($id);
+        $pageListKeyLanguage = $this->localizationController->localisationPage('sip_page');
         $deleteConfigSnip = UpdateConfig::deleteSNIP($infoSnip->number_provider);
         if($deleteConfigSnip !== true){
             return redirect()->back()->with('error', $deleteConfigSnip);
         }
         $infoSnip->delete();
-        return redirect()->back()->withSuccess('SNIP успешно удалён!');
+        return redirect()->back()->withSuccess($pageListKeyLanguage['info_delete']);
     }
 }

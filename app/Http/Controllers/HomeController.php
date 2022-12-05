@@ -39,7 +39,7 @@ class HomeController extends Controller
     {
         $result = [];
         $user = Auth::user();
-        $page_menu = $this->localizationController->localisationDashBoardByUser();
+        $this->setUserMenuInSession();
         $pageListKeyLanguage = $this->localizationController->localisationPage('record_user');
         $voice = VoiceRecord::all();
         $snip = InfoSnip::all();
@@ -61,7 +61,22 @@ class HomeController extends Controller
             $infoSubscription = $this->setSessionSubscription($user->id);
           }
         return view('user.home.index', compact('result','baseList',
-            'listStatus', 'voice', 'snip', 'infoSubscription','allStatus', 'page_menu', 'pageListKeyLanguage'));
+            'listStatus', 'voice', 'snip', 'infoSubscription','allStatus', 'pageListKeyLanguage'));
+    }
+
+    public function setUserMenuInSession()
+    {
+
+       if(session()->has('user_menu') === false){
+           $role = Auth::user()->getrolenames();
+           if($role->contains('admin') !== true){
+                session()->put('user_menu', $this->localizationController->localisationDashBoardByUser());
+           }else{
+            session()->put('user_menu', $this->localizationController->localisationDashBoardByUser());
+//            session()->put('admin_menu', $this->localizationController->localisationDashBoardByUser());
+           }
+       }
+
     }
 
     public function logout(Request $request)

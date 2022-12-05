@@ -1,6 +1,6 @@
 @extends('layouts.user_layout')
 
-@section('title', 'Налаштування')
+@section('title', $pageListKeyLanguage['header_page'])
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Все SNIP</h1>
+                    <h1 class="m-0">{{$pageListKeyLanguage['header_page']}}</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             @if (session('success'))
@@ -34,14 +34,14 @@
                 <div class="col-lg-12">
                     <div class="card card-primary">
                         <!-- form start -->
-                        <h2>Lang USer</h2>
+                        <h2>{{$pageListKeyLanguage['header_tab']}}</h2>
                         <form action="{{ route('updateLanguagePage') }}" method="POST">
                             @csrf
                             @method('PUT')
 
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> LAng</label>
+                                    <label for="exampleInputEmail1">{{$pageListKeyLanguage['label_language']}}</label>
                                     <select id="userList" class="form-control select2 select2-hidden-accessible" name="language" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required>
                                         <option selected="selected" data-select2-id="3"></option>
                                         @foreach($language as $item)
@@ -53,7 +53,7 @@
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Обновить</button>
+                                <button type="submit" class="btn btn-primary">{{$pageListKeyLanguage['btn_save']}}</button>
                             </div>
                         </form>
                     </div>

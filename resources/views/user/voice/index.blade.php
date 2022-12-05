@@ -1,6 +1,6 @@
 @extends('layouts.user_layout')
 
-@section('title', 'Все записи голосов')
+@section('title', $pageListKeyLanguage['header_page'])
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Все записи голосов</h1>
+                    <h1 class="m-0">{{$pageListKeyLanguage['header_page']}}</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             @if (session('success'))
@@ -39,16 +39,16 @@
                                 ID
                             </th>
                             <th>
-                                Имя записи
+                                {{$pageListKeyLanguage['table_record_name']}}
                             </th>
                             <th>
-                                Текс записи
+                                {{$pageListKeyLanguage['table_record_text']}}
                             </th>
                             <th>
-                                Язык записи
+                                {{$pageListKeyLanguage['table_language_record']}}
                             </th>
                             <th style="width: 30%">
-                                Действия
+                                {{$pageListKeyLanguage['table_btn']}}
                             </th>
                         </tr>
                         </thead>
@@ -84,7 +84,7 @@
                                         <button type="submit" class="btn btn-danger btn-sm delete-btn">
                                             <i class="fas fa-trash">
                                             </i>
-                                            Удалить
+                                            {{$pageListKeyLanguage['btn_delete']}}
                                         </button>
                                     </form>
                                         @else
@@ -98,7 +98,7 @@
                         @empty
                             <div class="alert alert-warning" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                <h4><i class="icon fa fa-exclamation-triangle"></i>Записи отсутствуют!</h4>
+                                <h4><i class="icon fa fa-exclamation-triangle"></i>{{$pageListKeyLanguage['label_not_have_record']}}</h4>
                             </div>
                         @endforelse
 
