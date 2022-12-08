@@ -1,6 +1,6 @@
 @extends('layouts.admin_layout')
 
-@section('title', 'Добавить SIP')
+@section('title', 'Створити SIP')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Добавить SIP</h1>
+                    <h1 class="m-0">Створити SIP</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             @if (session('success'))
@@ -40,7 +40,7 @@
                             @endif
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> Имя менеджера</label>
+                                    <label for="exampleInputEmail1"> Ім'я менеджера</label>
                                     <select onchange="getPhone()" id="userList" class="form-control select2 select2-hidden-accessible" name="name_provider" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true"required >
                                         <option selected="selected" data-select2-id="3"></option>
                                         @foreach($userList as $user)
@@ -49,8 +49,8 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="userPhone"> Номер авторизации</label>
-                                    <input type="text" id="userPhone" name="number_provider" class="form-control"  placeholder="Номер авторизации" readonly>
+                                    <label for="userPhone"> Номер авторизації</label>
+                                    <input type="text" id="userPhone" name="number_provider" class="form-control"  placeholder="Номер авторизації" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Trunk</label>
@@ -73,7 +73,7 @@
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Добавить</button>
+                                <button type="submit" class="btn btn-primary">Створити</button>
                             </div>
                         </form>
                     </div>

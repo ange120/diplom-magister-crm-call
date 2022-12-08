@@ -71,7 +71,7 @@
                                     <a class="btn btn-warning btn-sm" href="{{ route('editSubscriptionUser', $item['id']) }}">
                                         <i class="fas fa-pencil-alt">
                                         </i>
-                                        Редактировать
+                                        Редагувати
                                     </a>
                                     <form action="{{ route('subscriptions_user.destroy',$item['id']) }}" method="POST"
                                           style="display: inline-block">
@@ -80,7 +80,7 @@
                                         <button type="submit" class="btn btn-danger btn-sm delete-btn">
                                             <i class="fas fa-trash">
                                             </i>
-                                            Удалить
+                                            Видалити
                                         </button>
                                     </form>
                                 </td>
@@ -88,7 +88,7 @@
                         @empty
                             <div class="alert alert-warning" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                <h4><i class="icon fa fa-exclamation-triangle"></i>Записи отсутствуют!</h4>
+                                <h4><i class="icon fa fa-exclamation-triangle"></i>Записи відсутні!</h4>
                             </div>
                         @endforelse
 

@@ -1,6 +1,6 @@
 @extends('layouts.admin_layout')
 
-@section('title', 'Добавить запись голоса')
+@section('title', 'Створити запис голоса')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Добавить запись голоса</h1>
+                    <h1 class="m-0">Створити запис голосу</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             @if (session('success'))
@@ -41,11 +41,11 @@
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="exampleInputName">Имя записи</label>
-                                    <input type="text" name="name" class="form-control" id="exampleInputName" placeholder="Имя записи" required >
+                                    <label for="exampleInputName">Ім'я запису</label>
+                                    <input type="text" name="name" class="form-control" id="exampleInputName" placeholder="Ім'я запису" required >
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Язык записи</label>
+                                    <label for="exampleInputEmail1">Мова запису</label>
 
                                     <select class="form-control select2 select2-hidden-accessible" name="language" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required>
                                         <option selected="selected" data-select2-id="3"></option>
@@ -55,14 +55,14 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleFormControlFile1">Выберите файл</label>
+                                    <label for="exampleFormControlFile1">Оберіть файл</label>
                                     <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1"  required>
                                 </div>
                             </div>
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-success">Загрузить</button>
+                                <button type="submit" class="btn btn-success">Завантажити</button>
                             </div>
                         </form>
                     </div>

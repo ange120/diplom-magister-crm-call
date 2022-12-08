@@ -1,6 +1,6 @@
 @extends('layouts.admin_layout')
 
-@section('title', 'Все статьи')
+@section('title', 'Всі статуси')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Все статусы</h1>
+                    <h1 class="m-0">Всі статуси</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             @if (session('success'))
@@ -39,9 +39,10 @@
                                 ID
                             </th>
                             <th>
-                                Название
+                                Ім'я
                             </th>
                             <th style="width: 30%">
+                                Дії
                             </th>
                         </tr>
                         </thead>
@@ -59,7 +60,7 @@
                                     <a class="btn btn-warning btn-sm" href="{{ route('status.edit', $post->id) }}">
                                         <i class="fas fa-pencil-alt">
                                         </i>
-                                        Редактировать
+                                        Редагувати
                                     </a>
                                     <form action="{{ route('status.destroy',$post->id) }}" method="POST"
                                           style="display: inline-block">
@@ -68,7 +69,7 @@
                                         <button type="submit" class="btn btn-danger btn-sm delete-btn">
                                             <i class="fas fa-trash">
                                             </i>
-                                            Удалить
+                                            Видалити
                                         </button>
                                     </form>
                                 </td>
@@ -76,7 +77,7 @@
                         @empty
                             <div class="alert alert-warning" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                <h4><i class="icon fa fa-exclamation-triangle"></i>Записи отсутствуют!</h4>
+                                <h4><i class="icon fa fa-exclamation-triangle"></i>Записи відсутні!</h4>
                             </div>
                         @endforelse
 

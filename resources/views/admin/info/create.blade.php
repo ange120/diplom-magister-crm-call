@@ -1,6 +1,6 @@
 @extends('layouts.admin_layout')
 
-@section('title', 'Добавить запись')
+@section('title', 'Додати запис')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -29,7 +29,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="col-sm-6">
-            <h1 class="m-0">Загрузить записи</h1>
+            <h1 class="m-0">Завантажити запис</h1>
         </div><!-- /.col -->
         <div class="container-fluid">
             <div class="row">
@@ -40,7 +40,7 @@
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="exampleFormControlFile1">Выберите файл</label>
+                                    <label for="exampleFormControlFile1">Оберіть файл</label>
                                     <input type="file" name="file" class="form-control-file"
                                            id="exampleFormControlFile1" required>
                                 </div>
@@ -49,14 +49,14 @@
                                             data-target="#exampleModal"
                                     >
                                         <i class="icon fa solid fa-question"></i>
-                                        Информация о структуре файла
+                                        Інформація про структуру файлу
                                     </button>
                                 </div>
                             </div>
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-success">Загрузить</button>
+                                <button type="submit" class="btn btn-success">Завантажити</button>
                             </div>
                         </form>
                     </div>
@@ -66,7 +66,7 @@
     </section>
     <section class="content">
         <div class="col-sm-6">
-            <h1 class="m-0">Загрузить записи на пользователя</h1>
+            <h1 class="m-0">Завантажити записи на користувача</h1>
         </div><!-- /.col -->
         <div class="container-fluid">
             <div class="row">
@@ -77,7 +77,7 @@
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="exampleFormControlFile1">Выберите файл</label>
+                                    <label for="exampleFormControlFile1">Оберіть файл</label>
                                     <input type="file" name="file" class="form-control-file"
                                            id="exampleFormControlFile1" required>
                                 </div>
@@ -85,11 +85,11 @@
                                     <button type="button" class="btn btn-info btn-sm coll-btn" data-toggle="modal"
                                             data-target="#exampleModal">
                                         <i class="icon fa solid fa-question"></i>
-                                        Информация о структуре файла
+                                        Інформація про структуру файлу
                                     </button>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleFormControlFile1">Пользователь</label>
+                                    <label for="exampleFormControlFile1">Користувачі</label>
                                     <select class="form-control select2 select2-hidden-accessible" name="user"
                                             data-select2-id="1" tabindex="-1" aria-hidden="true" required>
                                         <option selected="selected" data-select2-id="3"></option>
@@ -102,7 +102,7 @@
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-success">Загрузить</button>
+                                <button type="submit" class="btn btn-success">Завантажити</button>
                             </div>
                         </form>
                     </div>
@@ -112,7 +112,7 @@
     </section>
     <section class="content">
         <div class="col-sm-6">
-            <h1 class="m-0">Загрузить одну запись</h1>
+            <h1 class="m-0">Завантажити один запис</h1>
         </div><!-- /.col -->
         <div class="container-fluid">
             <div class="row">
@@ -123,12 +123,12 @@
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="exampleInputNameID">ID клиента</label>
+                                    <label for="exampleInputNameID">ID користувача</label>
                                     <input type="number" name="id_client" class="form-control" id="exampleInputNameID"
-                                           placeholder="ID клиента" required>
+                                           placeholder="ID користувача" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputName">Номер телефона</label>
+                                    <label for="exampleInputName">Номер телефону</label>
                                     <input type="number" name="phone" class="form-control" id="exampleInputName"
                                            placeholder="Номер телефона" required>
                                 </div>
@@ -170,39 +170,39 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword2">Комментарий</label>
+                                    <label for="exampleInputPassword2">Коментар</label>
                                     <input type="text" name="commit" class="form-control" id="exampleInputPassword2"
-                                           placeholder="Комментарий">
+                                           placeholder="Коментар">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword2">ФИО</label>
+                                    <label for="exampleInputPassword2">ФІО</label>
                                     <input type="text" name="user_info" class="form-control" id="exampleInputPassword2"
-                                           placeholder="ФИО">
+                                           placeholder="ФІО">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword2">Стран</label>
+                                    <label for="exampleInputPassword2">Держава</label>
                                     <input type="text" name="country" class="form-control" id="exampleInputPassword2"
-                                           placeholder="Стран">
+                                           placeholder="Держава">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword2">Город</label>
+                                    <label for="exampleInputPassword2">Місто</label>
                                     <input type="text" name="city" class="form-control" id="exampleInputPassword2"
-                                           placeholder="Город">
+                                           placeholder="Місто">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword2">Пол</label>
+                                    <label for="exampleInputPassword2">Рід</label>
                                     <input type="text" name="sex" class="form-control" id="exampleInputPassword2"
-                                           placeholder="Пол">
+                                           placeholder="Рід">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword2">Дата рождения</label>
+                                    <label for="exampleInputPassword2">Дата народження</label>
                                     <input type="date" name="birthday" class="form-control" id="exampleInputPassword2"
-                                           placeholder="Дата рождения">
+                                           placeholder="Дата народження">
                                 </div>
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-success">Добавить</button>
+                                <button type="submit" class="btn btn-success">Зберегти</button>
                             </div>
                         </form>
                     </div>
@@ -227,33 +227,31 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <h5>1. Убрать шапку для полей пример на скриншоте</h5>
+                        <h5>1. Видалити заголовки, як зображенно на світлині</h5>
                         <div class="text-center">
                             <img src="/files/testFile.png" style="width: 100%" class="rounded">
                         </div>
-                        <h5>2. Обязательно соблюдать последовательность полей</h5>
+                        <h5>2. Обовязково зберігати послідовність полів</h5>
                         <ul>
-                            <li>ID клиента</li>
+                            <li>ID користувача</li>
                             <li>Номер телефона</li>
                             <li>Поле 1</li>
                             <li>Поле 2</li>
                             <li>Поле 3</li>
                             <li>Поле 4</li>
-                            <li>Менеджер</li>
                             <li>Статус</li>
-                            <li>Комментарий</li>
+                            <li>Коменар</li>
                             <li>empty_1</li>
                             <li>empty_2</li>
                         </ul>
-                        <h5>3. Проверить в поле статус и сравнить со статусами в crm. Если есть недостающие
-                            добавить.</h5>
+                        <h5>3. Перевірити поле статус та порівняти поле в системі crm. Якщо відсутні або зайві внести зміни в crm.</h5>
 
 
                     </div>
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
                 </div>
 
             </div>

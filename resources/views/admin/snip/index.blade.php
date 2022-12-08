@@ -1,6 +1,6 @@
 @extends('layouts.admin_layout')
 
-@section('title', 'Все SIP')
+@section('title', 'Всі SIP')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Все SIP</h1>
+                    <h1 class="m-0">Всі SIP</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             @if (session('success'))
@@ -42,10 +42,10 @@
                                 ID
                             </th>
                             <th>
-                                Имя провайдера
+                                Ім'я провайдера
                             </th>
                             <th>
-                                Номер авторизации
+                                Номер авторизації
                             </th>
                             <th>
                                 Назва аккаунту
@@ -57,6 +57,7 @@
                                 Trunk
                             </th>
                             <th style="width: 30%">
+                                Дії
                             </th>
                         </tr>
                         </thead>
@@ -86,7 +87,7 @@
                                     <a class="btn btn-warning btn-sm" href="{{ route('snip_by_admin.edit', $post['id']) }}">
                                         <i class="fas fa-pencil-alt">
                                         </i>
-                                        Редактировать
+                                        Редагувати
                                     </a>
                                     <form action="{{ route('snip_by_admin.destroy',$post['id']) }}" method="POST"
                                           style="display: inline-block">
@@ -95,7 +96,7 @@
                                         <button type="submit" class="btn btn-danger btn-sm delete-btn">
                                             <i class="fas fa-trash">
                                             </i>
-                                            Удалить
+                                            Видалити
                                         </button>
                                     </form>
                                 </td>
@@ -103,7 +104,7 @@
                         @empty
                             <div class="alert alert-warning" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                <h4><i class="icon fa fa-exclamation-triangle"></i>Записи отсутствуют!</h4>
+                                <h4><i class="icon fa fa-exclamation-triangle"></i>Записи відсутні!</h4>
                             </div>
                         @endforelse
 

@@ -1,6 +1,6 @@
 @extends('layouts.admin_layout')
 
-@section('title', 'Редактирование подписки')
+@section('title', 'Редагування підписки')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Редактирование подписки: {{$subscription->info_name }}</h1>
+                    <h1 class="m-0">Редагування підписки: {{$subscription->info_name }}</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             @if (session('success'))
@@ -34,15 +34,15 @@
                             <div class="card-body">
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="exampleInputName">Имя подписки</label>
-                                        <input type="text" name="name" class="form-control" id="exampleInputName" value="{{$subscription->info_name}}" placeholder="Имя подписки" required >
+                                        <label for="exampleInputName">Ім'я підписки</label>
+                                        <input type="text" name="name" class="form-control" id="exampleInputName" value="{{$subscription->info_name}}" placeholder="Ім'я підписки" required >
                                     </div>
                                 </div>
                             </div>
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Обновить</button>
+                                <button type="submit" class="btn btn-primary">Оновити</button>
                             </div>
                         </form>
                     </div>

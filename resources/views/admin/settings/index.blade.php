@@ -1,6 +1,6 @@
 @extends('layouts.admin_layout')
 
-@section('title', 'Створити trunk')
+@section('title', 'Налаштування')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Створити trunk</h1>
+                    <h1 class="m-0">Налаштування</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             @if (session('success'))
@@ -26,6 +26,7 @@
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
+
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
@@ -33,33 +34,26 @@
                 <div class="col-lg-12">
                     <div class="card card-primary">
                         <!-- form start -->
-                        <form action="{{ route('trunk_by_admin.store') }}" method="POST">
+                        <h2>Налаштування мови</h2>
+                        <form action="{{ route('updateLanguagePage') }}" method="POST">
                             @csrf
-                            @if(isset($message) )
-                                <div class="alert alert-danger">{{ $message }}</div>
-                            @endif
+                            @method('PUT')
+
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="exampleInputName">SIP сервер</label>
-                                    <input type="text" name="sip_server" class="form-control" id="exampleInputName" placeholder="SIP сервер" required >
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleFormControlTextarea1">Логін</label>
-                                    <input type="text" name="login" class="form-control" id="exampleInputName" placeholder="Логін" required >
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Пароль</label>
-                                    <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Пароль" required >
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword2">Підтвердження  пароля</label>
-                                    <input type="password" name="confirm_password" class="form-control" id="exampleInputPassword2" placeholder="Підтвердження пароля" required >
+                                    <label for="exampleInputEmail1">Мова</label>
+                                    <select id="userList" class="form-control select2 select2-hidden-accessible" name="language" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required>
+                                        <option selected="selected" data-select2-id="3"></option>
+                                        @foreach($language as $item)
+                                            <option value="{{$item->id}}" @if($item->id == $id_languages) selected @endif>{{$item->name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Створити</button>
+                                <button type="submit" class="btn btn-primary">Мова</button>
                             </div>
                         </form>
                     </div>

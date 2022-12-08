@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Админ-панель - @yield('title')</title>
+    <title>Панель адміністратора - @yield('title')</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -56,12 +56,18 @@
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                         <span>{{ Auth::user()->name }}</span>
                     </a>
+                <li class="user-footer">
+                    <a class="btn btn-default btn-flat float-right  btn-block " href="{{route('getSettingsPage')}}">
+                        <i class="fa fa-cogs" aria-hidden="true"></i>
+                        Налаштування
+                    </a>
+                </li>
                     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
                         <li class="user-footer">
                             <a class="btn btn-default btn-flat float-right  btn-block " href="#"
                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="fa fa-fw fa-power-off"></i>
-                                Log Out
+                                Вихід
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="GET" style="display: none;"></form>
                         </li>
@@ -76,7 +82,7 @@
             <a class="brand-link" href="{{ route('homeAdmin') }}">
                 <img src="/admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">Админ-панель</span>
+                <span class="brand-text font-weight-light">Панель-адмін.</span>
             </a>
 
             <!-- Sidebar -->
@@ -94,7 +100,7 @@
                             <a href="{{ route('homeAdmin') }}" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
-                                    Главная
+                                    Головна сторінка
                                 </p>
                             </a>
                         </li>
@@ -109,17 +115,17 @@
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{route('base_info.index')}}" class="nav-link">
-                                        <p>Все Записи</p>
+                                        <p>Всі Записи</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('baseList')}}" class="nav-link">
-                                        <p>Назначить на пользователя</p>
+                                        <p>Призначити на користувача</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('base_info.create')}}" class="nav-link">
-                                        <p>Добавить Записи</p>
+                                        <p>Додати записи</p>
                                     </a>
                                 </li>
                             </ul>
@@ -128,19 +134,19 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
-                                     Пользователи
+                                     Користувачі
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{route('users.index')}}" class="nav-link">
-                                        <p>Все Пользователи</p>
+                                        <p>Всі користувачі</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('users.create')}}" class="nav-link">
-                                        <p>Добавить Пользователя</p>
+                                        <p>Додати користувача</p>
                                     </a>
                                 </li>
                             </ul>
@@ -149,19 +155,19 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-tags"></i>
                                 <p>
-                                    Подписки
+                                    Підписка
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{route('subscriptions_user.index')}}" class="nav-link">
-                                        <p>Все подписки</p>
+                                        <p>Всі підписки</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('subscriptionAllUsers')}}" class="nav-link">
-                                        <p>Назначить подписку</p>
+                                        <p>Призначити підписку</p>
                                     </a>
                                 </li>
                             </ul>
@@ -170,19 +176,19 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-book"></i>
                                 <p>
-                                    Статусы
+                                    Статуси
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{route('status.index')}}" class="nav-link">
-                                        <p>Все Статусы</p>
+                                        <p>Всі статуси</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('status.create')}}" class="nav-link">
-                                        <p>Добавить Статус</p>
+                                        <p>Додати статус</p>
                                     </a>
                                 </li>
                             </ul>
@@ -198,12 +204,12 @@
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{route('snip_by_admin.index')}}" class="nav-link">
-                                        <p>Все SIP</p>
+                                        <p>Всі SIP</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('snip_by_admin.create')}}" class="nav-link">
-                                        <p>Добавить SIP</p>
+                                        <p>Додати SIP</p>
                                     </a>
                                 </li>
                             </ul>
@@ -212,19 +218,19 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-microphone"></i>
                                 <p>
-                                    Записи Голосов
+                                    Записи Голосів
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{route('voice_by_admin.index')}}" class="nav-link">
-                                        <p>Все записи голосов</p>
+                                        <p>Всі записи голосів</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('voice_by_admin.create')}}" class="nav-link">
-                                        <p>Добавить запись голоса</p>
+                                        <p>Додати записи голосів</p>
                                     </a>
                                 </li>
                             </ul>
@@ -240,12 +246,33 @@
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{route('trunk_by_admin.index')}}" class="nav-link">
-                                        <p>Все trunks</p>
+                                        <p>Всі trunks</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('trunk_by_admin.create')}}" class="nav-link">
-                                        <p>Добавить trunks</p>
+                                        <p>Добавити trunks</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-regular fa-globe"></i>
+                                <p>
+                                    Налаштування мови
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{route('trunk_by_admin.index')}}" class="nav-link">
+                                        <p>Список сторінок</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('trunk_by_admin.create')}}" class="nav-link">
+                                        <p>Додати мову</p>
                                     </a>
                                 </li>
                             </ul>

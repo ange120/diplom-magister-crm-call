@@ -42,7 +42,7 @@ class AdminTrunkController extends Controller
     {
         $data =$request->all();
         if($data['password'] !== $data['confirm_password']){
-            return redirect()->back()->with('error', 'Пароли не совпадают');
+            return redirect()->back()->with('error', 'Паролі не співпадають');
         }
         $message = UpdateConfig::createTrunk($data['sip_server'], $data['login'],$data['password']);
         if($message !== true){
@@ -54,7 +54,7 @@ class AdminTrunkController extends Controller
             'password' => $data['password'],
         ]);
 
-        return redirect()->back()->withSuccess('Trunk успешно добавлен!');
+        return redirect()->back()->withSuccess('Trunk успішно створено!');
     }
 
     /**
@@ -97,7 +97,7 @@ class AdminTrunkController extends Controller
             if($data['password'] === $data['confirm_password']){
                 $trunk->password = $data['password'];
             }else{
-                return redirect()->back()->with('error','Пароли не совпадают!');
+                return redirect()->back()->with('error','Пароли не співпадають!');
             }
         }
         $message = UpdateConfig::updateTrunk($trunk->login, $trunk->sip_server,  $trunk->password);
@@ -108,7 +108,7 @@ class AdminTrunkController extends Controller
         $trunk->login = $data['login'];
         $trunk->save();
 
-        return redirect()->back()->withSuccess('Trunk успешно обновлён!');
+        return redirect()->back()->withSuccess('Trunk успішно оновлено!');
     }
 
     /**
@@ -121,13 +121,13 @@ class AdminTrunkController extends Controller
     {
         $trunk = Trunk::find($id);
         if(!is_null(InfoSnip::where('id_trunk', $id)->first())){
-            return redirect()->back()->with('error','Этот trunk зарезервирован за sip. Снимите данный trunk из sip аккаунта для дальнейшего удаления');
+            return redirect()->back()->with('error','Этот trunk за броньований за sip. Видаліть даний trunk зі sip аккаунта дял успішного видалення');
         }
         $message = UpdateConfig::deleteTrunk($trunk->login);
         if($message !== true){
             return redirect()->back()->with('error', $message);
         }
         $trunk->delete();
-        return redirect()->back()->withSuccess('Trunk успешно удалён!');
+        return redirect()->back()->withSuccess('Trunk успішно видалено!');
     }
 }

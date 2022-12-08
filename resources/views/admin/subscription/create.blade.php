@@ -1,6 +1,6 @@
 @extends('layouts.admin_layout')
 
-@section('title', 'Добавить подписку')
+@section('title', 'Створити підписку')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Добавить подписку</h1>
+                    <h1 class="m-0">Створити підписку</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             @if (session('success'))
@@ -37,14 +37,13 @@
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="exampleInputName">Имя подписки</label>
-                                    <input type="text" name="name" class="form-control" id="exampleInputName" placeholder="Имя записи" required >
+                                    <label for="exampleInputName">Ім'я підписки</label>
+                                    <input type="text" name="name" class="form-control" id="exampleInputName" placeholder="Ім'я підписки" required >
                                 </div>
                             </div>
-                            <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Добавить</button>
+                                <button type="submit" class="btn btn-primary">Створити</button>
                             </div>
                         </form>
                     </div>

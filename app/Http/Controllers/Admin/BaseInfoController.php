@@ -72,10 +72,10 @@ class BaseInfoController extends Controller
         try {
             Excel::import(new ImportBaseInfo, $request->file('file')->store('files'));
         } catch (\Throwable $throwable) {
-            return redirect()->back()->with('error', "Ошибка. Пожалуйста, уберите заголовки в файле или проверьте на наличие новых статусов.");
+            return redirect()->back()->with('error', "Помилка. Будь ласка, видаліть заголовки в файлі або перевірте статуси.");
         }
 
-        return redirect()->back()->withSuccess('Файл успешно загружен!');
+        return redirect()->back()->withSuccess('Файл успішно завантажено!');
     }
 
     public function storeEcp()
@@ -96,10 +96,10 @@ class BaseInfoController extends Controller
         try {
             Excel::import(new ImportBaseInfoToUser, $request->file('file')->store('files'));
         } catch (\Throwable $throwable) {
-            return redirect()->back()->with('error', "Ошибка. Пожалуйста, уберите заголовки в файле или проверьте на наличие новых статусов.");
+            return redirect()->back()->with('error', "Помилка. Будь ласка, видаліть заголовки в файлі або перевірте статуси.");
         }
         session()->forget('user_id');
-        return redirect()->back()->withSuccess('Файл успешно загружен!');
+        return redirect()->back()->withSuccess('Файл успішно завантажено!');
     }
 
     /**
@@ -157,7 +157,7 @@ class BaseInfoController extends Controller
         $baseInfo->sex = $data['sex'];
         $baseInfo->birthday = $birthday;
         $baseInfo->save();
-        return redirect()->back()->withSuccess('Запись успешно обновлена!');
+        return redirect()->back()->withSuccess('Запис успішно оновлено!');
     }
 
     public function createOnly(Request $request)
@@ -188,7 +188,7 @@ class BaseInfoController extends Controller
             'sex' => $data['sex'],
             'birthday' => $birthday,
         ]);
-        return redirect()->back()->withSuccess('Запись успешно добавлена!');
+        return redirect()->back()->withSuccess('Запис успішно створено!');
     }
 
     /**
@@ -200,7 +200,7 @@ class BaseInfoController extends Controller
     public function destroy(BaseInfo $baseInfo)
     {
         $baseInfo->delete();
-        return redirect()->back()->withSuccess('Запись успешно удалена!');
+        return redirect()->back()->withSuccess('Запис успішно видалено!');
     }
 
     public function callUserAdmin($id, $voice_id)
@@ -211,17 +211,17 @@ class BaseInfoController extends Controller
         $userPhone = BaseInfo::find($id)->phone;
         $snipUser = InfoSnip::where('number_provider', '=',$phoneManager)->first();
         if(is_null($snipUser)){
-            return response()->json(['status' => false, 'info' => "У вас не настроен аккаунт для звонков"], 200);
+            return response()->json(['status' => false, 'info' => "У вас не налаштований аккаунт для дзвінків"], 200);
         }
         $trunk_login = Trunk::find($snipUser->id_trunk);
         if(is_null($trunk_login)){
-            return response()->json(['status' => false, 'info' => "У вас не настроен аккаунт для звонков"], 200);
+            return response()->json(['status' => false, 'info' => "У вас не налаштований аккаунт для дзвінків"], 200);
         }
 
 
         $callUser = $callService->collAsterisk($phoneManager,$userPhone,$voice_id, $trunk_login->login);
         if ($callUser) {
-            return response()->json(['status' => false, 'info' => "Ошибка во время вызова на номер ".$userPhone." \n"." \n".$callUser], 200);
+            return response()->json(['status' => false, 'info' => "Помилка під час виклику на номер ".$userPhone." \n"." \n".$callUser], 200);
         }
         return response()->json(['status' => true, 'phone' => "$userPhone"], 200);
     }
@@ -236,11 +236,11 @@ class BaseInfoController extends Controller
 
         $snipUser = InfoSnip::where('number_provider', '=',$phoneManager)->first();
         if(is_null($snipUser)){
-            return redirect()->back()->with('error','У вас не настроен аккаунт для звонков');
+            return redirect()->back()->with('error','У вас не налаштований аккаунт для дзвінків');
         }
         $trunk_login = Trunk::find($snipUser->id_trunk);
         if(is_null($trunk_login)){
-            return redirect()->back()->with('error','У вас не настроен аккаунт для звонков');
+            return redirect()->back()->with('error','У вас не налаштований аккаунт для дзвінків');
         }
 
         if(is_null($data['count_end'])){
@@ -255,10 +255,10 @@ class BaseInfoController extends Controller
             $callUser = $callService->collAsterisk($phoneManager,$item->phone,$data['language'], $trunk_login->login);
 
             if( $callUser !== true){
-                return redirect()->back()->with('error','Ошибка во время вызова на номер '.$item->phone." Описание ошибки: ".$callUser);
+                return redirect()->back()->with('error','Помилка під час виклику на номер '.$item->phone." Опис помилки: ".$callUser);
             }
         }
-        return redirect()->back()->withSuccess('Звонки на выбранных пользователь выполняются');
+        return redirect()->back()->withSuccess('Виклик на користувачів виконується');
     }
 
     public function deleteManyUserAdmin($count_start, $count_end)
@@ -271,12 +271,12 @@ class BaseInfoController extends Controller
             $toCall = BaseInfo::whereBetween('id_client', [$count_start, $count_end])->get();
         }
         if($toCall->count() == 0){
-            return response()->json(['status' => false, 'info' => 'Данных записей не существует'], 200);
+            return response()->json(['status' => false, 'info' => 'Тиких записів не існує'], 200);
         }
         foreach ($toCall as $item){
             $item->delete();
         }
-        return response()->json(['status' => true, 'info' => 'Записи успешно удалены'], 200);
+        return response()->json(['status' => true, 'info' => 'Записи успішно видалено'], 200);
     }
 
     public function getBaseList()
@@ -312,7 +312,7 @@ class BaseInfoController extends Controller
           $baseInfo->id_user = $user_id;
           $baseInfo->save();
         }
-        return redirect()->back()->withSuccess('Записи успешно добавлены для пользователя!');
+        return redirect()->back()->withSuccess('Записи успішно назначені на менеджера!');
     }
 
     public function updateUserBaseInfo(Request $request)
@@ -321,7 +321,7 @@ class BaseInfoController extends Controller
         $baseInfo = BaseInfo::find($data['id']);
         $baseInfo->id_user = $data['user'];
         $baseInfo->save();
-        return redirect()->back()->withSuccess('Запись успешно обновлена для пользователя!');
+        return redirect()->back()->withSuccess('Запис успішно оновлено для менеджера!');
     }
 
     protected function getStatus()
@@ -340,7 +340,7 @@ class BaseInfoController extends Controller
             $baseList = BaseInfo::where('id_status' , $status)->paginate(15);
         else
             $baseList = BaseInfo::paginate(15);
-        if($baseList->count()) {  
+        if($baseList->count()) {
             foreach ($baseList as $item) {
 
                 $result[] = [

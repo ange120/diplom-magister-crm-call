@@ -10,7 +10,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Главная</h1>
+                    <h1 class="m-0">Головна</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -28,12 +28,12 @@
                         <div class="inner">
                             <h3>{{$user_count}}</h3>
 
-                            <p>Пользователей</p>
+                            <p>Користувачі</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-person"></i>
                         </div>
-                        <a href="{{route('users.index')}}" class="small-box-footer">Все Пользователи <i
+                        <a href="{{route('users.index')}}" class="small-box-footer">Всі Користувачі <i
                                 class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
@@ -44,12 +44,12 @@
                         <div class="inner">
                             <h3>{{$base_count}}</h3>
 
-                            <p>Записей</p>
+                            <p>Записи</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
                         </div>
-                        <a href="{{route('base_info.index')}}"  class="small-box-footer">Все Записи <i
+                        <a href="{{route('base_info.index')}}"  class="small-box-footer">Всі Записи <i
                                 class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
@@ -59,12 +59,12 @@
                         <div class="inner">
                             <h3>{{$snip_count}}</h3>
 
-                            <p>SNIP</p>
+                            <p>SIP</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-unlocked"></i>
                         </div>
-                        <a href="{{route('base_info.index')}}"  class="small-box-footer">Все SNIP <i
+                        <a href="{{route('base_info.index')}}"  class="small-box-footer">Всі SIP <i
                                 class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
@@ -74,12 +74,12 @@
                         <div class="inner">
                             <h3>{{$voice_count}}</h3>
 
-                            <p>Голосов</p>
+                            <p>Записи голосів</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-mic-c"></i>
                         </div>
-                        <a href="{{route('voice_by_admin.index')}}"  class="small-box-footer">Все Записи голосов <i
+                        <a href="{{route('voice_by_admin.index')}}"  class="small-box-footer">Всі записи голосів <i
                                 class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>

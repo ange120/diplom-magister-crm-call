@@ -1,6 +1,6 @@
 @extends('layouts.admin_layout')
 
-@section('title', 'Все записи')
+@section('title', 'Всі записи')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Все записи</h1>
+                    <h1 class="m-0">Всі записи</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             @if (session('success'))
@@ -31,7 +31,7 @@
                         @method('POST')
                         <div style="margin-top: 1rem; margin-bottom: 1rem">
                             <h4 style="text-align: center">
-                                Назначить на пользователя
+                                Призначити на користувача
                             </h4>
                             <select class="form-control select2 select2-hidden-accessible" name="user" style="width: 100%;-webkit-box-shadow: 0px 2px 9px 1px rgba(15, 255, 0, 0.2);-moz-box-shadow: 0px 2px 9px 1px rgba(15, 255, 0, 0.2);box-shadow: 0px 2px 9px 1px rgba(15, 255, 0, 0.2);" data-select2-id="1" tabindex="-1" aria-hidden="true" required>
                                 <option selected="selected" data-select2-id="3"></option>
@@ -54,12 +54,13 @@
                                 Статус
                             </th>
                             <th>
-                                ФИО
+                                ФІО
                             </th>
                             <th>
-                                Назначено на пользователя
+                                Призначено на користувача
                             </th>
                             <th style="width: 30%">
+                                Дії
                             </th>
                         </tr>
                         </thead>
@@ -86,13 +87,13 @@
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="{{$post['id']}}" name="post[]" id="flexCheckDefault">
                                             <label class="form-check-label" for="flexCheckDefault">
-                                                Выбрать запись {{$post['id_client']}}
+                                                Вібрати запис {{$post['id_client']}}
                                             </label>
                                         </div>
                                         @else
                                             <button type="button" class="btn btn-warning btn-sm coll-btn" data-toggle="modal" data-target="#exampleModal"
                                                     onclick="getId( {{$post['id']}},{{$post['id_client']}})"> <i class="icon fa fa-solid fa-pen"></i>
-                                                Обновить пользователя</button>
+                                                Оновити менеджера</button>
                                         @endif
                                     </td>
                                 </tr>
@@ -100,7 +101,7 @@
                                 <div class="alert alert-warning" role="alert">
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
                                     </button>
-                                    <h4><i class="icon fa fa-exclamation-triangle"></i>Записи отсутствуют!</h4>
+                                    <h4><i class="icon fa fa-exclamation-triangle"></i>Записи відсутні!</h4>
                                 </div>
                             @endforelse
                         </tbody>
@@ -117,7 +118,7 @@
                             <button type="submit" class="btn btn-success btn-sm" style="height: 35px;margin-top: 1rem;padding-right: 20px; padding-left: 20px">
                                 <i class="fas fa-calendar-check">
                                 </i>
-                                Отправить
+                                Відправити
                             </button>
                         </div>
 
@@ -146,12 +147,12 @@
                 <div class="modal-body">
 
                         <div class="form-group">
-                            <label for="idRow" class="form-control-label">Запись:</label>
+                            <label for="idRow" class="form-control-label">Запис:</label>
                             <input type="text" name="id" class="form-control" id="idRow" style="display: none">
                             <input type="text" class="form-control" id="idShow" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="message-text" class="form-control-label">Пользователь:</label>
+                            <label for="message-text" class="form-control-label">Користувач:</label>
                             <select class="form-control select2 select2-hidden-accessible" name="user"  data-select2-id="1" tabindex="-1" aria-hidden="true" required>
                                 <option selected="selected" data-select2-id="3"></option>
                                 @foreach($userList as $user)
@@ -161,8 +162,8 @@
                         </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                    <button type="submit" class="btn btn-primary">Обновить</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
+                    <button type="submit" class="btn btn-primary">Оновити</button>
                 </div>
                 </form>
             </div>

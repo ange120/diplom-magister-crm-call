@@ -1,6 +1,6 @@
 @extends('layouts.admin_layout')
 
-@section('title', 'Все записи')
+@section('title', 'Всі записи')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Все записи</h1>
+                    <h1 class="m-0">Всі записи</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             @if (session('success'))
@@ -50,12 +50,12 @@
                                 @csrf
                                 <input id="set_value_language" name="language" style="display: none">
                                 <div class="col-2">
-                                    <label for="in_form_count_start">Отобрать от:</label>
+                                    <label for="in_form_count_start">Відібрати від:</label>
                                     <input type="number" min="1"  name="count_start" class="form-control"
                                            id="in_form_count_start" placeholder="ID записи" required>
                                 </div>
                                 <div class="col-2">
-                                    <label for="in_form_count_end">Отобрать до:</label>
+                                    <label for="in_form_count_end">Відібрати до:</label>
                                     <input type="number" min="1" name="count_end" class="form-control"
                                            id="in_form_count_end" placeholder="ID записи">
                                 </div>
@@ -70,17 +70,16 @@
                                                 value="{{$status->id}}">{{$status->name}}</option>
                                             @endforeach
                                         </select>
-                                </div>  
+                                </div>
                                 <div class="col " style=" display: flex;align-items: flex-end; margin-bottom: 0.7%;">
                                     <button type="submit" class="btn btn-info btn-sm" style="margin-left: 1%; margin-right: 1%;">
                                         <i class="fas fa-phone">
                                         </i>
-                                        Сделать звонок на пользователей
+                                        Виконати дзвінок на накористувача
                                     </button>
                                     <button type="button" onclick="deleteUsers()" class="btn btn-danger btn-sm"  style="margin-left: 1%; margin-right: 1%;">
-                                        <i class="fas fa-phone">
-                                        </i>
-                                        Удалить выбранных пользователей
+                                        <i class="fas fa-duotone fa-trash"></i>
+                                        Видалити користувачів
                                     </button>
                                 </div>
 
@@ -103,13 +102,13 @@
                                 ID
                             </th>
                             <th>
-                                Номер телефна
+                                Номер телефну
                             </th>
                             <th>
                                 Статус
                             </th>
                             <th>
-                                ФИО
+                                ФІО
                             </th>
                             <th style="width: 30%">
                             </th>
@@ -136,12 +135,12 @@
                                     <a class="btn btn-info btn-sm" onclick="adminCall( {{$post['id']}})">
                                         <i class="fas fa-phone">
                                         </i>
-                                        Звонок
+                                        Дзвінок
                                     </a>
                                     <a class="btn btn-warning btn-sm" href="{{ route('base_info.edit', $post['id']) }}">
                                         <i class="fas fa-pencil-alt">
                                         </i>
-                                        Редактировать
+                                        Редагувати
                                     </a>
                                     <form action="{{ route('base_info.destroy', $post['id']) }}" method="POST"
                                           style="display: inline-block">
@@ -150,7 +149,7 @@
                                         <button type="submit" class="btn btn-danger btn-sm delete-btn">
                                             <i class="fas fa-trash">
                                             </i>
-                                            Удалить
+                                            Видалити
                                         </button>
                                     </form>
                                 </td>
@@ -158,7 +157,7 @@
                         @empty
                             <div class="alert alert-warning" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                <h4><i class="icon fa fa-exclamation-triangle"></i>Записи отсутствуют!</h4>
+                                <h4><i class="icon fa fa-exclamation-triangle"></i>Записи відсутні!</h4>
                             </div>
                         @endforelse
 

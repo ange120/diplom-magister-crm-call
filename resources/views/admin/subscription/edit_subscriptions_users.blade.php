@@ -1,6 +1,6 @@
 @extends('layouts.admin_layout')
 
-@section('title', 'Редактирование подписки для пользователя')
+@section('title', 'Редагування підписки для користувача')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Редактирование подписки для пользователя: {{$userName}}</h1>
+                    <h1 class="m-0">Редагування підписки для користувача: {{$userName}}</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             @if (session('success'))
@@ -34,11 +34,11 @@
                             <div class="card-body">
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="exampleInputName">Имя пользователя</label>
+                                        <label for="exampleInputName">Ім'я користувача</label>
                                         <input type="text" name="name" class="form-control" id="exampleInputName" value="{{$userName}}" disabled >
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputName">Подписка</label>
+                                        <label for="exampleInputName">Підписка</label>
                                         <select id="select_snip" class="form-control select2 select2-hidden-accessible" name="id_subscription" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" required>
                                             @foreach($subscriptionList as $item)
                                                 <option  value="{{$item->id}}" @if($item->id == $subscriptionUser->id_subscription) selected @endif> {{$item->info_name}}</option>
@@ -46,18 +46,18 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputName">Дата начала подписки</label>
+                                        <label for="exampleInputName">Дата початку підписки</label>
                                         <input class="date form-control" name="date_start_subscriptions" value="{{$subscriptionUser->date_start_subscriptions}}" type="text">
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputName">Дата окончания подписки</label>
-                                        <input  class="date form-control"name="date_end_subscriptions"  value="{{$subscriptionUser->date_end_subscriptions}}">                                    </div>
+                                        <label for="exampleInputName">Дата кінця підписки</label>
+                                        <input  class="date form-control" name="date_end_subscriptions"  value="{{$subscriptionUser->date_end_subscriptions}}">                                    </div>
                                 </div>
                             </div>
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Обновить</button>
+                                <button type="submit" class="btn btn-primary">Оновити</button>
                             </div>
                         </form>
                     </div>
