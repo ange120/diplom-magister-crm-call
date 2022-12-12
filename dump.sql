@@ -7,9 +7,6 @@ SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 SET NAMES utf8mb4;
 
-CREATE DATABASE `new_crm` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `new_crm`;
-
 DROP TABLE IF EXISTS `base_infos`;
 CREATE TABLE `base_infos` (
                               `id` bigint unsigned NOT NULL AUTO_INCREMENT,
