@@ -115,7 +115,7 @@ class SubscriptionUserController extends Controller
         $newSubscription->info_name= $request->name;
         $newSubscription->name = self::transliteratorText($request->name);
         $newSubscription->save();
-        return redirect()->back()->withSuccess('Подписка успешно обновлёна!');
+        return redirect()->back()->withSuccess('Підписку оновлено!');
     }
 
     /**
@@ -152,9 +152,9 @@ class SubscriptionUserController extends Controller
                 $result [] = [
                     'id' => $user->id,
                     'user' => $user->name,
-                    'subscription' => 'Нет информации',
-                    'date_start' => 'Нет информации',
-                    'date_end' => 'Нет информации',
+                    'subscription' => 'Інформація відсутня',
+                    'date_start' => 'Інформація відсутня',
+                    'date_end' => 'Інформація відсутня',
                 ];
             }
         }
@@ -199,6 +199,6 @@ class SubscriptionUserController extends Controller
         $subscriptionUser->date_start_subscriptions = $data['date_start_subscriptions'];
         $subscriptionUser->date_end_subscriptions = $data['date_end_subscriptions'];
         $subscriptionUser->save();
-        return redirect()->back()->withSuccess('Подписка для пользователя успешно обновлёна!');
+        return redirect()->back()->withSuccess('Підписка на користувача успішно онлалена!');
     }
 }
