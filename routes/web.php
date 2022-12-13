@@ -77,5 +77,8 @@ Route::middleware(['role:admin||super_admin'])->prefix('admin_panel')->group(fun
     //trunk
     Route::resource('trunk_by_admin', \App\Http\Controllers\Admin\AdminTrunkController::class);
 
+    Route::get('/localization-admin', [\App\Http\Controllers\Admin\AdminLocalizationController::class,'index'])->name('localizationAdmin');
+    Route::get('/localization-admin-table', [\App\Http\Controllers\Admin\AdminLocalizationController::class,'getTableList'])->name('localizationAdminTable');
+    Route::put('/localization-admin-table-update', [\App\Http\Controllers\Admin\AdminLocalizationController::class,'updateLocalization'])->name('localizationAdminTableUpdate');
 });
 

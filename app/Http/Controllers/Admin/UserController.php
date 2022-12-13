@@ -55,15 +55,16 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $roles = $this->getRoles();
         $validator = Validator::make($request->all(), [
             'name' => 'bail|required|unique:users',
             'phone_manager' => 'required|unique:users',
+            'email' => 'required|unique:users',
         ]);
         if($validator->fails()){
             return redirect()->back()->with('error',$validator->errors()->first());
@@ -72,7 +73,7 @@ class UserController extends Controller
         $allUser = User::where('name', $data['name'])->first();
 
         if($data['password'] !== $data['confirm_password']){
-            $errorInfo = 'Пароли не совпадают';
+            $errorInfo = 'Паролі не співпадають';
             return redirect()->back()->with('error',$errorInfo);
         }
         $user = User::create([
@@ -82,7 +83,7 @@ class UserController extends Controller
             'password' => Hash::make($data['password']),
         ]);
         $user->assignRole( $data['role']);
-        return redirect()->back()->withSuccess('Пользователь успешно добавлен!');
+        return redirect()->back()->withSuccess('Користувача успішно додано!');
     }
     public function userInfo()
     {

@@ -13,6 +13,8 @@ class SubscriptionUserController extends Controller
 {
 
     protected $dateCarbon;
+    public $successInfo;
+    public $errorInfo = 'Пароли не співпадають';
 
     protected const CONVERT_ARRAY = array(
         'а' => 'a', 'б' => 'b', 'в' => 'v', 'г' => 'g', 'д' => 'd',
@@ -76,7 +78,7 @@ class SubscriptionUserController extends Controller
         $newSubscription->info_name= $request->name;
         $newSubscription->name = self::transliteratorText($request->name);
         $newSubscription->save();
-        return redirect()->back()->withSuccess('Подписка успешно добавлена!');
+        return redirect()->back()->withSuccess('Підпису успішно створено!');
     }
 
     /**

@@ -19,6 +19,9 @@ use App\Service\CollService;
 
 class BaseInfoController extends Controller
 {
+    public $successInfo;
+    public $errorInfo = 'Пароли не співпадають';
+
     /**
      * Display a listing of the resource.
      *
@@ -72,10 +75,10 @@ class BaseInfoController extends Controller
         try {
             Excel::import(new ImportBaseInfo, $request->file('file')->store('files'));
         } catch (\Throwable $throwable) {
-            return redirect()->back()->with('error', "Помилка. Будь ласка, видаліть заголовки в файлі або перевірте статуси.");
+            return redirect()->back()->with('error', $this->errorInfo);
         }
 
-        return redirect()->back()->withSuccess('Файл успішно завантажено!');
+        return redirect()->back()->withSuccess($this->successInfo);
     }
 
     public function storeEcp()

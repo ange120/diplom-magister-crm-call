@@ -266,7 +266,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{route('trunk_by_admin.index')}}" class="nav-link">
+                                    <a href="{{route('localizationAdmin')}}" class="nav-link">
                                         <p>Список сторінок</p>
                                     </a>
                                 </li>
