@@ -7,6 +7,7 @@ use App\Models\BindPages;
 use App\Models\KeysPage;
 use App\Models\Language;
 use App\Models\LocalizationPages;
+use App\Models\UserLocalization;
 use Illuminate\Http\Request;
 
 class AdminLocalizationController extends Controller
@@ -16,6 +17,21 @@ class AdminLocalizationController extends Controller
         $BindPages = BindPages::all();
         $result = [];
         return view('admin.localization.index', compact('BindPages', 'result'));
+    }
+
+    public function getSettings()
+    {
+
+        $user = auth()->user();
+
+        $idSelected = UserLocalization::where('email', $user->email)->first();
+        $id_languages = 1;
+        $language = Language::all();
+        if (!is_null($idSelected)) {
+            $id_languages = $idSelected->id_languages;
+        }
+
+        return view('admin.settings.index', compact('language', 'id_languages'));
     }
 
     public function getTableList(Request $request)

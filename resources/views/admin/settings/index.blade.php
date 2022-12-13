@@ -53,7 +53,7 @@
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Мова</button>
+                                <button type="submit" class="btn btn-primary">Оновити</button>
                             </div>
                         </form>
                     </div>

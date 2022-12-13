@@ -56,7 +56,7 @@ class User extends Authenticatable
         if(!is_null($SubscriptionUser)){
             return Subscription::find($SubscriptionUser->id_subscription)->info_name;
         }
-     return 'Нет подписки';
+     return 'Підписка відсутня';
     }
 
     public static function updateUser(){

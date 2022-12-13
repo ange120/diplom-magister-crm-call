@@ -56,13 +56,14 @@
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                         <span>{{ Auth::user()->name }}</span>
                     </a>
-                <li class="user-footer">
-                    <a class="btn btn-default btn-flat float-right  btn-block " href="{{route('getSettingsPage')}}">
-                        <i class="fa fa-cogs" aria-hidden="true"></i>
-                        Налаштування
-                    </a>
-                </li>
+
                     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
+                        <li class="user-footer">
+                            <a class="btn btn-default btn-flat float-right  btn-block " href="{{route('settingsAdmin')}}">
+                                <i class="fa fa-cogs" aria-hidden="true"></i>
+                                Налаштування
+                            </a>
+                        </li>
                         <li class="user-footer">
                             <a class="btn btn-default btn-flat float-right  btn-block " href="#"
                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
