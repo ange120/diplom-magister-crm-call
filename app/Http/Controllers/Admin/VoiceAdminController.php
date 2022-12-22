@@ -58,7 +58,7 @@ class VoiceAdminController extends Controller
         $voiceRecord = VoiceRecord::where('name', $data['name'])->first();
 
         if (!is_null($voiceRecord)) {
-            return redirect()->back()->with('error', 'Запись с таким именем уже существует!');
+            return redirect()->back()->with('error', "Запис з таким ім'я вже існує");
         }
         VoiceRecord::create([
             'name' => $data['name'],
@@ -66,7 +66,7 @@ class VoiceAdminController extends Controller
             'id_language' => (int)$data['language'],
             'type' => 'type_text_voice',
         ]);
-        return redirect()->back()->withSuccess('Запись успешно добавлена!');
+        return redirect()->back()->withSuccess('Запис успішно додано!');
     }
 
     /**
@@ -134,7 +134,7 @@ class VoiceAdminController extends Controller
             }
         }
         $voiceRecord->delete();
-        return redirect()->back()->withSuccess('Запись голоса успешно удалёна!');
+        return redirect()->back()->withSuccess('Запис голосу успішно видалено!');
     }
 
     public function voiceInfo()
@@ -151,7 +151,7 @@ class VoiceAdminController extends Controller
         $voiceRecord = VoiceRecord::where('name', $data['name'])->first();
 
         if (!is_null($voiceRecord)) {
-            return redirect()->back()->with('error', 'Запись с таким именем уже существует!');
+            return redirect()->back()->with('error', "Запис з таким ім'я вже існує");
         }
         try {
             $saveFile = $this->saveFile($file);
@@ -169,7 +169,7 @@ class VoiceAdminController extends Controller
         } catch (\Throwable $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
-        return redirect()->back()->withSuccess('Запись голоса успешно обновлёна!');
+        return redirect()->back()->withSuccess('Запис голосу успішно оновлено!');
     }
 
     protected function saveFile($file)

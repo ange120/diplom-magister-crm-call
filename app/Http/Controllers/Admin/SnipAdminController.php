@@ -68,7 +68,7 @@ class SnipAdminController extends Controller
 
         if(!is_null($findTrunk)){
 
-            return redirect()->back()->with('error','Этот trunk зарезервирован за другим пользователем');
+            return redirect()->back()->with('error','Цей trunk зареєстрований за іншим менеджером');
         }
 
         InfoSnip::create([
@@ -79,7 +79,7 @@ class SnipAdminController extends Controller
             'password_snip' =>  $data['password_snip'],
             'id_trunk' =>  $data['id_trunk'],
         ]);
-        return redirect()->back()->withSuccess('SNIP успешно добавлен!');
+        return redirect()->back()->withSuccess('SIP успішно створено!');
     }
 
     /**
@@ -128,7 +128,7 @@ class SnipAdminController extends Controller
         $infoSnipModel->id_trunk =  $data['id_trunk'];
         $infoSnipModel->save();
 
-        return redirect()->back()->withSuccess('SNIP успешно обновлён!');
+        return redirect()->back()->withSuccess('SIP успішно оновлено!');
     }
 
     /**
@@ -145,6 +145,6 @@ class SnipAdminController extends Controller
             return redirect()->back()->with('error', $deleteConfigSnip);
         }
         $infoSnip->delete();
-        return redirect()->back()->withSuccess('SNIP успешно удалён!');
+        return redirect()->back()->withSuccess('SIP успішно видалено!');
     }
 }

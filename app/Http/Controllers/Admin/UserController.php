@@ -131,12 +131,12 @@ class UserController extends Controller
         $nameValidate  = User::where('name', $data['name'])->first();
         if(!is_null($nameValidate)){
             if($user->id !== $nameValidate->id){
-                return redirect()->back()->with('error',"Такое Имя пользователя уже забронировано!");
+                return redirect()->back()->with('error',"Таке ім'я користувача вже заброньовано!");
             }
         }
         if(!is_null($phoneManagerValidate)){
             if($user->id !== $phoneManagerValidate->id){
-                return redirect()->back()->with('error',"Такой номер менеджера уже забронирован!");
+                return redirect()->back()->with('error',"Такий номер менеджера вже заброньовано!");
             }
         }
         $roleId = ModelHasRoles::where('model_id',$data['id'] )->first()->role_id;
@@ -145,7 +145,7 @@ class UserController extends Controller
             if($data['password'] === $data['confirm_password']){
                 $user->password = Hash::make($data['password']);
             }else{
-                return redirect()->back()->with('error', "Пароли не совпадают!");
+                return redirect()->back()->with('error', "Паролі не співпадають!");
             }
         }
         if($roleUser !== $data['role']){
@@ -155,7 +155,7 @@ class UserController extends Controller
         $user->email = $data['email'];
         $user->phone_manager = $data['phone_manager'];
         $user->save();
-        return redirect()->back()->withSuccess('Пользователь успешно обновлён!');
+        return redirect()->back()->withSuccess('Користувача успішно оновлено!');
     }
 
     /**
@@ -167,7 +167,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->back()->withSuccess('Пользователь успешно удалён!');
+        return redirect()->back()->withSuccess('Користувча успішно видалено!');
     }
 
     /**

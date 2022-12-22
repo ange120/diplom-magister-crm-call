@@ -121,7 +121,7 @@ class AdminTrunkController extends Controller
     {
         $trunk = Trunk::find($id);
         if(!is_null(InfoSnip::where('id_trunk', $id)->first())){
-            return redirect()->back()->with('error','Этот trunk за броньований за sip. Видаліть даний trunk зі sip аккаунта дял успішного видалення');
+            return redirect()->back()->with('error','Даний trunk зарезервований за sip. Видаліть даний trunk зі sip аккаунта для успішного видалення');
         }
         $message = UpdateConfig::deleteTrunk($trunk->login);
         if($message !== true){

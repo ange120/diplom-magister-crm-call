@@ -41,7 +41,7 @@ class StatusController extends Controller
         $newStatus = new Status();
         $newStatus->name = $request->name;
         $newStatus->save();
-        return redirect()->back()->withSuccess('Статус успешно добавлен!');
+        return redirect()->back()->withSuccess('Статус успішно додано!');
     }
 
     /**
@@ -77,7 +77,7 @@ class StatusController extends Controller
     {
         $status->name = $request->name;
         $status->save();
-        return redirect()->back()->withSuccess('Статус успешно обновлён!');
+        return redirect()->back()->withSuccess('Статус успішно оновлено!');
     }
 
     /**
@@ -89,6 +89,6 @@ class StatusController extends Controller
     public function destroy(Status $status)
     {
         $status->delete();
-        return redirect()->back()->withSuccess('Статус успешно удалён!');
+        return redirect()->back()->withSuccess('Статус успішно видалено!');
     }
 }

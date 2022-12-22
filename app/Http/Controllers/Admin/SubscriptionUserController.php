@@ -130,7 +130,7 @@ class SubscriptionUserController extends Controller
     {
         $subscription = Subscription::find($id);
         $subscription->delete();
-        return redirect()->back()->withSuccess('Подписка успешно удалёна!');
+        return redirect()->back()->withSuccess('Підписку успішно видалено!');
     }
 
     public function getSubscriptionsUsers()
