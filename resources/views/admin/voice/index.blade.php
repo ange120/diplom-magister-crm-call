@@ -47,6 +47,9 @@
                             <th>
                                 Мова запису
                             </th>
+                            <th>
+                                Прослухати запис
+                            </th>
                             <th style="width: 30%">
                                 Дії
                             </th>
@@ -68,12 +71,16 @@
                                 <td>
                                     {{ $post['language'] }}
                                 </td>
+                                <td>
+                                    <figure>
+                                        <audio
+                                            controls
+                                            src="{{$post['type']}}">
+                                        </audio>
+                                    </figure>
+                                </td>
                                 <td class="project-actions text-right">
-{{--                                    <a class="btn btn-warning btn-sm" href="{{ route('voice_by_admin.edit', $post['id']) }}">--}}
-{{--                                        <i class="fas fa-pencil-alt">--}}
-{{--                                        </i>--}}
-{{--                                        Редагувати--}}
-{{--                                    </a>--}}
+
                                     <form action="{{ route('voice_by_admin.destroy',$post['id']) }}" method="POST"
                                           style="display: inline-block">
                                         @csrf

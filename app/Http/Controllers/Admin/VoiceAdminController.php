@@ -29,6 +29,7 @@ class VoiceAdminController extends Controller
                 'id' => $item->id,
                 'name' => $item->name,
                 'text' => $item->text,
+                'type' =>  asset('storage/'.$item->type),
                 'language' => Language::find($item->id_language)->name,
             ];
         }
@@ -127,11 +128,11 @@ class VoiceAdminController extends Controller
             if($deleteLocal !== true){
                 return redirect()->back()->with('error', $deleteLocal);
             }
-            $send = SendSound::deleteVoice($voiceRecord->text, $user->phone_manager);
-            if ($send !== true) {
-                $message = $send;
-                return redirect()->back()->with('error', $message);
-            }
+//            $send = SendSound::deleteVoice($voiceRecord->text, $user->phone_manager);
+//            if ($send !== true) {
+//                $message = $send;
+//                return redirect()->back()->with('error', $message);
+//            }
         }
         $voiceRecord->delete();
         return redirect()->back()->withSuccess('Запис голосу успішно видалено!');
@@ -141,6 +142,12 @@ class VoiceAdminController extends Controller
     {
         return Excel::download(new ExportVoice(), 'voice.xlsx');
     }
+
+    public function getURlVoice(Request $request )
+    {
+
+    }
+
 
     public function voiceCreateSound(Request $request)
     {
@@ -155,11 +162,11 @@ class VoiceAdminController extends Controller
         }
         try {
             $saveFile = $this->saveFile($file);
-            $send = SendSound::sendVoice($saveFile,  $data['name'], $user->phone_manager);
-            if ($send !== true) {
-                $message = $send;
-                return view('admin.voice.create', compact('message', 'languages'));
-            }
+           // $send = SendSound::sendVoice($saveFile,  $data['name'], $user->phone_manager);
+//            if ($send !== true) {
+//                $message = $send;
+//                return view('admin.voice.create', compact('message', 'languages'));
+//            }
             VoiceRecord::create([
                 'name' => $data['name'],
                 'text' => preg_replace('/\.\w+$/', '', $file->getClientOriginalName()),
@@ -169,23 +176,23 @@ class VoiceAdminController extends Controller
         } catch (\Throwable $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
-        return redirect()->back()->withSuccess('Запис голосу успішно оновлено!');
+        return redirect()->back()->withSuccess('Запис голосу успішно створено!');
     }
 
     protected function saveFile($file)
     {
         try {
-            $file->move(public_path() . '/files/sound', $file->getClientOriginalName());
+            $file->move(public_path().'/storage/' , $file->getClientOriginalName());
         } catch (\Throwable $e) {
             $e->getMessage();
         }
-        return public_path() . '/files/sound/' . $file->getClientOriginalName();
+        return public_path(). $file->getClientOriginalName();
     }
 
     protected function deleteFile($name)
     {
         try {
-            unlink(public_path('files/sound/' . $name));
+            unlink(public_path('storage/' . $name));
         } catch (\Throwable $e) {
             return  $e->getMessage();
         }

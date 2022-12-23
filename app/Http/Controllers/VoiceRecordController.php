@@ -37,6 +37,7 @@ class VoiceRecordController extends Controller
                 'id' => $item->id,
                 'name' => $item->name,
                 'text' => $item->text,
+                'type' =>  asset('storage/'.$item->type),
                 'language' => Language::find($item->id_language)->name,
             ];
         }
@@ -160,17 +161,17 @@ class VoiceRecordController extends Controller
         $voiceRecord = VoiceRecord::where('name',$data['name'])->first();
 
         if(!is_null($voiceRecord)){
-            $message = 'Запись с таким именем уже существует!';
+            $message = "запис з таким ім'я вже існує";
             return view('user.voice.create', compact('message','languages'));
         }
         try {
             $saveFile = $this->saveFile($file);
 
-            $send = SendSound::sendVoice($saveFile,  $data['name'], $user->phone_manager);
-            if ($send !== true) {
-                $message = $send;
-                return view('user.voice.create', compact('message', 'languages'));
-            }
+//            $send = SendSound::sendVoice($saveFile,  $data['name'], $user->phone_manager);
+//            if ($send !== true) {
+//                $message = $send;
+//                return view('user.voice.create', compact('message', 'languages'));
+//            }
             VoiceRecord::create([
                 'name' => $data['name'],
                 'text' => preg_replace('/\.\w+$/', '', $file->getClientOriginalName()),
@@ -181,23 +182,23 @@ class VoiceRecordController extends Controller
             $message = $e->getMessage();
             return view('user.voice.create', compact('message', 'languages'));
         }
-        return redirect()->back()->withSuccess('Запись голоса успешно обновлёна!');
+        return redirect()->back()->withSuccess('Запис голосу успішно створено!');
     }
 
     protected function saveFile($file)
     {
         try {
-            $file->move(public_path() . '/files/sound', $file->getClientOriginalName());
-        }catch (\Throwable $e) {
+            $file->move(public_path().'/storage/' , $file->getClientOriginalName());
+        } catch (\Throwable $e) {
             $e->getMessage();
         }
-        return  public_path() . '/files/sound/'.$file->getClientOriginalName();
+        return public_path(). $file->getClientOriginalName();
     }
 
     protected function deleteFile($name)
     {
         try {
-            unlink(public_path('files/sound/' . $name));
+            unlink(public_path('storage/' . $name));
         } catch (\Throwable $e) {
             return  $e->getMessage();
         }

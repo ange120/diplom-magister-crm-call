@@ -47,6 +47,9 @@
                             <th>
                                 {{$pageListKeyLanguage['table_language_record']}}
                             </th>
+                            <th>
+                                {{$pageListKeyLanguage['table_listen_to_the_recording']}}
+                            </th>
                             <th style="width: 30%">
                                 {{$pageListKeyLanguage['table_btn']}}
                             </th>
@@ -67,6 +70,14 @@
                                 </td>
                                 <td>
                                     {{ $post['language'] }}
+                                </td>
+                                <td>
+                                    <figure>
+                                        <audio
+                                            controls
+                                            src="{{$post['type']}}">
+                                        </audio>
+                                    </figure>
                                 </td>
                                 @if(session('subscriptionId') !== 1)
                                     @if(session('endSubscription') === true)
